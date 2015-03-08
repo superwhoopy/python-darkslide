@@ -123,15 +123,20 @@ class FixImagePathsMacro(Macro):
         base_path = utils.get_path_url(source, self.options.get('relative'))
         base_url = os.path.split(base_path)[0]
 
-        regex = r'<img.*?src="(?!http://)(.*?)".*/?>|<object[^<>]+?data="(?!http://)(.*?)"[^<>]+?type="image/svg\+xml"'
+        regex = (
+            r'<img.*?src="(?!https?://|file://)(.*?)"'
+            r'|<object[^<>]+?data="(?!http://)(.*?)"[^<>]+?type="image/svg\+xml"'
+        )
 
         images = re.findall(regex, content, re.DOTALL | re.UNICODE)
 
         for matches in images:
             for image in matches:
                 if image:
-                    full_path = os.path.join(base_url, image)
+                    full_path = '"%s"' % os.path.join(base_url, image)
+                    image = '"%s"' % image
                     content = content.replace(image, full_path)
+
         return content, classes
 
 
