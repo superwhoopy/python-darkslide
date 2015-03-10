@@ -7,6 +7,8 @@ from optparse import OptionParser
 from . import generator
 from . import __version__
 
+from . import __version__
+
 
 def _parse_options():
     """Parses landslide's command line options"""
