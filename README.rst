@@ -1,5 +1,59 @@
+=========
 Landslide
 =========
+
+
+| |docs| |travis| |appveyor| |coveralls| |landscape| |scrutinizer|
+| |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+
+.. |docs| image:: https://readthedocs.org/projects/python-darkslide/badge/?style=flat
+    :target: https://readthedocs.org/projects/python-darkslide
+    :alt: Documentation Status
+
+.. |travis| image:: http://img.shields.io/travis/ionelmc/python-darkslide/master.png?style=flat
+    :alt: Travis-CI Build Status
+    :target: https://travis-ci.org/ionelmc/python-darkslide
+
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/ionelmc/python-darkslide?branch=master
+    :alt: AppVeyor Build Status
+    :target: https://ci.appveyor.com/project/ionelmc/python-darkslide
+
+.. |coveralls| image:: http://img.shields.io/coveralls/ionelmc/python-darkslide/master.png?style=flat
+    :alt: Coverage Status
+    :target: https://coveralls.io/r/ionelmc/python-darkslide
+
+.. |landscape| image:: https://landscape.io/github/ionelmc/python-darkslide/master/landscape.svg?style=flat
+    :target: https://landscape.io/github/ionelmc/python-darkslide/master
+    :alt: Code Quality Status
+
+.. |version| image:: http://img.shields.io/pypi/v/darkslide.png?style=flat
+    :alt: PyPI Package latest release
+    :target: https://pypi.python.org/pypi/darkslide
+
+.. |downloads| image:: http://img.shields.io/pypi/dm/darkslide.png?style=flat
+    :alt: PyPI Package monthly downloads
+    :target: https://pypi.python.org/pypi/darkslide
+
+.. |wheel| image:: https://pypip.in/wheel/darkslide/badge.png?style=flat
+    :alt: PyPI Wheel
+    :target: https://pypi.python.org/pypi/darkslide
+
+.. |supported-versions| image:: https://pypip.in/py_versions/darkslide/badge.png?style=flat
+    :alt: Supported versions
+    :target: https://pypi.python.org/pypi/darkslide
+
+.. |supported-implementations| image:: https://pypip.in/implementation/darkslide/badge.png?style=flat
+    :alt: Supported imlementations
+    :target: https://pypi.python.org/pypi/darkslide
+
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/ionelmc/python-darkslide/master.png?style=flat
+    :alt: Scrutinizer Status
+    :target: https://scrutinizer-ci.com/g/ionelmc/python-darkslide/
+
+Lightweight markup language-based html5 slideshow generator. Forked from landslide.
+
+Overview
+========
 
 Landslide generates a slideshow using from markdown, ReST, or textile.
 It builds off of Google's
@@ -41,7 +95,7 @@ slideshow <http://adamzap.com/misc/presentation.html>`__.
                 self.logger(message, level)
 
 Requirements
-------------
+============
 
 ``python`` and the following modules:
 
@@ -49,7 +103,7 @@ Requirements
 -  ``pygments`` for code blocks syntax coloration
 
 Markup Conversion
-^^^^^^^^^^^^^^^^^
+-----------------
 
 -  ``markdown`` for `Markdown <http://en.wikipedia.org/wiki/Markdown>`__
 -  ``docutils`` for `reStructured
@@ -58,13 +112,13 @@ Markup Conversion
    `Textile <http://en.wikipedia.org/wiki/Textile_(markup_language)>`__
 
 Optional
-^^^^^^^^
+--------
 
 -  ``watchdog`` for watching/auto-regeneration with the ``-w`` flag
 -  `PrinceXML <http://www.princexml.com/>`__ for PDF export
 
 Installation
-------------
+============
 
 Install the latest stable version of Landslide with a python package
 manager like ``pip``:
@@ -83,10 +137,10 @@ If you want to stay on the edge:
     $ sudo python setup.py install
 
 Formatting
-----------
+==========
 
 Markdown
-^^^^^^^^
+--------
 
 -  Your Markdown source files must be suffixed by ``.md``, ``.markdn``,
    ``.mdwn``, ``.mdown`` or ``.markdown``
@@ -100,7 +154,7 @@ Markdown
    pygment supported language identifier as the first indented line
 
 ReStructuredText
-~~~~~~~~~~~~~~~~
+----------------
 
 -  Your ReST source files must be suffixed by ``.rst`` or ``.rest``
    (**``.txt`` is not supported**)
@@ -109,12 +163,12 @@ ReStructuredText
    except at the end of RST files
 
 Textile
-~~~~~~~
+-------
 
 -  Separate your slides using ``---``, just like in markdown
 
 Rendering
----------
+=========
 
 -  Run ``landslide slides.md`` or ``landslide slides.rst``
 -  Enjoy your newly generated ``presentation.html``
@@ -128,7 +182,7 @@ your system:
     $ open readme.pdf
 
 Viewing
--------
+=======
 
 -  Press ``h`` to toggle display of help
 -  Press ``left arrow`` and ``right arrow`` to navigate
@@ -149,7 +203,7 @@ Viewing
 -  Browser zooming is supported
 
 Commandline Options
--------------------
+===================
 
 Several options are available using the command line:
 
@@ -189,7 +243,7 @@ Several options are available using the command line:
     -m, --math-output     Enable mathematical output using mathjax
 
 Presentation Configuration
---------------------------
+==========================
 
 Landslide allows to configure your presentation using a ``cfg``
 configuration file, therefore easing the aggregation of source
@@ -225,12 +279,12 @@ To generate the presentation as configured, just run:
     $ landslide config.cfg
 
 Macros
-------
+======
 
 You can use macros to enhance your presentation:
 
 Notes
-^^^^^
+-----
 
 Add notes to your slides using the ``.notes:`` keyword, eg.:
 
@@ -249,7 +303,7 @@ add the ``foo`` and ``bar`` classes to the corresponding slide ``<div>``
 element, easing styling of your presentation using CSS.
 
 QR Codes
-^^^^^^^^
+--------
 
 Add a QR Code to your presentation by using the ``.qr`` keyword:
 
@@ -258,14 +312,14 @@ Add a QR Code to your presentation by using the ``.qr`` keyword:
     .qr: 450|http://github.com/adamzap/landslide
 
 Presenter Notes
----------------
+===============
 
 You can also add presenter notes to each slide by following the slide
 content with a heading entitled "Presenter Notes". Press the 'p' key to
 open the presenter view.
 
 Registering Macros
-------------------
+==================
 
 Macros are used to transform the HTML contents of your slide.
 
@@ -302,31 +356,31 @@ This will render any slide as below:
     </div>
 
 Advanced Usage
---------------
+==============
 
 Setting Custom Destination File
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 ::
 
     $ landslide slides.md -d ~/MyPresentations/presentation.html
 
 Working with Directories
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 ::
 
     $ landslide slides/
 
 Working with Direct Output
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
 ::
 
     $ landslide slides.md -o | tidy
 
 Using an Alternate Landslide Theme
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 ::
 
@@ -334,21 +388,21 @@ Using an Alternate Landslide Theme
     $ landslide slides.md -t /path/to/theme/dir
 
 Embedding Base-64-Encoded Images
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
 ::
 
     $ landslide slides.md -i
 
 Exporting to PDF
-^^^^^^^^^^^^^^^^
+----------------
 
 ::
 
     $ landslide slides.md -d presentation.pdf
 
 Enabling mathematical notation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 ::
 
@@ -358,7 +412,7 @@ Enabling mathematical notation
     $ landslide slides.rst -m
 
 Enabling Markdown Extensions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 See documentation on available Markdown extensions
 `here <https://pythonhosted.org/Markdown/extensions/index.html>`__:
@@ -393,7 +447,7 @@ one by passing the ``--copy-theme`` option to the ``landslide`` command:
     $ landslide slides.md -t /path/to/some/theme --copy-theme
 
 User stylesheets and Javascripts
---------------------------------
+================================
 
 If you don't want to bother making your own theme, you can include your
 own user css and js files to the generated presentation.
@@ -418,7 +472,7 @@ presentation html file.
 directory you're running the ``landslide`` command from.
 
 Publishing your Presentation Online
------------------------------------
+===================================
 
 If you intend to publish your HTML presentation online, you'll have to
 use the ``--relative`` option, as well as the ``--copy-theme`` one to
@@ -432,11 +486,10 @@ That way, you'll just have to host the whole presentation directory to a
 webserver. Of course, no Python nor PHP nor anything else than a HTTP
 webserver (like Apache) is required to host a landslide presentation.
 
-`Here's an
-example <http://www.akei.com/presentations/2011-Djangocong/index.html>`__.
+`Here's an example <http://www.akei.com/presentations/2011-Djangocong/index.html>`__.
 
 Theme Variables
----------------
+===============
 
 The ``base.html`` must be a `Jinja2 template
 file <http://jinja.pocoo.org/2/documentation/templates>`__ where you can
@@ -462,32 +515,32 @@ harness the following template variables:
 -  ``sub``: subsections, if any
 
 Styles Scope
-------------
+============
 
 -  To change HTML5 presentation styles, tweak the ``css/screen.css``
    stylesheet bundled with the theme you are using
 -  For PDF, modify the ``css/print.css``
 
 Authors
--------
+=======
 
 Original Author and Development Lead
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------
 
 -  Adam Zapletal (adamzap@gmail.com)
 
 Co-Author
-^^^^^^^^^
+---------
 
 -  Nicolas Perriault (nperriault@gmail.com)
 
 Contributors
-^^^^^^^^^^^^
+------------
 
-See https://github.com/adamzap/landslide/contributors
+See https://github.com/ionelmc/python-darkslide/contributors
 
 Base Template Authors and Contributors (html5-slides)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------------------
 
 -  Marcin Wichary (mwichary@google.com)
 -  Ernest Delgado (ernestd@google.com)

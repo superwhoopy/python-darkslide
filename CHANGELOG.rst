@@ -1,8 +1,9 @@
+=========
 Changelog
 =========
 
 Darkslide v1.2.0
-----------------
+================
 
 - Modifier keys flag was not cleared propertly (kb shortcuts were not working anymore after
   alt-tab etc); now it's cleared on visibility changes and focus loss.
@@ -13,7 +14,7 @@ Darkslide v1.2.0
 - Added "abyss" theme.
 
 Landslide v1.1.3
-----------------
+================
 
 -  Identify each slide by a numbered class (#171) (dkg)
 -  Fix theme image embedding regex to grab all images (#170)
@@ -26,7 +27,7 @@ Landslide v1.1.3
 -  Improve image path regex and replacement (#177)
 
 Landslide v1.1.2
-----------------
+================
 
 -  Add support for Python 3
 -  Allow support for copy\_theme argument in CFG files (#139) (syscomet)
@@ -37,18 +38,18 @@ Landslide v1.1.2
 -  And more...
 
 Landslide v1.1.1
-----------------
+================
 
 Fixes
-~~~~~
+-----
 
 -  Don't accidentally require watchdog (#134)
 
 Landslide v1.1.0
-----------------
+================
 
 Major Enhancements
-~~~~~~~~~~~~~~~~~~
+------------------
 
 -  Add CHANGELOG
 -  Add "ribbon" theme from "shower" presentation tool (#129) (durden)
@@ -56,7 +57,7 @@ Major Enhancements
    (jondkoon)
 
 Minor Enhancements
-~~~~~~~~~~~~~~~~~~
+------------------
 
 -  Supress ReST rendering errors
 -  CSS pre enhancements (#91) (roktas)
@@ -68,7 +69,7 @@ Minor Enhancements
 -  Add an option to strip presenter notes from output (#107) (aaugustin)
 
 Fixes
-~~~~~
+-----
 
 -  Firefox offset bug on next slide (#73)
 -  Fix base64 encoding issue (#109) (ackdesha)
