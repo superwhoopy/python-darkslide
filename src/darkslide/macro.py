@@ -60,7 +60,7 @@ class CodeHighlightingMacro(Macro):
                             % lang, 'warning')
                 return content, classes
 
-            if 'linenos' not in self.options or self.options['linenos'] =='no':
+            if 'linenos' not in self.options or self.options['linenos'] == 'no':
                 self.options['linenos'] = False
 
             formatter = HtmlFormatter(linenos=self.options['linenos'],
@@ -172,10 +172,13 @@ class QRMacro(Macro):
     def process(self, content, source=None):
         classes = []
 
-        new_content = re.sub(r'<p>\.qr:\s?(\d*?)\|(.*?)</p>',
-                             r'<p class="qr"><img src="http://chart.apis.google.com/chart?chs=\1x\1&cht=qr&chl=\2&chf=bg,s,00000000&choe=UTF-8" alt="QR Code" /></p>',
-                             content)
-
+        new_content = re.sub(
+            r'<p>\.qr:\s?(\d*?)\|(.*?)</p>',
+            r'<p class="qr">'
+            r'<img src="http://chart.apis.google.com/chart?chs=\1x\1&cht=qr&chl=\2&chf=bg,s,00000000&choe=UTF-8" alt="QR Code" /></p>',
+            content
+        )
+        
         if content != new_content:
             classes.append(u'has_qr')
 
