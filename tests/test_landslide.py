@@ -6,9 +6,9 @@ import unittest
 import codecs
 import base64
 
-from . import macro
-from .generator import Generator
-from .parser import Parser
+from darkslide import macro
+from darkslide.generator import Generator
+from darkslide.parser import Parser
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'test-data')
 
