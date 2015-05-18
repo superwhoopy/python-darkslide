@@ -1,0 +1,5 @@
+darkslide
+=============================
+
+.. automodule:: darkslide
+    :members:
