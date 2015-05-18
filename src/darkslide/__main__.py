@@ -2,11 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import sys
-
 from optparse import OptionParser
 
-from landslide import generator
-
+from . import generator
 from . import __version__
 
 

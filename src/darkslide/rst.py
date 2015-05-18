@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from docutils import core, nodes
-from docutils.parsers.rst import directives, Directive
-
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name, TextLexer
+
+from docutils import core, nodes
+from docutils.parsers.rst import directives, Directive
 
 
 class Pygments(Directive):

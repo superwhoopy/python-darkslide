@@ -9,4 +9,4 @@ install:
  - python setup.py develop
 
 script:
- - python src/landslide/tests.py
+ - python -m darkslide.tests

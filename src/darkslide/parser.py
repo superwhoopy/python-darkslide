@@ -61,7 +61,7 @@ class Parser(object):
             return markdown.markdown(text, self.md_extensions)
         elif self.format == 'restructuredtext':
             try:
-                from landslide.rst import html_body
+                from .rst import html_body
             except ImportError:
                 raise RuntimeError(u"Looks like docutils are not installed")
 

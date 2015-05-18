@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from landslide import macro
 import os
 import re
 import unittest
 import codecs
 import base64
 
-from landslide.generator import Generator
-from landslide.parser import Parser
-
+from . import macro
+from .generator import Generator
+from .parser import Parser
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), 'test-data')
 
-if (not os.path.exists(DATA_DIR)):
+if not os.path.exists(DATA_DIR):
     raise IOError('Test data not found, cannot run tests')
 
 
