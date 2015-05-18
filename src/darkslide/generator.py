@@ -85,8 +85,7 @@ class Generator(object):
             self.verbose = False
 
         if not source or not os.path.exists(source):
-            raise IOError(u"Source file/directory %s does not exist"
-                          % source)
+            raise IOError("Source file/directory %s does not exist" % source)
 
         if source.endswith('.cfg'):
             config = self.parse_config(source)
@@ -94,8 +93,7 @@ class Generator(object):
             if not self.source:
                 raise IOError('unable to fetch a valid source from config')
             source_abspath = os.path.abspath(self.source[0])
-            self.destination_file = config.get('destination',
-                self.DEFAULT_DESTINATION)
+            self.destination_file = config.get('destination', self.DEFAULT_DESTINATION)
             self.embed = config.get('embed', False)
             self.relative = config.get('relative', False)
             self.copy_theme = config.get('copy_theme', False)
@@ -113,10 +111,8 @@ class Generator(object):
 
         self.watch_dir = source_abspath
 
-        if (os.path.exists(self.destination_file)
-            and not os.path.isfile(self.destination_file)):
-            raise IOError(u"Destination %s exists and is not a file"
-                          % self.destination_file)
+        if os.path.exists(self.destination_file) and not os.path.isfile(self.destination_file):
+            raise IOError("Destination %s exists and is not a file" % self.destination_file)
 
         if self.destination_file.endswith('.html'):
             self.file_type = 'html'
@@ -124,9 +120,9 @@ class Generator(object):
             self.file_type = 'pdf'
             self.embed = True
         else:
-            raise IOError(u"This program can only write html or pdf files. "
-                           "Please use one of these file extensions in the "
-                           "destination")
+            raise IOError("This program can only write html or pdf files. "
+                          "Please use one of these file extensions in the "
+                          "destination")
 
         self.theme_dir = self.find_theme_dir(self.theme, self.copy_theme)
         self.template_file = self.get_template_file()
@@ -199,15 +195,15 @@ class Generator(object):
         """
         if self.direct:
             if self.file_type == 'pdf':
-                raise IOError(u"Direct output mode is not available for PDF "
-                               "export")
+                raise IOError("Direct output mode is not available for PDF "
+                              "export")
             else:
                 print(self.render().encode(self.encoding))
         else:
             self.write_and_log()
 
             if self.watch:
-                from landslide.watcher import watch
+                from .watcher import watch
 
                 self.log(u"Watching %s\n" % self.watch_dir)
 
@@ -227,7 +223,7 @@ class Generator(object):
             return os.path.join(self.theme_dir, 'base.html')
         default_dir = os.path.join(THEMES_DIR, 'default')
         if not os.path.exists(os.path.join(default_dir, 'base.html')):
-            raise IOError(u"Cannot find base.html in default theme")
+            raise IOError("Cannot find base.html in default theme")
         return os.path.join(default_dir, 'base.html')
 
     def fetch_contents(self, source):
@@ -247,8 +243,7 @@ class Generator(object):
                 slides.extend(self.fetch_contents(os.path.join(source, entry)))
         else:
             try:
-                parser = Parser(os.path.splitext(source)[1], self.encoding,
-                    self.extensions)
+                parser = Parser(os.path.splitext(source)[1], self.encoding, self.extensions)
             except NotImplementedError:
                 return slides
 
@@ -278,7 +273,7 @@ class Generator(object):
         elif os.path.exists(os.path.join(THEMES_DIR, theme)):
             self.theme_dir = os.path.join(THEMES_DIR, theme)
         else:
-            raise IOError(u"Theme %s not found or invalid" % theme)
+            raise IOError("Theme %s not found or invalid" % theme)
         target_theme_dir = os.path.join(os.getcwd(), 'theme')
         if copy_theme or os.path.exists(target_theme_dir):
             self.log(u'Copying %s theme directory to %s'
@@ -323,8 +318,7 @@ class Generator(object):
                     'contents': css_file.read(),
                 }
         else:
-            self.log(u"No screen stylesheet provided in current theme",
-                      'warning')
+            self.log(u"No screen stylesheet provided in current theme", 'warning')
 
         return css
 
@@ -455,14 +449,11 @@ class Generator(object):
             if raw_config.has_option('landslide', boolopt):
                 config[boolopt] = raw_config.getboolean('landslide', boolopt)
         if raw_config.has_option('landslide', 'extensions'):
-            config['extensions'] = ",".join(raw_config.get('landslide', 'extensions')\
-                .replace('\r', '').split('\n'))
+            config['extensions'] = ",".join(raw_config.get('landslide', 'extensions').replace('\r', '').split('\n'))
         if raw_config.has_option('landslide', 'css'):
-            config['css'] = raw_config.get('landslide', 'css')\
-                .replace('\r', '').split('\n')
+            config['css'] = raw_config.get('landslide', 'css').replace('\r', '').split('\n')
         if raw_config.has_option('landslide', 'js'):
-            config['js'] = raw_config.get('landslide', 'js')\
-                .replace('\r', '').split('\n')
+            config['js'] = raw_config.get('landslide', 'js').replace('\r', '').split('\n')
         return config
 
     def process_macros(self, content, source=None):
@@ -472,8 +463,7 @@ class Generator(object):
         classes = []
         for macro_class in self.macros:
             try:
-                macro = macro_class(logger=self.logger, embed=self.embed,
-                    options=macro_options)
+                macro = macro_class(logger=self.logger, embed=self.embed, options=macro_options)
                 content, add_classes = macro.process(content, source)
                 if add_classes:
                     classes += add_classes
@@ -489,7 +479,7 @@ class Generator(object):
             if inspect.isclass(m) and issubclass(m, macro_module.Macro):
                 self.macros.append(m)
             else:
-                raise TypeError("Coundn't register macro; a macro must inherit"
+                raise TypeError("Couldn't register macro; a macro must inherit"
                                 " from macro.Macro")
 
     def render(self):
@@ -559,7 +549,7 @@ class Generator(object):
             f.write(html.encode('utf_8', 'xmlcharrefreplace'))
             f.close()
         except Exception:
-            raise IOError(u"Unable to create temporary file, aborting")
+            raise IOError("Unable to create temporary file, aborting")
 
         dummy_fh = open(os.path.devnull, 'w')
 
@@ -568,7 +558,7 @@ class Generator(object):
 
             Popen(command, stderr=dummy_fh).communicate()
         except Exception:
-            raise EnvironmentError(u"Unable to generate PDF file using "
-                                    "prince. Is it installed and available?")
+            raise EnvironmentError("Unable to generate PDF file using "
+                                   "prince. Is it installed and available?")
         finally:
             dummy_fh.close()
