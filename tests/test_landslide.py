@@ -224,8 +224,7 @@ class FixImagePathsMacroTest(BaseTestCase):
         base_dir = os.path.join(DATA_DIR, 'test.md')
         m = macro.FixImagePathsMacro(self.logtest, False)
         content, classes = m.process('<img src="img.png"/>', base_dir)
-        self.assertTrue(re.match(r'<img src="file://.*?/img.png" */>',
-                                 content))
+        self.assertTrue(re.match(r'<img src="file://.*?[\\/]img.png" */>', content), content)
 
 
 class FxMacroTest(BaseTestCase):
