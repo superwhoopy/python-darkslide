@@ -1,5 +1,5 @@
 =========
-Landslide
+Darkslide
 =========
 
 | |docs| |travis| |appveyor| |coveralls|
