@@ -2,9 +2,11 @@
 Landslide
 =========
 
-
-| |docs| |travis| |appveyor| |coveralls| |landscape| |scrutinizer|
+| |docs| |travis| |appveyor| |coveralls|
 | |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+
+..
+    |landscape| |scrutinizer|
 
 .. |docs| image:: https://readthedocs.org/projects/python-darkslide/badge/?style=flat
     :target: https://readthedocs.org/projects/python-darkslide
