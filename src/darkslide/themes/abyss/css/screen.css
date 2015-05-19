@@ -1,6 +1,6 @@
 body {
   font: 14px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
-  background: #fff;
+  background: #000;
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -115,7 +115,6 @@ header:not(:only-child) {
   font-size: 50px;
   letter-spacing: -.05em;
   color: white;
-  color: black;
   text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
   position: absolute;
   left: 30px;
@@ -358,7 +357,7 @@ body.expose div.slide:hover {
 body.expose .slide-wrapper {
   float: left;
   position: relative;
-  margin: .5%;
+  margin: 2%;
   width: 300px;
   height: 233px;
 }
@@ -671,3 +670,4 @@ pre .s,pre .sb,pre .sc,pre .sd,pre .s2,pre .se,pre .sh,pre .si,
 pre .sx,pre .sr,pre .s1,pre .ss{color:#9ac0cd!important;}
 pre .na,pre .nf,pre .nv,pre .vc,pre .vg,
 pre .vi{color:#68838b!important;font-weight:700!important;}
+
