@@ -671,3 +671,6 @@ pre .sx,pre .sr,pre .s1,pre .ss{color:#9ac0cd!important;}
 pre .na,pre .nf,pre .nv,pre .vc,pre .vg,
 pre .vi{color:#68838b!important;font-weight:700!important;}
 
+.white {
+  background: white;
+}
