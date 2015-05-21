@@ -2,8 +2,13 @@
 Changelog
 =========
 
-Darkslide v1.2.0
-================
+Darkslide v1.2.1 (2015-05-21)
+=============================
+
+- Couple minor improvements to Abyss theme.
+
+Darkslide v1.2.0 (2015-05-19)
+=============================
 
 - Modifier keys flag was not cleared propertly (kb shortcuts were not working anymore after
   alt-tab etc); now it's cleared on visibility changes and focus loss.
