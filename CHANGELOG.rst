@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Darkslide v1.2.2 (2015-05-22)
+=============================
+
+- Fix the blank page issue when generating pdfs (via Chrome's pdf printer).
+
 Darkslide v1.2.1 (2015-05-21)
 =============================
 

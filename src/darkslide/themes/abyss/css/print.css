@@ -6,12 +6,12 @@
 div.slide {
   min-width: 1024px;
   min-height: 768px;
-  page-break-after: always;
+  page-break-after: avoid;
   border: 1px solid black;
   border-radius: 20px;
 }
 div.slide-wrapper:last-of-type .slide {
-  page-break-after: avoid;
+  page-break-after: always;
 }
 
 div.slide div.inner {
