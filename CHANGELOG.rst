@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Darkslide v1.2.3 (???)
+======================
+
+- Fix display of RST image target links.
+
 Darkslide v1.2.2 (2015-05-22)
 =============================
 
