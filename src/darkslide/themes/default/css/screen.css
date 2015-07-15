@@ -3,36 +3,27 @@ p, body, header {
   padding: 0;
   margin: 0;
 }
-body {
-  overflow: hidden;
-}
-
-div.presentation {
-  position: absolute;
-  width: 100%;
-  display: table-cell;
-  vertical-align: middle;
-  height: 100%;
-  background: inherit;
-}
-
-div.slides, body.expose div.slides.nocontext {
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  position: absolute;
-  display: block;
-}
-
-
-div.slides.nocontext {
-  max-width: 1024px;
-  margin: 0 auto;
+html, body {
   overflow: hidden;
   position: relative;
-  left: auto;
-  top: auto;
+  width: 100%;
+  height: 100%;
+}
+
+div.presentation,
+div.slides, body.expose div.slides.nocontext, .presenter_notes {
+  top: 0; left: 0; right: 0; bottom: 0;
+  position: absolute;
+  display: block;
+  background: inherit;
+}
+div.slides.nocontext .slide {
+  opacity: 0;
+}
+div.slides.nocontext .slide.future {
+}
+div.slides.nocontext .slide.current {
+  opacity: 1;
 }
 
 div.slide {
@@ -44,9 +35,10 @@ div.slide {
   left: 50%;
   top: 50%;
   margin-top: -384px;
-  -webkit-transition: margin 0.25s ease-in-out;
-  -moz-transition: margin 0.25s ease-in-out;
-  -o-transition: margin 0.25s ease-in-out;
+
+  -webkit-transition: margin 0.3s ease-in, opacity 0.3s ease-in;
+  -moz-transition: margin 0.3s ease-in, opacity 0.3s ease-in;
+  -o-transition: margin 0.3s ease-in, opacity 0.3s ease-in;
   border-radius: 20px;
   -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
@@ -86,13 +78,6 @@ p.hr {
   display: block;
   margin-left: 1636px;
 }
-
-body.three-d div.slides {
-  -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
-  -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
-  -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
-}
-
 
 /* Content */
 
@@ -208,7 +193,7 @@ li pre { margin-left: 0em; }
 
 .sidebar {
   background: -webkit-gradient(linear, top right, bottom right, from(#dde), to(#fdf6e3));
-  -webkit-transition: margin 0.25s ease-in-out;
+  -webkit-transition: margin 0.25s ease-in;
   background-color: #eee;
   background: -moz-linear-gradient(right, #dde, #fdf6e3);
   border-right: 5px solid #ccd;
@@ -222,9 +207,9 @@ li pre { margin-left: 0em; }
   margin-left: -400px;
   padding: 10px 16px;
   overflow: auto;
-  -webkit-transition: margin 0.2s ease-in-out;
-  -moz-transition: margin 0.2s ease-in-out;
-  -o-transition: margin 0.2s ease-in-out;
+  -webkit-transition: margin 0.2s ease-in;
+  -moz-transition: margin 0.2s ease-in;
+  -o-transition: margin 0.2s ease-in;
 }
 
 .sidebar h2 {
@@ -336,11 +321,6 @@ body.expose div.slide {
   cursor: pointer;
 }
 
-body.expose div.slide:hover {
-  background: -webkit-gradient(linear, left bottom, left top, from(#bdd), to(#fdf6e3));
-  background-color: #eee;
-  background: -moz-linear-gradient(bottom, #bdd, #fdf6e3);
-}
 
 body.expose .slide-wrapper {
   float: left;
@@ -361,16 +341,6 @@ body.expose .slide.past,
 body.expose .slide.future,
 body.expose .slide.far-future {
   margin-left: 0;
-}
-
-body.expose .slide.current {
-  background: -webkit-gradient(linear, left bottom, left top, from(#ddb), to(#fdf6e3));
-  background-color: #eee;
-  background: -moz-linear-gradient(bottom, #ddb, #fdf6e3);
-  border: 16px solid #fdf6e3;
-  -moz-transform: scale(.315, .315);
-  -webkit-transform: scale(.315, .315);
-  -o-transform: scale(.315, .315);
 }
 
 /* Presenter Mode */
@@ -562,10 +532,10 @@ a, a:hover {
   padding: 0;
   text-decoration: none;
   background-color: transparent;
-  background-image: linear-gradient(#FFF, #FFF), linear-gradient(#FFF, #FFF), linear-gradient(#15C, #15C);
+  background-image: linear-gradient(#FFF, #FFF), linear-gradient(#FFF, #FFF), linear-gradient(#268bd2, #268bd2);
   background-size: 0.05em 1px, 0.05em 1px, 1px 1px;
   background-repeat: no-repeat, no-repeat, repeat-x;
-  background-position: 0% 92.5%, 100% 92.5%, 0% 92.5%;
+  background-position: 0% 98%, 100% 98%, 0% 98%;
   text-shadow:-0.03em -0.24ex #fdf6e3,-0.03em -0.27ex #fdf6e3,-0.03em -0.21ex #fdf6e3,0em -0.21ex #fdf6e3,0em -0.24ex #fdf6e3,0em -0.27ex #fdf6e3,0.06em -0.12ex #fdf6e3,0.06em -0.15ex #fdf6e3,0.06em -0.18ex #fdf6e3,0.15em 0.05ex #fdf6e3,0.09em -0.27ex #fdf6e3,0.12em -0.18ex #fdf6e3,0.09em -0.15ex #fdf6e3,0.09em -0.12ex #fdf6e3,0.12em -0.12ex #fdf6e3,0.09em -0.18ex #fdf6e3,0.12em -0.15ex #fdf6e3,-0.15em 0.02ex #fdf6e3,-0.09em -0.21ex #fdf6e3,-0.09em -0.27ex #fdf6e3,0.12em 0ex #fdf6e3,-0.09em -0.24ex #fdf6e3,0.15em -0.15ex #fdf6e3,0.06em -0.24ex #fdf6e3,-0.15em -0.21ex #fdf6e3,0.06em -0.27ex #fdf6e3,-0.15em -0.24ex #fdf6e3,0.06em -0.21ex #fdf6e3,-0.15em -0.27ex #fdf6e3,-0.09em 0.02ex #fdf6e3,-0.12em -0.21ex #fdf6e3,-0.12em -0.27ex #fdf6e3,-0.09em 0.05ex #fdf6e3,-0.12em -0.24ex #fdf6e3,0.12em -0.09ex #fdf6e3,-0.12em 0ex #fdf6e3,0.09em -0.06ex #fdf6e3,0.09em -0.03ex #fdf6e3,0.12em -0.03ex #fdf6e3,0.09em -0.09ex #fdf6e3,0.09em 0ex #fdf6e3,0.12em -0.06ex #fdf6e3,-0.03em -0.03ex #fdf6e3,-0.03em -0.06ex #fdf6e3,-0.03em -0.09ex #fdf6e3,-0.03em 0.05ex #fdf6e3,0.03em -0.09ex #fdf6e3,0em -0.09ex #fdf6e3,0.03em -0.03ex #fdf6e3,0em -0.06ex #fdf6e3,0em -0.03ex #fdf6e3,0.03em -0.06ex #fdf6e3,-0.06em 0ex #fdf6e3,0.03em 0ex #fdf6e3,0.06em 0ex #fdf6e3,-0.09em -0.15ex #fdf6e3,-0.03em 0ex #fdf6e3,-0.03em -0.12ex #fdf6e3,-0.03em -0.15ex #fdf6e3,-0.03em -0.18ex #fdf6e3,0.09em 0.02ex #fdf6e3,0em -0.18ex #fdf6e3,0.09em 0.05ex #fdf6e3,0.15em 0.02ex #fdf6e3,0em -0.15ex #fdf6e3,-0.09em 0ex #fdf6e3,0em -0.12ex #fdf6e3,0.06em -0.03ex #fdf6e3,0.06em -0.06ex #fdf6e3,0.06em -0.09ex #fdf6e3,0.03em -0.21ex #fdf6e3,0em 0.02ex #fdf6e3,0em 0.05ex #fdf6e3,0.03em -0.24ex #fdf6e3,0.03em -0.27ex #fdf6e3,-0.06em 0.05ex #fdf6e3,0em 0ex #fdf6e3,0.09em -0.24ex #fdf6e3,0.09em -0.21ex #fdf6e3,-0.09em -0.18ex #fdf6e3,-0.09em -0.12ex #fdf6e3,-0.03em 0.02ex #fdf6e3,-0.12em -0.12ex #fdf6e3,-0.12em -0.15ex #fdf6e3,-0.12em -0.18ex #fdf6e3,-0.06em -0.09ex #fdf6e3,-0.06em -0.03ex #fdf6e3,-0.06em -0.06ex #fdf6e3,0.15em -0.27ex #fdf6e3,0.03em -0.15ex #fdf6e3,0.03em -0.12ex #fdf6e3,0.03em -0.18ex #fdf6e3,0.15em -0.21ex #fdf6e3,0.03em 0.02ex #fdf6e3,0.03em 0.05ex #fdf6e3,0.15em -0.24ex #fdf6e3,0.15em -0.12ex #fdf6e3,-0.12em 0.02ex #fdf6e3,-0.12em 0.05ex #fdf6e3,-0.12em -0.06ex #fdf6e3,0.15em -0.18ex #fdf6e3,-0.15em -0.15ex #fdf6e3,-0.06em -0.21ex #fdf6e3,-0.06em -0.24ex #fdf6e3,0.15em -0.03ex #fdf6e3,-0.06em -0.27ex #fdf6e3,-0.15em 0.05ex #fdf6e3,-0.15em -0.18ex #fdf6e3,0.15em -0.09ex #fdf6e3,-0.15em 0ex #fdf6e3,0.15em -0.06ex #fdf6e3,-0.09em -0.06ex #fdf6e3,-0.09em -0.03ex #fdf6e3,-0.09em -0.09ex #fdf6e3,-0.06em 0.02ex #fdf6e3,0.12em 0.05ex #fdf6e3,0.12em 0.02ex #fdf6e3,0.15em 0ex #fdf6e3,-0.06em -0.15ex #fdf6e3,-0.12em -0.09ex #fdf6e3,-0.06em -0.12ex #fdf6e3,0.06em 0.02ex #fdf6e3,-0.15em -0.12ex #fdf6e3,-0.06em -0.18ex #fdf6e3,-0.12em -0.03ex #fdf6e3,0.12em -0.21ex #fdf6e3,-0.15em -0.09ex #fdf6e3,0.12em -0.27ex #fdf6e3,0.12em -0.24ex #fdf6e3,-0.15em -0.03ex #fdf6e3,0.06em 0.05ex #fdf6e3,-0.15em -0.06ex #fdf6e3;
 }
 code, tt.docutils.literal {
@@ -576,11 +546,24 @@ div.slide {
   background-color: #fdf6e3;
   color: #586e75;
 }
+body.expose div.slide:hover {
+  box-shadow: 0 0 0 15px #268bd2;
+}
+body.expose .slide.current {
+  box-shadow: 0 0 0 30px #b58900;
+}
+body.expose .slide.current:hover {
+  box-shadow: 0 0 0 15px #268bd2, 0 0 0 30px #b58900;
+}
+
+.presenter_notes {
+  background: #002b36;
+}
 
 div.slides, body.expose div.slides.nocontext,
 body.expose .slide.current,
 body.expose .slide.current .inner {
-  /*background: #141414 !important;*/
+  /*background: #000;*/
 }
 
 /* See: https://gist.github.com/nicolashery/5765395 */
