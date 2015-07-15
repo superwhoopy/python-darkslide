@@ -180,7 +180,7 @@ function main() {
     };
 
     var showNotes = function() {
-        var notes = getSlideEl(currentSlideNo).getElementsByClassName('notes');
+        var notes = getSlideEl(currentSlideNo).getElementsByClassName('presenter_notes');
         for (var i = 0, len = notes.length; i < len; i++) {
             notes.item(i).style.display = (notesOn) ? 'none':'block';
         }
@@ -240,16 +240,6 @@ function main() {
             presenterViewWin = open(window.location.pathname + "#presenter:" + currentSlideNo, 'presenter_notes',
                                     'directories=no,location=no,toolbar=no,menubar=no,copyhistory=no');
             showingPresenterView = true;
-        }
-    };
-
-    var switch3D = function() {
-        if (document.body.className.indexOf('three-d') == -1) {
-            document.getElementsByClassName('presentation')[0].style.webkitPerspective = '1000px';
-            document.body.className += ' three-d';
-        } else {
-            window.setTimeout('document.getElementsByClassName(\'presentation\')[0].style.webkitPerspective = \'0\';', 2000);
-            document.body.className = document.body.className.replace(/three-d/, '');
         }
     };
 
@@ -413,11 +403,6 @@ function main() {
             case 50: // 2
                 showNotes();
                 break;
-            case 51: // 3
-                if (!overviewActive) {
-                    switch3D();
-                }
-                break;
             case 190: // .
             case 48: // 0
             case 66: // b
@@ -554,9 +539,9 @@ function main() {
             currentSlideNo = Number(window.location.hash.replace('#slide:', '')) || 1;
         }
 
-        document.addEventListener('keyup', checkModifierKeyUp, false);
-        document.addEventListener('keydown', handleBodyKeyDown, false);
-        document.addEventListener('keydown', checkModifierKeyDown, false);
+        document.addEventListener('keyup', checkModifierKeyUp);
+        document.addEventListener('keydown', handleBodyKeyDown);
+        document.addEventListener('keydown', checkModifierKeyDown);
         document.addEventListener('visibilitychange', function(event) {
             if (document.hidden) {
                 modifierKeyDown = false;
@@ -568,8 +553,9 @@ function main() {
             }
         }, 100);
 
-        window.addEventListener("mousewheel", handleWheel, false);
-	window.addEventListener("DOMMouseScroll", handleWheel, false);
+        window.addEventListener("mousewheel", handleWheel);
+        window.addEventListener("DOMMouseScroll", handleWheel);
+        window.addEventListener("DOMContentLoaded", expandSlides);
         window.onresize = function(){
             setScale(expanded ? scale = computeScale() : 1);
         }
