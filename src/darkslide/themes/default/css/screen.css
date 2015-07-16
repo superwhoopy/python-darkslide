@@ -25,6 +25,7 @@ div.slides.nocontext .slide {
 }
 div.slides.nocontext .slide.future {
 }
+body.expose div.slides.nocontext .slide,
 div.slides.nocontext .slide.current {
     opacity: 1;
 }
@@ -464,22 +465,22 @@ body {
     background: #073642;
     color: #93a1a1;
 }
-a {
-    color: #268bd2;
-}
-a:hover {
-    color: #2aa198;
-}
 a, a:hover {
+    color: #268bd2;
     padding: 0;
     text-decoration: none;
     background-color: transparent;
     background-image: linear-gradient(#268bd2, #268bd2), linear-gradient(#268bd2, #268bd2), linear-gradient(#268bd2, #268bd2);
-    background-size: 0.05em 1px, 0.05em 1px, 1px 1px;
-    background-repeat: no-repeat, no-repeat, repeat-x;
-    background-position: 0% 98%, 100% 98%, 0% 98%;
+    background-size: 2px 2px;
+    background-repeat: repeat-x;
+    background-position: 0% 99.9%;
     text-shadow: -0.03em -0.24ex #fdf6e3, -0.03em -0.27ex #fdf6e3, -0.03em -0.21ex #fdf6e3, 0em -0.21ex #fdf6e3, 0em -0.24ex #fdf6e3, 0em -0.27ex #fdf6e3, 0.06em -0.12ex #fdf6e3, 0.06em -0.15ex #fdf6e3, 0.06em -0.18ex #fdf6e3, 0.15em 0.05ex #fdf6e3, 0.09em -0.27ex #fdf6e3, 0.12em -0.18ex #fdf6e3, 0.09em -0.15ex #fdf6e3, 0.09em -0.12ex #fdf6e3, 0.12em -0.12ex #fdf6e3, 0.09em -0.18ex #fdf6e3, 0.12em -0.15ex #fdf6e3, -0.15em 0.02ex #fdf6e3, -0.09em -0.21ex #fdf6e3, -0.09em -0.27ex #fdf6e3, 0.12em 0ex #fdf6e3, -0.09em -0.24ex #fdf6e3, 0.15em -0.15ex #fdf6e3, 0.06em -0.24ex #fdf6e3, -0.15em -0.21ex #fdf6e3, 0.06em -0.27ex #fdf6e3, -0.15em -0.24ex #fdf6e3, 0.06em -0.21ex #fdf6e3, -0.15em -0.27ex #fdf6e3, -0.09em 0.02ex #fdf6e3, -0.12em -0.21ex #fdf6e3, -0.12em -0.27ex #fdf6e3, -0.09em 0.05ex #fdf6e3, -0.12em -0.24ex #fdf6e3, 0.12em -0.09ex #fdf6e3, -0.12em 0ex #fdf6e3, 0.09em -0.06ex #fdf6e3, 0.09em -0.03ex #fdf6e3, 0.12em -0.03ex #fdf6e3, 0.09em -0.09ex #fdf6e3, 0.09em 0ex #fdf6e3, 0.12em -0.06ex #fdf6e3, -0.03em -0.03ex #fdf6e3, -0.03em -0.06ex #fdf6e3, -0.03em -0.09ex #fdf6e3, -0.03em 0.05ex #fdf6e3, 0.03em -0.09ex #fdf6e3, 0em -0.09ex #fdf6e3, 0.03em -0.03ex #fdf6e3, 0em -0.06ex #fdf6e3, 0em -0.03ex #fdf6e3, 0.03em -0.06ex #fdf6e3, -0.06em 0ex #fdf6e3, 0.03em 0ex #fdf6e3, 0.06em 0ex #fdf6e3, -0.09em -0.15ex #fdf6e3, -0.03em 0ex #fdf6e3, -0.03em -0.12ex #fdf6e3, -0.03em -0.15ex #fdf6e3, -0.03em -0.18ex #fdf6e3, 0.09em 0.02ex #fdf6e3, 0em -0.18ex #fdf6e3, 0.09em 0.05ex #fdf6e3, 0.15em 0.02ex #fdf6e3, 0em -0.15ex #fdf6e3, -0.09em 0ex #fdf6e3, 0em -0.12ex #fdf6e3, 0.06em -0.03ex #fdf6e3, 0.06em -0.06ex #fdf6e3, 0.06em -0.09ex #fdf6e3, 0.03em -0.21ex #fdf6e3, 0em 0.02ex #fdf6e3, 0em 0.05ex #fdf6e3, 0.03em -0.24ex #fdf6e3, 0.03em -0.27ex #fdf6e3, -0.06em 0.05ex #fdf6e3, 0em 0ex #fdf6e3, 0.09em -0.24ex #fdf6e3, 0.09em -0.21ex #fdf6e3, -0.09em -0.18ex #fdf6e3, -0.09em -0.12ex #fdf6e3, -0.03em 0.02ex #fdf6e3, -0.12em -0.12ex #fdf6e3, -0.12em -0.15ex #fdf6e3, -0.12em -0.18ex #fdf6e3, -0.06em -0.09ex #fdf6e3, -0.06em -0.03ex #fdf6e3, -0.06em -0.06ex #fdf6e3, 0.15em -0.27ex #fdf6e3, 0.03em -0.15ex #fdf6e3, 0.03em -0.12ex #fdf6e3, 0.03em -0.18ex #fdf6e3, 0.15em -0.21ex #fdf6e3, 0.03em 0.02ex #fdf6e3, 0.03em 0.05ex #fdf6e3, 0.15em -0.24ex #fdf6e3, 0.15em -0.12ex #fdf6e3, -0.12em 0.02ex #fdf6e3, -0.12em 0.05ex #fdf6e3, -0.12em -0.06ex #fdf6e3, 0.15em -0.18ex #fdf6e3, -0.15em -0.15ex #fdf6e3, -0.06em -0.21ex #fdf6e3, -0.06em -0.24ex #fdf6e3, 0.15em -0.03ex #fdf6e3, -0.06em -0.27ex #fdf6e3, -0.15em 0.05ex #fdf6e3, -0.15em -0.18ex #fdf6e3, 0.15em -0.09ex #fdf6e3, -0.15em 0ex #fdf6e3, 0.15em -0.06ex #fdf6e3, -0.09em -0.06ex #fdf6e3, -0.09em -0.03ex #fdf6e3, -0.09em -0.09ex #fdf6e3, -0.06em 0.02ex #fdf6e3, 0.12em 0.05ex #fdf6e3, 0.12em 0.02ex #fdf6e3, 0.15em 0ex #fdf6e3, -0.06em -0.15ex #fdf6e3, -0.12em -0.09ex #fdf6e3, -0.06em -0.12ex #fdf6e3, 0.06em 0.02ex #fdf6e3, -0.15em -0.12ex #fdf6e3, -0.06em -0.18ex #fdf6e3, -0.12em -0.03ex #fdf6e3, 0.12em -0.21ex #fdf6e3, -0.15em -0.09ex #fdf6e3, 0.12em -0.27ex #fdf6e3, 0.12em -0.24ex #fdf6e3, -0.15em -0.03ex #fdf6e3, 0.06em 0.05ex #fdf6e3, -0.15em -0.06ex #fdf6e3;
 }
+a:hover {
+    color: #2aa198;
+    background-image: linear-gradient(#2aa198, #2aa198), linear-gradient(#2aa198, #2aa198), linear-gradient(#2aa198, #2aa198);
+}
+.presenter_notes a, .presenter_notes a:hover,
 div#current_presenter_notes a, div#current_presenter_notes a:hover {
     text-shadow: -0.03em -0.24ex #002b36, -0.03em -0.27ex #002b36, -0.03em -0.21ex #002b36, 0em -0.21ex #002b36, 0em -0.24ex #002b36, 0em -0.27ex #002b36, 0.06em -0.12ex #002b36, 0.06em -0.15ex #002b36, 0.06em -0.18ex #002b36, 0.15em 0.05ex #002b36, 0.09em -0.27ex #002b36, 0.12em -0.18ex #002b36, 0.09em -0.15ex #002b36, 0.09em -0.12ex #002b36, 0.12em -0.12ex #002b36, 0.09em -0.18ex #002b36, 0.12em -0.15ex #002b36, -0.15em 0.02ex #002b36, -0.09em -0.21ex #002b36, -0.09em -0.27ex #002b36, 0.12em 0ex #002b36, -0.09em -0.24ex #002b36, 0.15em -0.15ex #002b36, 0.06em -0.24ex #002b36, -0.15em -0.21ex #002b36, 0.06em -0.27ex #002b36, -0.15em -0.24ex #002b36, 0.06em -0.21ex #002b36, -0.15em -0.27ex #002b36, -0.09em 0.02ex #002b36, -0.12em -0.21ex #002b36, -0.12em -0.27ex #002b36, -0.09em 0.05ex #002b36, -0.12em -0.24ex #002b36, 0.12em -0.09ex #002b36, -0.12em 0ex #002b36, 0.09em -0.06ex #002b36, 0.09em -0.03ex #002b36, 0.12em -0.03ex #002b36, 0.09em -0.09ex #002b36, 0.09em 0ex #002b36, 0.12em -0.06ex #002b36, -0.03em -0.03ex #002b36, -0.03em -0.06ex #002b36, -0.03em -0.09ex #002b36, -0.03em 0.05ex #002b36, 0.03em -0.09ex #002b36, 0em -0.09ex #002b36, 0.03em -0.03ex #002b36, 0em -0.06ex #002b36, 0em -0.03ex #002b36, 0.03em -0.06ex #002b36, -0.06em 0ex #002b36, 0.03em 0ex #002b36, 0.06em 0ex #002b36, -0.09em -0.15ex #002b36, -0.03em 0ex #002b36, -0.03em -0.12ex #002b36, -0.03em -0.15ex #002b36, -0.03em -0.18ex #002b36, 0.09em 0.02ex #002b36, 0em -0.18ex #002b36, 0.09em 0.05ex #002b36, 0.15em 0.02ex #002b36, 0em -0.15ex #002b36, -0.09em 0ex #002b36, 0em -0.12ex #002b36, 0.06em -0.03ex #002b36, 0.06em -0.06ex #002b36, 0.06em -0.09ex #002b36, 0.03em -0.21ex #002b36, 0em 0.02ex #002b36, 0em 0.05ex #002b36, 0.03em -0.24ex #002b36, 0.03em -0.27ex #002b36, -0.06em 0.05ex #002b36, 0em 0ex #002b36, 0.09em -0.24ex #002b36, 0.09em -0.21ex #002b36, -0.09em -0.18ex #002b36, -0.09em -0.12ex #002b36, -0.03em 0.02ex #002b36, -0.12em -0.12ex #002b36, -0.12em -0.15ex #002b36, -0.12em -0.18ex #002b36, -0.06em -0.09ex #002b36, -0.06em -0.03ex #002b36, -0.06em -0.06ex #002b36, 0.15em -0.27ex #002b36, 0.03em -0.15ex #002b36, 0.03em -0.12ex #002b36, 0.03em -0.18ex #002b36, 0.15em -0.21ex #002b36, 0.03em 0.02ex #002b36, 0.03em 0.05ex #002b36, 0.15em -0.24ex #002b36, 0.15em -0.12ex #002b36, -0.12em 0.02ex #002b36, -0.12em 0.05ex #002b36, -0.12em -0.06ex #002b36, 0.15em -0.18ex #002b36, -0.15em -0.15ex #002b36, -0.06em -0.21ex #002b36, -0.06em -0.24ex #002b36, 0.15em -0.03ex #002b36, -0.06em -0.27ex #002b36, -0.15em 0.05ex #002b36, -0.15em -0.18ex #002b36, 0.15em -0.09ex #002b36, -0.15em 0ex #002b36, 0.15em -0.06ex #002b36, -0.09em -0.06ex #002b36, -0.09em -0.03ex #002b36, -0.09em -0.09ex #002b36, -0.06em 0.02ex #002b36, 0.12em 0.05ex #002b36, 0.12em 0.02ex #002b36, 0.15em 0ex #002b36, -0.06em -0.15ex #002b36, -0.12em -0.09ex #002b36, -0.06em -0.12ex #002b36, 0.06em 0.02ex #002b36, -0.15em -0.12ex #002b36, -0.06em -0.18ex #002b36, -0.12em -0.03ex #002b36, 0.12em -0.21ex #002b36, -0.15em -0.09ex #002b36, 0.12em -0.27ex #002b36, 0.12em -0.24ex #002b36, -0.15em -0.03ex #002b36, 0.06em 0.05ex #002b36, -0.15em -0.06ex #002b36;
 }
