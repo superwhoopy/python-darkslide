@@ -126,9 +126,11 @@ section img.align-left {
     margin-left: 0;
 }
 a {
-    display: inline-block;
     text-decoration: none;
     line-height: 110%;
+}
+ul {
+    margin: 0;
 }
 pre, code, tt {
     font-family: Monaco, Consolas, 'Bitstream Vera Sans Mono', 'Lucida Console', FreeMono, Courier, monospace;
@@ -139,6 +141,7 @@ pre, .gist .gist-file .gist-data {
     padding-top: 0.25em !important;
     padding-right: 0.5em !important;
     padding-left: 0.5em !important;
+    margin: 0;
     overflow: auto;
 }
 /* render a nice scrollbar in overflowed pre area's */
@@ -255,7 +258,7 @@ div.slide p.notes {
 }
 img {
     display: block;
-    margin: auto;
+    margin: 0 auto;
 }
 /* Expose */
 
@@ -393,6 +396,13 @@ div.slide div.presenter_notes {
     align-self: center;
     display: inline-block;
 }
+.large {
+    font-size: 120%;
+}
+.huge {
+    font-size: 150%;
+}
+
 /* ======================================
                  FONTS
 ====================================== */
@@ -518,73 +528,74 @@ body.expose .slide.current .inner {
 /* Synic syntax highlighting */
 /*pre pre:not(.diff-line-pre),pre table{background:#000!important;color:#fdf6e3ff0!important;}*/
 
-pre { background-color: #fdf6e3; color: #586e75 }
-.c { color: #93a1a1 }
-.err { color: #586e75 }
-.g { color: #586e75 }
-.k { color: #859900 }
-.l { color: #586e75 }
-.n { color: #586e75 }
-.o { color: #859900 }
-.x { color: #cb4b16 }
-.p { color: #586e75 }
-.cm { color: #93a1a1 }
-.cp { color: #859900 }
-.c1 { color: #93a1a1 }
-.cs { color: #859900 }
-.gd { color: #2aa198 }
-.ge { color: #586e75; font-style: italic }
-.gr { color: #dc322f }
-.gh { color: #cb4b16 }
-.gi { color: #859900 }
-.go { color: #586e75 }
-.gp { color: #586e75 }
-.gs { color: #586e75; font-weight: bold }
-.gu { color: #cb4b16 }
-.gt { color: #586e75 }
-.kc { color: #cb4b16 }
-.kd { color: #268bd2 }
-.kn { color: #859900 }
-.kp { color: #859900 }
-.kr { color: #268bd2 }
-.kt { color: #dc322f }
-.ld { color: #586e75 }
-.m { color: #2aa198 }
-.s { color: #2aa198 }
-.na { color: #586e75 }
-.nb { color: #b58900 }
-.nc { color: #268bd2 }
-.no { color: #cb4b16 }
-.nd { color: #268bd2 }
-.ni { color: #cb4b16 }
-.ne { color: #cb4b16 }
-.nf { color: #268bd2 }
-.nl { color: #586e75 }
-.nn { color: #586e75 }
-.nx { color: #586e75 }
-.py { color: #586e75 }
-.nt { color: #268bd2 }
-.nv { color: #268bd2 }
-.ow { color: #859900 }
-.w { color: #586e75 }
-.mf { color: #2aa198 }
-.mh { color: #2aa198 }
-.mi { color: #2aa198 }
-.mo { color: #2aa198 }
-.sb { color: #93a1a1 }
-.sc { color: #2aa198 }
-.sd { color: #586e75 }
-.s2 { color: #2aa198 }
-.se { color: #cb4b16 }
-.sh { color: #586e75 }
-.si { color: #2aa198 }
-.sx { color: #2aa198 }
-.sr { color: #dc322f }
-.s1 { color: #2aa198 }
-.ss { color: #2aa198 }
-.bp { color: #268bd2 }
-.vc { color: #268bd2 }
-.vg { color: #268bd2 }
-.vi { color: #268bd2 }
-.il { color: #2aa198 }
+pre { background: #fdf6e3; color: #586e75; }
+.linenos pre { background: #eee8d5;}
+.c { color: #93a1a1; }
+.err { color: #586e75; }
+.g { color: #586e75; }
+.k { color: #859900; }
+.l { color: #586e75; }
+.n { color: #586e75; }
+.o { color: #859900; }
+.x { color: #cb4b16; }
+.p { color: #586e75; }
+.cm { color: #93a1a1; }
+.cp { color: #859900; }
+.c1 { color: #93a1a1; }
+.cs { color: #859900; }
+.gd { color: #2aa198; }
+.ge { color: #586e75; font-style: italic; }
+.gr { color: #dc322f; }
+.gh { color: #cb4b16; }
+.gi { color: #859900; }
+.go { color: #586e75; }
+.gp { color: #586e75; }
+.gs { color: #586e75; font-weight: bold; }
+.gu { color: #cb4b16; }
+.gt { color: #586e75; }
+.kc { color: #cb4b16; }
+.kd { color: #268bd2; }
+.kn { color: #859900; }
+.kp { color: #859900; }
+.kr { color: #268bd2; }
+.kt { color: #dc322f; }
+.ld { color: #586e75; }
+.m { color: #2aa198; }
+.s { color: #2aa198; }
+.na { color: #586e75; }
+.nb { color: #b58900; }
+.nc { color: #268bd2; }
+.no { color: #cb4b16; }
+.nd { color: #268bd2; }
+.ni { color: #cb4b16; }
+.ne { color: #cb4b16; }
+.nf { color: #268bd2; }
+.nl { color: #586e75; }
+.nn { color: #586e75; }
+.nx { color: #586e75; }
+.py { color: #586e75; }
+.nt { color: #268bd2; }
+.nv { color: #268bd2; }
+.ow { color: #859900; }
+.w { color: #586e75; }
+.mf { color: #2aa198; }
+.mh { color: #2aa198; }
+.mi { color: #2aa198; }
+.mo { color: #2aa198; }
+.sb { color: #93a1a1; }
+.sc { color: #2aa198; }
+.sd { color: #586e75; }
+.s2 { color: #2aa198; }
+.se { color: #cb4b16; }
+.sh { color: #586e75; }
+.si { color: #2aa198; }
+.sx { color: #2aa198; }
+.sr { color: #dc322f; }
+.s1 { color: #2aa198; }
+.ss { color: #2aa198; }
+.bp { color: #268bd2; }
+.vc { color: #268bd2; }
+.vg { color: #268bd2; }
+.vi { color: #268bd2; }
+.il { color: #2aa198; }
 
