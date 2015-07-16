@@ -557,7 +557,7 @@ function main() {
         window.addEventListener("DOMMouseScroll", handleWheel);
         window.addEventListener("DOMContentLoaded", expandSlides);
         window.onresize = function(){
-            setScale(expanded ? scale = computeScale() : 1);
+            setScale(!overviewActive && expanded ? scale = computeScale() : 1);
         }
 
         for (var i = 0, el; el = slides[i]; i++) {
