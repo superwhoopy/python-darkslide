@@ -33,7 +33,7 @@ class Macro(object):
 class CodeHighlightingMacro(Macro):
     """Performs syntax coloration in slide code blocks using Pygments"""
 
-    code_blocks_re = re.compile(
+    macro_re = re.compile(
         r'(<pre.+?>(<code>)?\s?!(\S+?)\n(.*?)(</code>)?</pre>)',
         re.UNICODE | re.MULTILINE | re.DOTALL)
 
@@ -47,7 +47,7 @@ class CodeHighlightingMacro(Macro):
         return self.html_entity_re.sub(f, string)
 
     def process(self, content, source=None):
-        code_blocks = self.code_blocks_re.findall(content)
+        code_blocks = self.macro_re.findall(content)
         if not code_blocks:
             return content, []
 
@@ -74,7 +74,7 @@ class CodeHighlightingMacro(Macro):
 
 class EmbedImagesMacro(Macro):
     """Encodes images in base64 for embedding in image:data"""
-    image_tag_re = re.compile(
+    macro_re = re.compile(
         r'<img\s.*?src="(.+?)"\s?.*?/?>|<object[^<>]+?data="(.*?)"[^<>]+?type="image/svg\+xml"',
         re.DOTALL | re.UNICODE)
 
@@ -84,7 +84,7 @@ class EmbedImagesMacro(Macro):
         if not self.embed:
             return content, classes
 
-        images = self.image_tag_re.findall(content)
+        images = self.macro_re.findall(content)
 
         source_dir = os.path.dirname(source)
 
@@ -111,7 +111,7 @@ class FixImagePathsMacro(Macro):
     """Replaces html image paths with fully qualified absolute urls"""
 
     relative = False
-    image_tag_re = re.compile(
+    macro_re = re.compile(
         r'<img.*?src="(?!https?://|file://)(.*?)"'
         r'|<object[^<>]+?data="(?!http://)(.*?)"[^<>]+?type="image/svg\+xml"',
         re.DOTALL | re.UNICODE
@@ -126,7 +126,7 @@ class FixImagePathsMacro(Macro):
         base_path = utils.get_path_url(source, self.options.get('relative'))
         base_url = os.path.split(base_path)[0]
 
-        images = self.image_tag_re.findall(content)
+        images = self.macro_re.findall(content)
 
         for matches in images:
             for image in matches:
