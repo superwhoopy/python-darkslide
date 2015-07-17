@@ -140,12 +140,13 @@ class FixImagePathsMacro(Macro):
 
 class FxMacro(Macro):
     """Adds custom CSS class to slides"""
+    macro_re = re.compile(r'(<p>\.fx:\s?(.*?)</p>\n?)',
+                          re.DOTALL | re.UNICODE)
 
     def process(self, content, source=None):
         classes = []
 
-        fx_match = re.search(r'(<p>\.fx:\s?(.*?)</p>\n?)', content,
-                             re.DOTALL | re.UNICODE)
+        fx_match = self.macro_re.search(content)
         if fx_match:
             classes = fx_match.group(2).split(u' ')
             content = content.replace(fx_match.group(1), '', 1)
@@ -155,12 +156,12 @@ class FxMacro(Macro):
 
 class NotesMacro(Macro):
     """Adds toggleable notes to slides"""
+    macro_re = re.compile(r'<p>\.notes:\s?(.*?)</p>')
 
     def process(self, content, source=None):
         classes = []
 
-        new_content = re.sub(r'<p>\.notes:\s?(.*?)</p>',
-                             r'<p class="notes">\1</p>', content)
+        new_content = self.macro_re.sub(r'<p class="notes">\1</p>', content)
 
         if content != new_content:
             classes.append(u'has_notes')
