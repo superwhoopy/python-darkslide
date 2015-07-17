@@ -1,0 +1,111 @@
+/* ======================================
+                 FONTS
+====================================== */
+
+h1, h2, h3, h4, h5, h6,
+body, header {
+    font-family: 'Candara', 'Calibri', 'Segoe UI Semilight', 'Corbel', 'Trebuchet Ms', 'Segoe UI', sans-serif;
+}
+section {
+    font: 34px 'Palatino', 'Palatino Linotype', 'URW Palladio L', 'Century Schoolbook L', 'Georgia', serif;
+}
+
+/* ======================================
+                 COLORS
+====================================== */
+body {
+    background: black;
+    color: #eee;
+}
+footer {
+    color: #aaa;
+}
+a, a:hover {
+    color: #268bd2;
+    padding: 0;
+    text-decoration: none;
+    background-color: transparent;
+    background-image: linear-gradient(#268bd2, #268bd2);
+    background-size: 2px 2px;
+    background-repeat: repeat-x;
+    background-position: 0% 99.9%;
+    text-shadow: -0.03em -0.24ex #222, -0.03em -0.27ex #222, -0.03em -0.21ex #222, 0em -0.21ex #222, 0em -0.24ex #222, 0em -0.27ex #222, 0.06em -0.12ex #222, 0.06em -0.15ex #222, 0.06em -0.18ex #222, 0.15em 0.05ex #222, 0.09em -0.27ex #222, 0.12em -0.18ex #222, 0.09em -0.15ex #222, 0.09em -0.12ex #222, 0.12em -0.12ex #222, 0.09em -0.18ex #222, 0.12em -0.15ex #222, -0.15em 0.02ex #222, -0.09em -0.21ex #222, -0.09em -0.27ex #222, 0.12em 0ex #222, -0.09em -0.24ex #222, 0.15em -0.15ex #222, 0.06em -0.24ex #222, -0.15em -0.21ex #222, 0.06em -0.27ex #222, -0.15em -0.24ex #222, 0.06em -0.21ex #222, -0.15em -0.27ex #222, -0.09em 0.02ex #222, -0.12em -0.21ex #222, -0.12em -0.27ex #222, -0.09em 0.05ex #222, -0.12em -0.24ex #222, 0.12em -0.09ex #222, -0.12em 0ex #222, 0.09em -0.06ex #222, 0.09em -0.03ex #222, 0.12em -0.03ex #222, 0.09em -0.09ex #222, 0.09em 0ex #222, 0.12em -0.06ex #222, -0.03em -0.03ex #222, -0.03em -0.06ex #222, -0.03em -0.09ex #222, -0.03em 0.05ex #222, 0.03em -0.09ex #222, 0em -0.09ex #222, 0.03em -0.03ex #222, 0em -0.06ex #222, 0em -0.03ex #222, 0.03em -0.06ex #222, -0.06em 0ex #222, 0.03em 0ex #222, 0.06em 0ex #222, -0.09em -0.15ex #222, -0.03em 0ex #222, -0.03em -0.12ex #222, -0.03em -0.15ex #222, -0.03em -0.18ex #222, 0.09em 0.02ex #222, 0em -0.18ex #222, 0.09em 0.05ex #222, 0.15em 0.02ex #222, 0em -0.15ex #222, -0.09em 0ex #222, 0em -0.12ex #222, 0.06em -0.03ex #222, 0.06em -0.06ex #222, 0.06em -0.09ex #222, 0.03em -0.21ex #222, 0em 0.02ex #222, 0em 0.05ex #222, 0.03em -0.24ex #222, 0.03em -0.27ex #222, -0.06em 0.05ex #222, 0em 0ex #222, 0.09em -0.24ex #222, 0.09em -0.21ex #222, -0.09em -0.18ex #222, -0.09em -0.12ex #222, -0.03em 0.02ex #222, -0.12em -0.12ex #222, -0.12em -0.15ex #222, -0.12em -0.18ex #222, -0.06em -0.09ex #222, -0.06em -0.03ex #222, -0.06em -0.06ex #222, 0.15em -0.27ex #222, 0.03em -0.15ex #222, 0.03em -0.12ex #222, 0.03em -0.18ex #222, 0.15em -0.21ex #222, 0.03em 0.02ex #222, 0.03em 0.05ex #222, 0.15em -0.24ex #222, 0.15em -0.12ex #222, -0.12em 0.02ex #222, -0.12em 0.05ex #222, -0.12em -0.06ex #222, 0.15em -0.18ex #222, -0.15em -0.15ex #222, -0.06em -0.21ex #222, -0.06em -0.24ex #222, 0.15em -0.03ex #222, -0.06em -0.27ex #222, -0.15em 0.05ex #222, -0.15em -0.18ex #222, 0.15em -0.09ex #222, -0.15em 0ex #222, 0.15em -0.06ex #222, -0.09em -0.06ex #222, -0.09em -0.03ex #222, -0.09em -0.09ex #222, -0.06em 0.02ex #222, 0.12em 0.05ex #222, 0.12em 0.02ex #222, 0.15em 0ex #222, -0.06em -0.15ex #222, -0.12em -0.09ex #222, -0.06em -0.12ex #222, 0.06em 0.02ex #222, -0.15em -0.12ex #222, -0.06em -0.18ex #222, -0.12em -0.03ex #222, 0.12em -0.21ex #222, -0.15em -0.09ex #222, 0.12em -0.27ex #222, 0.12em -0.24ex #222, -0.15em -0.03ex #222, 0.06em 0.05ex #222, -0.15em -0.06ex #222;
+}
+a:hover {
+    color: #2aa198;
+    background-image: linear-gradient(#2aa198, #2aa198), linear-gradient(#2aa198, #2aa198), linear-gradient(#2aa198, #2aa198);
+}
+.presenter_notes a, .presenter_notes a:hover,
+div#current_presenter_notes a, div#current_presenter_notes a:hover {
+    text-shadow: -0.03em -0.24ex #002b36, -0.03em -0.27ex #002b36, -0.03em -0.21ex #002b36, 0em -0.21ex #002b36, 0em -0.24ex #002b36, 0em -0.27ex #002b36, 0.06em -0.12ex #002b36, 0.06em -0.15ex #002b36, 0.06em -0.18ex #002b36, 0.15em 0.05ex #002b36, 0.09em -0.27ex #002b36, 0.12em -0.18ex #002b36, 0.09em -0.15ex #002b36, 0.09em -0.12ex #002b36, 0.12em -0.12ex #002b36, 0.09em -0.18ex #002b36, 0.12em -0.15ex #002b36, -0.15em 0.02ex #002b36, -0.09em -0.21ex #002b36, -0.09em -0.27ex #002b36, 0.12em 0ex #002b36, -0.09em -0.24ex #002b36, 0.15em -0.15ex #002b36, 0.06em -0.24ex #002b36, -0.15em -0.21ex #002b36, 0.06em -0.27ex #002b36, -0.15em -0.24ex #002b36, 0.06em -0.21ex #002b36, -0.15em -0.27ex #002b36, -0.09em 0.02ex #002b36, -0.12em -0.21ex #002b36, -0.12em -0.27ex #002b36, -0.09em 0.05ex #002b36, -0.12em -0.24ex #002b36, 0.12em -0.09ex #002b36, -0.12em 0ex #002b36, 0.09em -0.06ex #002b36, 0.09em -0.03ex #002b36, 0.12em -0.03ex #002b36, 0.09em -0.09ex #002b36, 0.09em 0ex #002b36, 0.12em -0.06ex #002b36, -0.03em -0.03ex #002b36, -0.03em -0.06ex #002b36, -0.03em -0.09ex #002b36, -0.03em 0.05ex #002b36, 0.03em -0.09ex #002b36, 0em -0.09ex #002b36, 0.03em -0.03ex #002b36, 0em -0.06ex #002b36, 0em -0.03ex #002b36, 0.03em -0.06ex #002b36, -0.06em 0ex #002b36, 0.03em 0ex #002b36, 0.06em 0ex #002b36, -0.09em -0.15ex #002b36, -0.03em 0ex #002b36, -0.03em -0.12ex #002b36, -0.03em -0.15ex #002b36, -0.03em -0.18ex #002b36, 0.09em 0.02ex #002b36, 0em -0.18ex #002b36, 0.09em 0.05ex #002b36, 0.15em 0.02ex #002b36, 0em -0.15ex #002b36, -0.09em 0ex #002b36, 0em -0.12ex #002b36, 0.06em -0.03ex #002b36, 0.06em -0.06ex #002b36, 0.06em -0.09ex #002b36, 0.03em -0.21ex #002b36, 0em 0.02ex #002b36, 0em 0.05ex #002b36, 0.03em -0.24ex #002b36, 0.03em -0.27ex #002b36, -0.06em 0.05ex #002b36, 0em 0ex #002b36, 0.09em -0.24ex #002b36, 0.09em -0.21ex #002b36, -0.09em -0.18ex #002b36, -0.09em -0.12ex #002b36, -0.03em 0.02ex #002b36, -0.12em -0.12ex #002b36, -0.12em -0.15ex #002b36, -0.12em -0.18ex #002b36, -0.06em -0.09ex #002b36, -0.06em -0.03ex #002b36, -0.06em -0.06ex #002b36, 0.15em -0.27ex #002b36, 0.03em -0.15ex #002b36, 0.03em -0.12ex #002b36, 0.03em -0.18ex #002b36, 0.15em -0.21ex #002b36, 0.03em 0.02ex #002b36, 0.03em 0.05ex #002b36, 0.15em -0.24ex #002b36, 0.15em -0.12ex #002b36, -0.12em 0.02ex #002b36, -0.12em 0.05ex #002b36, -0.12em -0.06ex #002b36, 0.15em -0.18ex #002b36, -0.15em -0.15ex #002b36, -0.06em -0.21ex #002b36, -0.06em -0.24ex #002b36, 0.15em -0.03ex #002b36, -0.06em -0.27ex #002b36, -0.15em 0.05ex #002b36, -0.15em -0.18ex #002b36, 0.15em -0.09ex #002b36, -0.15em 0ex #002b36, 0.15em -0.06ex #002b36, -0.09em -0.06ex #002b36, -0.09em -0.03ex #002b36, -0.09em -0.09ex #002b36, -0.06em 0.02ex #002b36, 0.12em 0.05ex #002b36, 0.12em 0.02ex #002b36, 0.15em 0ex #002b36, -0.06em -0.15ex #002b36, -0.12em -0.09ex #002b36, -0.06em -0.12ex #002b36, 0.06em 0.02ex #002b36, -0.15em -0.12ex #002b36, -0.06em -0.18ex #002b36, -0.12em -0.03ex #002b36, 0.12em -0.21ex #002b36, -0.15em -0.09ex #002b36, 0.12em -0.27ex #002b36, 0.12em -0.24ex #002b36, -0.15em -0.03ex #002b36, 0.06em 0.05ex #002b36, -0.15em -0.06ex #002b36;
+}
+code, tt.docutils.literal {
+    color: #6c71c4;
+}
+div.slide {
+    background-color: #222;
+    color: #eee;
+}
+body.expose div.slide:hover {
+    box-shadow: 0 0 0 15px #268bd2;
+}
+body.expose .slide.current {
+    box-shadow: 0 0 0 30px #b58900;
+}
+body.expose .slide.current:hover {
+    box-shadow: 0 0 0 15px #268bd2, 0 0 0 30px #b58900;
+}
+.presenter_notes {
+    background: #eee;
+    color: #222;
+}
+::-webkit-scrollbar-thumb {
+    background: #222;
+    border-color: #eee8d5;
+}
+::-webkit-scrollbar {
+    background: #eee8d5;
+}
+::-webkit-scrollbar-corner {
+    background: #222;
+}
+.qr svg {
+    box-shadow: inset 0 0 10px #eee8d5;
+}
+div.slides, body.expose div.slides.nocontext,
+body.expose .slide.current,
+body.expose .slide.current .inner {
+    /*background: #000;*/
+}
+
+
+/* See: http://stylishthemes.github.io/GitHub-Dark/ */
+/* Synic syntax highlighting */
+pre pre:not(.diff-line-pre),pre table{background:#000!important;color:#fffff0!important;}
+pre .hll{background-color:#ffc!important;}
+pre .cp{color:#ffa0a0!important;}
+pre .gd{color:#add8e6!important;background-color:#e0ffff!important;}
+pre .ge{color:#fffff0!important;text-decoration:underline!important;}
+pre .gi{color:#00f!important;background-color:#e0ffff!important;}
+pre .go{color:#008b8b!important;}
+pre .ni{color:#daa520!important;}
+pre .ow{color:#8673e8!important;}
+pre .c,pre .cm,pre .c1,pre .cs{color:#708090!important;}
+pre .err,pre .g,pre .l,pre .n,pre .o,pre .x,pre .p,pre .gp,
+pre .gs,pre .ld,pre .nb,pre .nc,pre .nd,pre .nn,pre .nx,pre .py,
+pre .w,pre .bp{color:#fffff0!important;}
+pre .k,pre .kc,pre .kd,pre .kn,pre .kp,pre .kr,
+pre .nt{color:#f0e68c!important;}
+pre .gr,pre .gt{color:red!important;background-color:#faf0e6!important;border-radius:2px;}
+pre .gh,pre .gu{color:#ee0!important;}
+pre .kt,pre .ne,pre .nl{color:#ffdead!important;}
+pre .m,pre .no,pre .mf,pre .mh,pre .mi,pre .mo,
+pre .il{color:#cdb7b5!important;}
+pre .s,pre .sb,pre .sc,pre .sd,pre .s2,pre .se,pre .sh,pre .si,
+pre .sx,pre .sr,pre .s1,pre .ss{color:#9ac0cd!important;}
+pre .na,pre .nf,pre .nv,pre .vc,pre .vg,
+pre .vi{color:#68838b!important;font-weight:700!important;}
+
+.white {
+  background: white;
+}

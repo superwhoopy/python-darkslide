@@ -296,14 +296,10 @@ class Generator(object):
         css = {}
 
         print_css = os.path.join(self.theme_dir, 'css', 'print.css')
-
         if not os.path.exists(print_css):
-            # Fall back to default theme
             print_css = os.path.join(THEMES_DIR, 'default', 'css', 'print.css')
-
             if not os.path.exists(print_css):
-                raise IOError(u"Cannot find css/print.css in default theme")
-
+                raise IOError(u"Cannot find print.css in default theme")
         with codecs.open(print_css, encoding=self.encoding) as css_file:
             css['print'] = {
                 'path_url': utils.get_path_url(print_css, self.relative),
@@ -311,15 +307,26 @@ class Generator(object):
             }
 
         screen_css = os.path.join(self.theme_dir, 'css', 'screen.css')
+        if not os.path.exists(screen_css):
+            screen_css = os.path.join(THEMES_DIR, 'default', 'css', 'screen.css')
+            if not os.path.exists(screen_css):
+                raise IOError(u"Cannot find screen.css in default theme")
+        with codecs.open(screen_css, encoding=self.encoding) as css_file:
+            css['screen'] = {
+                'path_url': utils.get_path_url(screen_css, self.relative),
+                'contents': css_file.read(),
+            }
 
-        if (os.path.exists(screen_css)):
-            with codecs.open(screen_css, encoding=self.encoding) as css_file:
-                css['screen'] = {
-                    'path_url': utils.get_path_url(screen_css, self.relative),
-                    'contents': css_file.read(),
-                }
-        else:
-            self.log(u"No screen stylesheet provided in current theme", 'warning')
+        theme_css = os.path.join(self.theme_dir, 'css', 'theme.css')
+        if not os.path.exists(theme_css):
+            theme_css = os.path.join(THEMES_DIR, 'default', 'css', 'theme.css')
+            if not os.path.exists(theme_css):
+                raise IOError(u"Cannot find theme.css in default theme")
+        with codecs.open(theme_css, encoding=self.encoding) as css_file:
+            css['theme'] = {
+                'path_url': utils.get_path_url(theme_css, self.relative),
+                'contents': css_file.read(),
+            }
 
         return css
 
