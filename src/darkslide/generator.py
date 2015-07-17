@@ -35,6 +35,7 @@ class Generator(object):
         macro_module.FxMacro,
         macro_module.NotesMacro,
         macro_module.QRMacro,
+        macro_module.FooterMacro,
     ]
     user_css = []
     user_js = []
@@ -367,12 +368,13 @@ class Generator(object):
             content = find.group(4).strip() if find.group(4) else find.group(4)
 
         slide_classes = []
+        context = {}
 
         if header:
-            header, _ = self.process_macros(header, source)
+            header, _ = self.process_macros(header, source, context)
 
         if content:
-            content, slide_classes = self.process_macros(content, source)
+            content, slide_classes = self.process_macros(content, source, context)
 
         source_dict = {}
 
@@ -381,10 +383,17 @@ class Generator(object):
                            'abs_path': os.path.abspath(source)}
 
         if header or content:
-            return {'header': header, 'title': title, 'level': level,
-                    'content': content, 'classes': slide_classes,
-                    'source': source_dict, 'presenter_notes': presenter_notes,
-                    'math_output': self.math_output}
+            context.update(
+                content=content,
+                classes=slide_classes,
+                header=header,
+                level=level,
+                math_output=self.math_output,
+                presenter_notes=presenter_notes,
+                source=source_dict,
+                title=title,
+            )
+            return context
 
     def get_template_vars(self, slides):
         """ Computes template vars from slides html source code.
@@ -456,13 +465,13 @@ class Generator(object):
             config['js'] = raw_config.get('landslide', 'js').replace('\r', '').split('\n')
         return config
 
-    def process_macros(self, content, source=None):
+    def process_macros(self, content, source=None, context=None):
         """ Processed all macros.
         """
         classes = []
         for macro in self.macros:
             try:
-                content, add_classes = macro.process(content, source)
+                content, add_classes = macro.process(content, source, context)
                 if add_classes:
                     classes += add_classes
             except Exception as e:

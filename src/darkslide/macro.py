@@ -32,7 +32,7 @@ class Macro(object):
                 raise ValueError(u'Macro options must be a dict instance')
             self.options = options
 
-    def process(self, content, source=None):
+    def process(self, content, source=None, context=None):
         """Generic processor (does actually nothing)"""
         return content, []
 
@@ -53,7 +53,7 @@ class CodeHighlightingMacro(Macro):
         f = lambda m: defs[m.group(1)] if len(m.groups()) > 0 else m.group(0)
         return self.html_entity_re.sub(f, string)
 
-    def process(self, content, source=None):
+    def process(self, content, source=None, context=None):
         code_blocks = self.macro_re.findall(content)
         if not code_blocks:
             return content, []
@@ -85,7 +85,7 @@ class EmbedImagesMacro(Macro):
         r'<img\s.*?src="(.+?)"\s?.*?/?>|<object[^<>]+?data="(.*?)"[^<>]+?type="image/svg\+xml"',
         re.DOTALL | re.UNICODE)
 
-    def process(self, content, source=None):
+    def process(self, content, source=None, context=None):
         classes = []
 
         if not self.embed:
@@ -124,7 +124,7 @@ class FixImagePathsMacro(Macro):
         re.DOTALL | re.UNICODE
     )
 
-    def process(self, content, source=None):
+    def process(self, content, source=None, context=None):
         classes = []
 
         if self.embed:
@@ -150,7 +150,7 @@ class FxMacro(Macro):
     macro_re = re.compile(r'(<p>\.fx:\s?(.*?)</p>\n?)',
                           re.DOTALL | re.UNICODE)
 
-    def process(self, content, source=None):
+    def process(self, content, source=None, context=None):
         classes = []
 
         fx_match = self.macro_re.search(content)
@@ -165,7 +165,7 @@ class NotesMacro(Macro):
     """Adds toggleable notes to slides"""
     macro_re = re.compile(r'<p>\.notes:\s?(.*?)</p>')
 
-    def process(self, content, source=None):
+    def process(self, content, source=None, context=None):
         classes = []
 
         new_content = self.macro_re.sub(r'<p class="notes">\1</p>', content)
@@ -180,7 +180,7 @@ class QRMacro(Macro):
     """Generates a QR code in a slide"""
     macro_re = re.compile(r'<p>\.qr:\s?(.*?)</p>')
 
-    def process(self, content, source=None):
+    def process(self, content, source=None, context=None):
         classes = []
 
         def encoder(match):
@@ -199,3 +199,24 @@ class QRMacro(Macro):
 
         return new_content, classes
 
+
+class FooterMacro(Macro):
+    """Add footer in slides"""
+    footer = ''
+    macro_re = re.compile(r'<p>\.footer:\s?(.*?)</p>')
+
+    def process(self, content, source=None, context=None):
+        classes = []
+        assert context is not None
+
+        def save(match):
+            self.footer = match.group(1)
+            return ''
+
+        content = self.macro_re.sub(save, content)
+
+        if self.footer:
+            classes.append(u'has_footer')
+            context['footer'] = self.footer
+
+        return content, classes

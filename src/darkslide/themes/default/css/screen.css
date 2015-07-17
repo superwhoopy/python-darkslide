@@ -91,6 +91,14 @@ header h1, header h2, header h3, header h4, header h5, header h6 {
 header h2:first-child {
     margin-top: 0;
 }
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    text-align: center;
+}
 section, .slide header:only-child h1 {
     margin-left: 30px;
     margin-right: 30px;
@@ -104,7 +112,7 @@ section {
     left: 30px;
     right: 30px;
     top: 135px;
-    bottom: 20px;
+    bottom: 30px;
     overflow: auto;
     display: flex;
     flex-direction: column;
@@ -483,6 +491,9 @@ html * {
 .green { color: #859900; }
 body {
     background: #073642;
+    color: #93a1a1;
+}
+footer {
     color: #93a1a1;
 }
 a, a:hover {

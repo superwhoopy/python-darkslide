@@ -104,6 +104,9 @@
             </section>
           </div>
           <footer>
+            {% if slide.footer %}
+              {{ slide.footer }}
+            {% endif %}
             {% if slide.source %}
             <aside class="source">
               Source: <a href="{{ slide.source.rel_path }}">{{ slide.source.rel_path }}</a>
