@@ -73,7 +73,8 @@ setup(
         'Markdown',
         'Pygments',
         'docutils',
-        'six'
+        'six',
+        'qrcode',
     ],
     extras_require={
         # eg: 'rst': ['docutils>=0.11'],

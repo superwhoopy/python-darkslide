@@ -4,10 +4,17 @@ import os
 import re
 import sys
 
+try:
+    from io import BytesIO as StringIO
+except ImportError:
+    from StringIO import StringIO
+
 import pygments
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 from six.moves import html_entities
+import qrcode
+from qrcode.image.svg import SvgPathImage
 
 from . import utils
 
@@ -171,18 +178,24 @@ class NotesMacro(Macro):
 
 class QRMacro(Macro):
     """Generates a QR code in a slide"""
+    macro_re = re.compile(r'<p>\.qr:\s?(.*?)</p>')
 
     def process(self, content, source=None):
         classes = []
 
-        new_content = re.sub(
-            r'<p>\.qr:\s?(\d*?)\|(.*?)</p>',
-            r'<p class="qr">'
-            r'<img src="http://chart.apis.google.com/chart?chs=\1x\1&cht=qr&chl=\2&chf=bg,s,00000000&choe=UTF-8" alt="QR Code" /></p>',
-            content
-        )
+        def encoder(match):
+            qr = qrcode.QRCode(1, error_correction=qrcode.ERROR_CORRECT_L)
+            qr.add_data(match.group(1))
+            buff = StringIO()
+            buff.write('<p class="qr">')
+            qr.make_image(image_factory=SvgPathImage).save(buff)
+            buff.write('</p>')
+            return buff.getvalue()
+
+        new_content = self.macro_re.sub(encoder, content)
 
         if content != new_content:
             classes.append(u'has_qr')
 
         return new_content, classes
+
