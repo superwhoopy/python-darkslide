@@ -111,6 +111,11 @@ class FixImagePathsMacro(Macro):
     """Replaces html image paths with fully qualified absolute urls"""
 
     relative = False
+    image_tag_re = re.compile(
+        r'<img.*?src="(?!https?://|file://)(.*?)"'
+        r'|<object[^<>]+?data="(?!http://)(.*?)"[^<>]+?type="image/svg\+xml"',
+        re.DOTALL | re.UNICODE
+    )
 
     def process(self, content, source=None):
         classes = []
@@ -121,12 +126,7 @@ class FixImagePathsMacro(Macro):
         base_path = utils.get_path_url(source, self.options.get('relative'))
         base_url = os.path.split(base_path)[0]
 
-        regex = (
-            r'<img.*?src="(?!https?://|file://)(.*?)"'
-            r'|<object[^<>]+?data="(?!http://)(.*?)"[^<>]+?type="image/svg\+xml"'
-        )
-
-        images = re.findall(regex, content, re.DOTALL | re.UNICODE)
+        images = self.image_tag_re.findall(content)
 
         for matches in images:
             for image in matches:
