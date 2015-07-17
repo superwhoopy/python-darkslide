@@ -74,6 +74,9 @@ class CodeHighlightingMacro(Macro):
 
 class EmbedImagesMacro(Macro):
     """Encodes images in base64 for embedding in image:data"""
+    image_tag_re = re.compile(
+        r'<img\s.*?src="(.+?)"\s?.*?/?>|<object[^<>]+?data="(.*?)"[^<>]+?type="image/svg\+xml"',
+        re.DOTALL | re.UNICODE)
 
     def process(self, content, source=None):
         classes = []
@@ -81,8 +84,7 @@ class EmbedImagesMacro(Macro):
         if not self.embed:
             return content, classes
 
-        images = re.findall(r'<img\s.*?src="(.+?)"\s?.*?/?>|<object[^<>]+?data="(.*?)"[^<>]+?type="image/svg\+xml"',
-                            content, re.DOTALL | re.UNICODE)
+        images = self.image_tag_re.findall(content)
 
         source_dir = os.path.dirname(source)
 
