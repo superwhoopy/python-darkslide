@@ -295,6 +295,17 @@ class Generator(object):
         """
         css = {}
 
+        base_css = os.path.join(self.theme_dir, 'css', 'base.css')
+        if not os.path.exists(base_css):
+            base_css = os.path.join(THEMES_DIR, 'default', 'css', 'base.css')
+            if not os.path.exists(base_css):
+                raise IOError(u"Cannot find base.css in default theme")
+        with codecs.open(base_css, encoding=self.encoding) as css_file:
+            css['base'] = {
+                'path_url': utils.get_path_url(base_css, self.relative),
+                'contents': css_file.read(),
+            }
+
         print_css = os.path.join(self.theme_dir, 'css', 'print.css')
         if not os.path.exists(print_css):
             print_css = os.path.join(THEMES_DIR, 'default', 'css', 'print.css')
