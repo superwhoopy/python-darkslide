@@ -170,7 +170,7 @@ echo $bar;
 
     def test_parsing_code_blocks(self):
         m = macro.CodeHighlightingMacro(self.logtest)
-        blocks = m.code_blocks_re.findall(self.sample_html)
+        blocks = m.macro_re.findall(self.sample_html)
         self.assertEqual(len(blocks), 3)
         self.assertEqual(blocks[0][2], 'python')
         self.assertTrue(blocks[0][3].startswith('def foo():'))
