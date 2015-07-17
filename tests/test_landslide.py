@@ -115,7 +115,7 @@ class GeneratorTest(BaseTestCase):
             pass
 
         g.register_macro(SampleMacro)
-        self.assertTrue(SampleMacro in g.macros)
+        self.assertTrue(any(isinstance(i, SampleMacro) for i in g.macros))
 
         def plop(foo):
             pass
