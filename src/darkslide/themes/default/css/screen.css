@@ -103,12 +103,15 @@ section {
     margin: 0;
     left: 30px;
     right: 30px;
-    top: 100px;
+    top: 135px;
     bottom: 20px;
     overflow: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+section > * {
+    overflow: hidden;
 }
 section img.align-center {
     display: block;
@@ -138,9 +141,7 @@ pre, code, tt {
 pre, .gist .gist-file .gist-data {
     font-size: 24px;
     max-height: 485px;
-    padding-top: 0.25em !important;
-    padding-right: 0.5em !important;
-    padding-left: 0.5em !important;
+    padding: 0 0.5em !important;
     margin: 0;
     overflow: auto;
 }
@@ -150,17 +151,22 @@ pre, .gist .gist-file .gist-data {
     width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-    background: -webkit-gradient(linear, left bottom, left top, from(#777), to(#bbd));
+    background: -webkit-gradient(linear, left bottom, left top, from(#eee), to(#fefefe));
+    border: 1px solid #888;
     -webkit-border-radius: 1ex;
 }
 ::-webkit-scrollbar-corner {
     background: #dedede;
 }
+::-webkit-scrollbar {
+    background: #888;
+    border-radius: 5px;
+}
 li {
     padding: 10px 0;
 }
 li pre {
-    margin-left: 0em;
+    margin: 0;
 }
 .slide header:only-child h1 {
     line-height: 180%;
@@ -402,7 +408,12 @@ div.slide div.presenter_notes {
 .huge {
     font-size: 150%;
 }
-
+.qr svg {
+    background: white;
+}
+.qr {
+    text-align: center;
+}
 /* ======================================
                  FONTS
 ====================================== */
@@ -454,8 +465,7 @@ html * {
     rendering-intent: auto;
 }
 */
-.base03 { color: #002b36;
-}
+.base03 { color: #002b36; }
 .base02 { color: #073642; }
 .base01 { color: #586e75; }
 .base00 { color: #657b83; }
@@ -514,10 +524,17 @@ body.expose .slide.current:hover {
     background: #002b36;
 }
 ::-webkit-scrollbar-thumb {
+    background: #fdf6e3;
+    border-color: #eee8d5;
+}
+::-webkit-scrollbar {
     background: #eee8d5;
 }
 ::-webkit-scrollbar-corner {
     background: #fdf6e3;
+}
+.qr svg {
+    box-shadow: inset 0 0 10px #eee8d5;
 }
 div.slides, body.expose div.slides.nocontext,
 body.expose .slide.current,

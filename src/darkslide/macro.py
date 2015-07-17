@@ -184,7 +184,7 @@ class QRMacro(Macro):
         classes = []
 
         def encoder(match):
-            qr = qrcode.QRCode(1, error_correction=qrcode.ERROR_CORRECT_L)
+            qr = qrcode.QRCode(1, error_correction=qrcode.ERROR_CORRECT_L, box_size=45)
             qr.add_data(match.group(1))
             buff = StringIO()
             buff.write('<p class="qr">')
