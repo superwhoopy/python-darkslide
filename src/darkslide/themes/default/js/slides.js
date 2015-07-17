@@ -287,8 +287,8 @@ function main() {
 
     var computeScale = function() {
         var cSlide = document.getElementsByClassName('current')[0];
-        var sx = cSlide.clientWidth / window.innerWidth;
-        var sy = cSlide.clientHeight / window.innerHeight;
+        var sx = (cSlide.clientWidth + 20) / window.innerWidth;
+        var sy = (cSlide.clientHeight + 20) / window.innerHeight;
         return 1 / Math.max(sy, sx);
     };
 
@@ -377,6 +377,11 @@ function main() {
     };
 
     var handleBodyKeyDown = function(event) {
+        if (modifierKeyDown && event.keyCode == 80) {
+            setScale(1);
+            showContext();
+            expanded = false;
+        }
         if (modifierKeyDown) {
             return
         }
