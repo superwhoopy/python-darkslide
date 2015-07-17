@@ -56,10 +56,6 @@ div.slide {
 /* Content */
 
 /* render a nice scrollbar in overflowed pre area's */
-::-webkit-scrollbar {
-    height: 8px;
-    width: 8px;
-}
 ::-webkit-scrollbar-thumb {
     background: -webkit-gradient(linear, left bottom, left top, from(#eee), to(#fefefe));
     border: 1px solid #888;
@@ -69,6 +65,8 @@ div.slide {
     background: #dedede;
 }
 ::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
     background: #888;
     border-radius: 5px;
 }

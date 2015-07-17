@@ -61,10 +61,11 @@ body.expose .slide.current:hover {
 }
 ::-webkit-scrollbar-thumb {
     background: #222;
-    border-color: #eee8d5;
+    border-color: #444;
 }
 ::-webkit-scrollbar {
-    background: #eee8d5;
+    background: #444;
+    border-color: #444;
 }
 ::-webkit-scrollbar-corner {
     background: #222;
