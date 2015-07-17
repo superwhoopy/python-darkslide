@@ -339,14 +339,15 @@ class Generator(object):
                 'contents': js_file_obj.read(),
             }
 
-    def get_slide_vars(self, slide_src, source=None):
+    def get_slide_vars(self, slide_src, source=None,
+                       _presenter_notes_re=re.compile(r'<h\d[^>]*>presenter notes</h\d>', re.DOTALL | re.UNICODE | re.IGNORECASE),
+                       _slide_title_re=re.compile(r'(<h(\d+?).*?>(.+?)</h\d>)\s?(.+)?', re.DOTALL | re.UNICODE)):
         """ Computes a single slide template vars from its html source code.
-            Also extracts slide informations for the table of contents.
+            Also extracts slide information for the table of contents.
         """
         presenter_notes = None
 
-        find = re.search(r'<h\d[^>]*>presenter notes</h\d>', slide_src,
-                         re.DOTALL | re.UNICODE | re.IGNORECASE)
+        find = _presenter_notes_re.search(slide_src)
 
         if find:
             if self.presenter_notes:
@@ -354,8 +355,7 @@ class Generator(object):
 
             slide_src = slide_src[:find.start()]
 
-        find = re.search(r'(<h(\d+?).*?>(.+?)</h\d>)\s?(.+)?', slide_src,
-                         re.DOTALL | re.UNICODE)
+        find = _slide_title_re.search(slide_src)
 
         if not find:
             header = level = title = None
