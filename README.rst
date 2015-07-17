@@ -311,7 +311,17 @@ Add a QR Code to your presentation by using the ``.qr`` keyword:
 
 ::
 
-    .qr: 450|http://github.com/adamzap/landslide
+    .qr: http://github.com/adamzap/landslide
+
+Footnote
+--------
+
+Add footnote to the current and all the following presentations
+
+::
+
+    .footnote: Slides available at http://blog.ionelmc.ro/presentations/
+
 
 Presenter Notes
 ===============

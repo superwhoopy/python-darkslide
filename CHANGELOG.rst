@@ -2,11 +2,21 @@
 Changelog
 =========
 
-Darkslide v1.2.3 (???)
-======================
+Darkslide v2.0.0 2015-07-17)
+============================
 
 - Fix display of RST image target links.
 - Add cmd line option to print version.
+- Rewrote the default theme (solarized colors)
+- Overhauled the abyss theme, improved the coloring.
+- Removed all the other themes (they are ugly and broken anyway) (**backwards incompatible**).
+- Fixes for print css.
+- Added support for two new css files: ``base.css`` and ``theme.css``. This
+  makes reusing styles acros themes and kinds of display (print/screen) more easy.
+- Expanded mode is now activated by default.
+- Changed macros to use compiled regexes.
+- Added a footnote macro.
+- Changed QR macro to use ``qrcode`` library. Now it's rendered to SVG. The size is removed (**backwards incompatible**).
 
 Darkslide v1.2.2 (2015-05-22)
 =============================
