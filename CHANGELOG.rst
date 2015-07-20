@@ -10,6 +10,11 @@ Darkslide v2.0.1 2015-07-19)
 Darkslide v2.0.0 2015-07-17)
 ============================
 
+- Added color classes in the abyss theme.
+
+Darkslide v2.0.0 2015-07-17)
+============================
+
 - Fix display of RST image target links.
 - Add cmd line option to print version.
 - Rewrote the default theme (solarized colors)
