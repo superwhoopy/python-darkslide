@@ -2,15 +2,16 @@
 Changelog
 =========
 
+Darkslide v2.0.2 2015-07-20)
+============================
+
+- Added color classes in the abyss theme.
+- Fixed link underlines in the presenter notes.
+
 Darkslide v2.0.1 2015-07-19)
 ============================
 
 * Don't use Monaco in the ``base.css`` - it's way bigger than Consolas and the other fonts. And Consolas is nice enough.
-
-Darkslide v2.0.0 2015-07-17)
-============================
-
-- Added color classes in the abyss theme.
 
 Darkslide v2.0.0 2015-07-17)
 ============================
