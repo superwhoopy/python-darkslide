@@ -13,6 +13,15 @@ section {
 /* ======================================
                  COLORS
 ====================================== */
+.yellow { color: #b58900; }
+.orange { color: #cb4b16; }
+.red { color: #dc322f; }
+.magenta { color: #d33682; }
+.violet { color: #6c71c4; }
+.blue { color: #268bd2; }
+.cyan { color: #2aa198; }
+.green { color: #859900; }
+
 body {
     background: black;
     color: #eee;
