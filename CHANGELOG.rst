@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Darkslide v2.0.3 (2015-09-08)
+=============================
+
+* Fixed handling for filenames that have non-ascii characters in them.
+
 Darkslide v2.0.2 (2015-07-20)
 =============================
 
