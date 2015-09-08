@@ -74,7 +74,7 @@ class GeneratorTest(BaseTestCase):
         self.assertEqual(len(re.findall('<pre><span', s)), 3)
 
     def test_inputencoding(self):
-        path = os.path.join(DATA_DIR, 'encoding.rst')
+        path = os.path.join(DATA_DIR, 'encoding.txt')
         g = Generator(path, encoding='koi8_r')
         content = g.render()
 
