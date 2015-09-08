@@ -2,53 +2,74 @@
 Darkslide
 =========
 
-| |docs| |travis| |appveyor| |coveralls|
-| |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+.. list-table::
+    :stub-columns: 1
 
-..
-    |landscape| |scrutinizer|
+    * - docs
+      - |docs|
+    * - tests
+      - | |travis| |appveyor| |requires|
+        | |coveralls| |codecov|
+        | |landscape| |scrutinizer| |codacy| |codeclimate|
+    * - package
+      - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
 
 .. |docs| image:: https://readthedocs.org/projects/python-darkslide/badge/?style=flat
     :target: https://readthedocs.org/projects/python-darkslide
     :alt: Documentation Status
 
-.. |travis| image:: http://img.shields.io/travis/ionelmc/python-darkslide/master.png?style=flat
+.. |travis| image:: https://travis-ci.org/ionelmc/python-darkslide.svg?branch=master
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/ionelmc/python-darkslide
 
-.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/ionelmc/python-darkslide?branch=master
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/ionelmc/python-darkslide?branch=master&svg=true
     :alt: AppVeyor Build Status
     :target: https://ci.appveyor.com/project/ionelmc/python-darkslide
 
-.. |coveralls| image:: http://img.shields.io/coveralls/ionelmc/python-darkslide/master.png?style=flat
+.. |requires| image:: https://requires.io/github/ionelmc/python-darkslide/requirements.svg?branch=master
+    :alt: Requirements Status
+    :target: https://requires.io/github/ionelmc/python-darkslide/requirements/?branch=master
+
+.. |coveralls| image:: https://coveralls.io/repos/ionelmc/python-darkslide/badge.svg?branch=master&service=github
     :alt: Coverage Status
     :target: https://coveralls.io/r/ionelmc/python-darkslide
+
+.. |codecov| image:: https://codecov.io/github/ionelmc/python-darkslide/coverage.svg?branch=master
+    :alt: Coverage Status
+    :target: https://codecov.io/github/ionelmc/python-darkslide
 
 .. |landscape| image:: https://landscape.io/github/ionelmc/python-darkslide/master/landscape.svg?style=flat
     :target: https://landscape.io/github/ionelmc/python-darkslide/master
     :alt: Code Quality Status
 
-.. |version| image:: http://img.shields.io/pypi/v/darkslide.png?style=flat
+.. |codacy| image:: https://img.shields.io/codacy/REPLACE_WITH_PROJECT_ID.svg?style=flat
+    :target: https://www.codacy.com/app/ionelmc/python-darkslide
+    :alt: Codacy Code Quality Status
+
+.. |codeclimate| image:: https://codeclimate.com/github/ionelmc/python-darkslide/badges/gpa.svg
+   :target: https://codeclimate.com/github/ionelmc/python-darkslide
+   :alt: CodeClimate Quality Status
+.. |version| image:: https://img.shields.io/pypi/v/darkslide.svg?style=flat
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/darkslide
 
-.. |downloads| image:: http://img.shields.io/pypi/dm/darkslide.png?style=flat
+.. |downloads| image:: https://img.shields.io/pypi/dm/darkslide.svg?style=flat
     :alt: PyPI Package monthly downloads
     :target: https://pypi.python.org/pypi/darkslide
 
-.. |wheel| image:: https://pypip.in/wheel/darkslide/badge.png?style=flat
+.. |wheel| image:: https://img.shields.io/pypi/wheel/darkslide.svg?style=flat
     :alt: PyPI Wheel
     :target: https://pypi.python.org/pypi/darkslide
 
-.. |supported-versions| image:: https://pypip.in/py_versions/darkslide/badge.png?style=flat
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/darkslide.svg?style=flat
     :alt: Supported versions
     :target: https://pypi.python.org/pypi/darkslide
 
-.. |supported-implementations| image:: https://pypip.in/implementation/darkslide/badge.png?style=flat
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/darkslide.svg?style=flat
     :alt: Supported imlementations
     :target: https://pypi.python.org/pypi/darkslide
 
-.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/ionelmc/python-darkslide/master.png?style=flat
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/ionelmc/python-darkslide/master.svg?style=flat
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/ionelmc/python-darkslide/
 

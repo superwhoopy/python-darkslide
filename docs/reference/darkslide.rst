@@ -1,5 +1,5 @@
 darkslide
-=============================
+=========
 
 .. automodule:: darkslide
     :members:
