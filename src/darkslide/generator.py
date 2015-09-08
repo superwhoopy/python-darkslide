@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-
-import os
-import re
 import codecs
 import inspect
+import os
+import re
 import shutil
+import sys
 import tempfile
 from subprocess import Popen
 
@@ -12,8 +12,8 @@ import jinja2
 from six import string_types
 from six.moves import configparser
 
-from . import utils
 from . import macro as macro_module
+from . import utils
 from .parser import Parser
 
 BASE_DIR = os.path.dirname(__file__)
@@ -237,7 +237,7 @@ class Generator(object):
             for entry in source:
                 slides.extend(self.fetch_contents(entry))
         elif os.path.isdir(source):
-            self.log(u"Entering %s" % source)
+            self.log(u"Entering %r" % source)
             entries = os.listdir(source)
             entries.sort()
             for entry in entries:
@@ -248,13 +248,13 @@ class Generator(object):
             except NotImplementedError:
                 return slides
 
-            self.log(u"Adding   %s (%s)" % (source, parser.format))
+            self.log(u"Adding   %r (%s)" % (source, parser.format))
 
             try:
                 with codecs.open(source, encoding=self.encoding) as file:
                     file_contents = file.read()
             except UnicodeDecodeError:
-                self.log(u"Unable to decode source %s: skipping" % source,
+                self.log(u"Unable to decode source %r: skipping" % source,
                          'warning')
             else:
                 inner_slides = re.split(r'<hr.+>', parser.parse(file_contents))
@@ -262,7 +262,7 @@ class Generator(object):
                     slides.append(self.get_slide_vars(inner_slide, source))
 
         if not slides:
-            self.log(u"Exiting  %s: no contents found" % source, 'notice')
+            self.log(u"Exiting  %r: no contents found" % source, 'notice')
 
         return slides
 
@@ -359,7 +359,8 @@ class Generator(object):
             }
 
     def get_slide_vars(self, slide_src, source=None,
-                       _presenter_notes_re=re.compile(r'<h\d[^>]*>presenter notes</h\d>', re.DOTALL | re.UNICODE | re.IGNORECASE),
+                       _presenter_notes_re=re.compile(r'<h\d[^>]*>presenter notes</h\d>',
+                                                      re.DOTALL | re.UNICODE | re.IGNORECASE),
                        _slide_title_re=re.compile(r'(<h(\d+?).*?>(.+?)</h\d>)\s?(.+)?', re.DOTALL | re.UNICODE)):
         """ Computes a single slide template vars from its html source code.
             Also extracts slide information for the table of contents.
@@ -397,8 +398,10 @@ class Generator(object):
         source_dict = {}
 
         if source:
-            source_dict = {'rel_path': source,
-                           'abs_path': os.path.abspath(source)}
+            source_dict = {
+                'rel_path': source.decode(sys.getfilesystemencoding()) if hasattr(source, 'decode') else source,
+                'abs_path': os.path.abspath(source)
+            }
 
         if header or content:
             context.update(
@@ -463,7 +466,7 @@ class Generator(object):
         except Exception as e:
             raise RuntimeError(u"Invalid configuration file: %s" % e)
         config = {}
-        config['source'] = raw_config.get('landslide', 'source')\
+        config['source'] = raw_config.get('landslide', 'source') \
             .replace('\r', '').split('\n')
         if raw_config.has_option('landslide', 'theme'):
             config['theme'] = raw_config.get('landslide', 'theme')
