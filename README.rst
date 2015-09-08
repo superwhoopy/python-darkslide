@@ -10,7 +10,7 @@ Darkslide
     * - tests
       - | |travis| |appveyor| |requires|
         | |coveralls| |codecov|
-        | |landscape| |scrutinizer| |codacy| |codeclimate|
+        | |scrutinizer| |codacy| |codeclimate|
     * - package
       - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
 
@@ -42,13 +42,14 @@ Darkslide
     :target: https://landscape.io/github/ionelmc/python-darkslide/master
     :alt: Code Quality Status
 
-.. |codacy| image:: https://img.shields.io/codacy/REPLACE_WITH_PROJECT_ID.svg?style=flat
+.. |codacy| image:: https://img.shields.io/codacy/5ee39ea7087c472684feca411080ce10.svg?style=flat
     :target: https://www.codacy.com/app/ionelmc/python-darkslide
     :alt: Codacy Code Quality Status
 
 .. |codeclimate| image:: https://codeclimate.com/github/ionelmc/python-darkslide/badges/gpa.svg
    :target: https://codeclimate.com/github/ionelmc/python-darkslide
    :alt: CodeClimate Quality Status
+
 .. |version| image:: https://img.shields.io/pypi/v/darkslide.svg?style=flat
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/darkslide
