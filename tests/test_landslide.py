@@ -77,7 +77,7 @@ def test_unicode():
 
 
 def test_inputencoding():
-    path = os.path.join(DATA_DIR, 'encoding.txt')
+    path = os.path.join(DATA_DIR, 'encoding.rst')
     g = Generator(path, encoding='koi8_r')
     content = g.render()
 
@@ -89,7 +89,7 @@ def test_inputencoding():
         file_contents = file_object.read()
     # check that the file was properly encoded in utf_8
     assert u'русский' in file_contents
-    
+
 
 def test_get_template_vars():
     g = Generator(os.path.join(DATA_DIR, 'test.md'))
