@@ -82,13 +82,26 @@ def test_inputencoding():
     content = g.render()
 
     # check that the string is utf_8
-    print(repr(content))
     assert u'русский' in content
     g.execute()
     with codecs.open(g.destination_file, encoding='utf_8') as file_object:
         file_contents = file_object.read()
     # check that the file was properly encoded in utf_8
     assert u'русский' in file_contents
+
+
+def test_weird_filename():
+    path = os.path.join(DATA_DIR, 'căcăneață.rst')
+    g = Generator(path)
+    content = g.render()
+
+    # check that the string is utf_8
+    assert u'țară' in content
+    g.execute()
+    with codecs.open(g.destination_file, encoding='utf_8') as file_object:
+        file_contents = file_object.read()
+    # check that the file was properly encoded in utf_8
+    assert u'țară' in file_contents
 
 
 def test_get_template_vars():
