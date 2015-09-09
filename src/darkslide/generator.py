@@ -9,9 +9,10 @@ import tempfile
 from subprocess import Popen
 
 import jinja2
-from six import string_types
-from six.moves import configparser
 
+from six import string_types, binary_type
+
+from six.moves import configparser
 from . import macro as macro_module
 from . import utils
 from .parser import Parser
@@ -399,7 +400,8 @@ class Generator(object):
 
         if source:
             source_dict = {
-                'rel_path': source.decode(sys.getfilesystemencoding()) if hasattr(source, 'decode') else source,
+                'rel_path': source.decode(sys.getfilesystemencoding(), 'ignore') if isinstance(source,
+                                                                                               binary_type) else source,
                 'abs_path': os.path.abspath(source)
             }
 
