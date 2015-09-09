@@ -91,7 +91,7 @@ def test_inputencoding():
 
 
 def test_weird_filename():
-    path = os.path.join(DATA_DIR, 'căcăneață.rst')
+    path = os.path.join(DATA_DIR, u'căcăneață.rst')
     g = Generator(path)
     content = g.render()
 
