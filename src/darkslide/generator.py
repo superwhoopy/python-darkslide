@@ -28,8 +28,7 @@ class Generator(object):
        folder or a configuration file and provides methods to render them as a
        presentation.
     """
-    DEFAULT_DESTINATION = 'presentation.html'
-    default_macros = [
+    default_macros = (
         macro_module.CodeHighlightingMacro,
         macro_module.EmbedImagesMacro,
         macro_module.FixImagePathsMacro,
@@ -37,9 +36,7 @@ class Generator(object):
         macro_module.NotesMacro,
         macro_module.QRMacro,
         macro_module.FooterMacro,
-    ]
-    user_css = []
-    user_js = []
+    )
 
     def __init__(self, source, **kwargs):
         """ Configures this generator. Available ``args`` are:
@@ -59,6 +56,8 @@ class Generator(object):
             - ``theme``: path to the theme to use for this presentation
             - ``verbose``: enables verbose output
         """
+        self.user_css = []
+        self.user_js = []
         self.copy_theme = kwargs.get('copy_theme', False)
         self.debug = kwargs.get('debug', False)
         self.destination_file = kwargs.get('destination_file',
@@ -78,10 +77,6 @@ class Generator(object):
         self.num_slides = 0
         self.__toc = []
 
-        # macros registering
-        self.macros = []
-        self.register_macro(*self.default_macros)
-
         if self.direct:
             # Only output html in direct output mode, not log messages
             self.verbose = False
@@ -90,6 +85,7 @@ class Generator(object):
             raise IOError("Source file/directory %s does not exist" % source)
 
         if source.endswith('.cfg'):
+            self.work_dir = os.path.dirname(source)
             config = self.parse_config(source)
             self.source = config.get('source')
             if not self.source:
@@ -106,6 +102,7 @@ class Generator(object):
             self.linenos = self.linenos_check(config.get('linenos'))
         else:
             self.source = source
+            self.work_dir = '.'
             source_abspath = os.path.abspath(source)
 
         if not os.path.isdir(source_abspath):
@@ -127,7 +124,12 @@ class Generator(object):
                           "destination")
 
         self.theme_dir = self.find_theme_dir(self.theme, self.copy_theme)
+        self.destination_dir = os.path.dirname(self.destination_file)
         self.template_file = self.get_template_file()
+
+        # macros registering
+        self.macros = []
+        self.register_macro(*self.default_macros)
 
     def add_user_css(self, css_list):
         """ Adds supplementary user css files to the presentation. The
@@ -143,7 +145,7 @@ class Generator(object):
                 with codecs.open(css_path, encoding=self.encoding) as css_file:
                     self.user_css.append({
                         'path_url': utils.get_path_url(css_path,
-                                                       self.relative),
+                                                       self.relative and self.destination_dir),
                         'contents': css_file.read(),
                     })
 
@@ -167,7 +169,7 @@ class Generator(object):
                                      encoding=self.encoding) as js_file:
                         self.user_js.append({
                             'path_url': utils.get_path_url(js_path,
-                                                           self.relative),
+                                                           self.relative and self.destination_dir),
                             'contents': js_file.read(),
                         })
 
@@ -228,39 +230,42 @@ class Generator(object):
             raise IOError("Cannot find base.html in default theme")
         return os.path.join(default_dir, 'base.html')
 
-    def fetch_contents(self, source):
+    def fetch_contents(self, source, work_dir):
         """ Recursively fetches Markdown contents from a single file or
-            directory containing itself Markdown files.
+            directory containing itself Markdown/RST files.
         """
         slides = []
 
         if type(source) is list:
             for entry in source:
-                slides.extend(self.fetch_contents(entry))
-        elif os.path.isdir(source):
-            self.log(u"Entering %r" % source)
-            entries = os.listdir(source)
-            entries.sort()
-            for entry in entries:
-                slides.extend(self.fetch_contents(os.path.join(source, entry)))
+                slides.extend(self.fetch_contents(entry, work_dir))
         else:
-            try:
-                parser = Parser(os.path.splitext(source)[1], self.encoding, self.extensions)
-            except NotImplementedError:
-                return slides
-
-            self.log(u"Adding   %r (%s)" % (source, parser.format))
-
-            try:
-                with codecs.open(source, encoding=self.encoding) as file:
-                    file_contents = file.read()
-            except UnicodeDecodeError:
-                self.log(u"Unable to decode source %r: skipping" % source,
-                         'warning')
+            source = os.path.normpath(os.path.join(work_dir, source))
+            if os.path.isdir(source):
+                self.log(u"Entering %r" % source)
+                entries = os.listdir(source)
+                entries.sort()
+                for entry in entries:
+                    slides.extend(self.fetch_contents(entry, source))
             else:
-                inner_slides = re.split(r'<hr.+>', parser.parse(file_contents))
-                for inner_slide in inner_slides:
-                    slides.append(self.get_slide_vars(inner_slide, source))
+                try:
+                    parser = Parser(os.path.splitext(source)[1], self.encoding, self.extensions)
+                except NotImplementedError as exc:
+                    self.log(u"Failed   %r: %r" % (source, exc))
+                    return slides
+
+                self.log(u"Adding   %r (%s)" % (source, parser.format))
+
+                try:
+                    with codecs.open(source, encoding=self.encoding) as file:
+                        file_contents = file.read()
+                except UnicodeDecodeError:
+                    self.log(u"Unable to decode source %r: skipping" % source,
+                             'warning')
+                else:
+                    inner_slides = re.split(r'<hr.+>', parser.parse(file_contents))
+                    for inner_slide in inner_slides:
+                        slides.append(self.get_slide_vars(inner_slide, source))
 
         if not slides:
             self.log(u"Exiting  %r: no contents found" % source, 'notice')
@@ -303,7 +308,7 @@ class Generator(object):
                 raise IOError(u"Cannot find base.css in default theme")
         with codecs.open(base_css, encoding=self.encoding) as css_file:
             css['base'] = {
-                'path_url': utils.get_path_url(base_css, self.relative),
+                'path_url': utils.get_path_url(base_css, self.relative and self.destination_dir),
                 'contents': css_file.read(),
             }
 
@@ -314,7 +319,7 @@ class Generator(object):
                 raise IOError(u"Cannot find print.css in default theme")
         with codecs.open(print_css, encoding=self.encoding) as css_file:
             css['print'] = {
-                'path_url': utils.get_path_url(print_css, self.relative),
+                'path_url': utils.get_path_url(print_css, self.relative and self.destination_dir),
                 'contents': css_file.read(),
             }
 
@@ -325,7 +330,7 @@ class Generator(object):
                 raise IOError(u"Cannot find screen.css in default theme")
         with codecs.open(screen_css, encoding=self.encoding) as css_file:
             css['screen'] = {
-                'path_url': utils.get_path_url(screen_css, self.relative),
+                'path_url': utils.get_path_url(screen_css, self.relative and self.destination_dir),
                 'contents': css_file.read(),
             }
 
@@ -336,7 +341,7 @@ class Generator(object):
                 raise IOError(u"Cannot find theme.css in default theme")
         with codecs.open(theme_css, encoding=self.encoding) as css_file:
             css['theme'] = {
-                'path_url': utils.get_path_url(theme_css, self.relative),
+                'path_url': utils.get_path_url(theme_css, self.relative and self.destination_dir),
                 'contents': css_file.read(),
             }
 
@@ -355,7 +360,7 @@ class Generator(object):
                 raise IOError(u"Cannot find slides.js in default theme")
         with codecs.open(js_file, encoding=self.encoding) as js_file_obj:
             return {
-                'path_url': utils.get_path_url(js_file, self.relative),
+                'path_url': utils.get_path_url(js_file, self.relative and self.destination_dir),
                 'contents': js_file_obj.read(),
             }
 
@@ -505,7 +510,7 @@ class Generator(object):
     def register_macro(self, *macros):
         """ Registers macro classes passed a method arguments.
         """
-        macro_options = {'relative': self.relative, 'linenos': self.linenos}
+        macro_options = {'relative': self.relative, 'linenos': self.linenos, 'destination_dir': self.destination_dir}
         for m in macros:
             if inspect.isclass(m) and issubclass(m, macro_module.Macro):
                 self.macros.append(m(logger=self.logger, embed=self.embed, options=macro_options))
@@ -518,7 +523,7 @@ class Generator(object):
         """
         with codecs.open(self.template_file, encoding=self.encoding) as template_src:
             template = jinja2.Template(template_src.read())
-        slides = self.fetch_contents(self.source)
+        slides = self.fetch_contents(self.source, self.work_dir)
         context = self.get_template_vars(slides)
 
         html = template.render(context)
@@ -566,6 +571,9 @@ class Generator(object):
         if self.file_type == 'pdf':
             self.write_pdf(html)
         else:
+            dirname = os.path.dirname(self.destination_file)
+            if dirname and not os.path.exists(dirname):
+                os.makedirs(dirname)
             with codecs.open(self.destination_file, 'w',
                              encoding='utf_8') as outfile:
                 outfile.write(html)

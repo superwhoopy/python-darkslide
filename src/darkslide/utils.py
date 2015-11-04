@@ -8,10 +8,10 @@ import mimetypes
 def get_path_url(path, relative=False):
     """ Returns an absolute or relative path url given a path
     """
-    if relative:
-        return os.path.relpath(path)
-    else:
+    if relative is False:
         return 'file://%s' % os.path.abspath(path)
+    else:
+        return os.path.relpath(path, relative)
 
 
 def encode_image_from_url(url, source_path):
