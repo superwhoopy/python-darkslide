@@ -119,9 +119,11 @@ div.slide {
     text-align: right;
     min-width: 20px;
 }
-.sidebar a {
+.sidebar a, .sidebar a:hover {
     display: block;
-    text-decoration: none;
+    text-decoration: none !important;
+    text-shadow: none !important;
+    background: none !important;
     border-bottom: none;
     padding: 4px 0;
 }
