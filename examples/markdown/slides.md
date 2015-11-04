@@ -1,5 +1,7 @@
 # Title Slide
 
+.footer: [default theme](.) [abyss theme](abyss.html)
+
 ---
 
 # Paragraphs
