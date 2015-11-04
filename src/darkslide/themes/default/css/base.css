@@ -1,8 +1,9 @@
-header h1, header h2, header h3, header h4, header h5, header h6,
+h1, h2, h3, h4, h5, h6,
 p, body, header {
     padding: 0;
     margin: 0;
 }
+
 div.slide {
     position: absolute;
     overflow: hidden;
