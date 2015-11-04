@@ -2,6 +2,20 @@
 Changelog
 =========
 
+Darkslide v2.1.0 (2015-10-05)
+=============================
+
+* Added demo links.
+* Fixed options handling. Options from command line now will actually work if a cfg file is used.
+* Corrected relative paths handling:
+
+  - paths in sources are now relative to the cfg file (previously they were relative to whatever was cwd).
+  - relative option now correctly works when destination file is not in cwd.
+* Fixed layout of slides with many headering (no more paddings for headings, all root elements are spread out evenly
+  anyway).
+* Fixed bad styling of ToC (and probably other things in the sidebar).
+* Fixed ToC links (contributed by Cyrille Pontvieux).
+
 Darkslide v2.0.4 (2015-09-09)
 =============================
 
