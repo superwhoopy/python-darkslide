@@ -91,15 +91,15 @@ class Generator(object):
             if not self.source:
                 raise IOError('unable to fetch a valid source from config')
             source_abspath = os.path.abspath(self.source[0])
-            self.destination_file = config.get('destination', self.DEFAULT_DESTINATION)
-            self.embed = config.get('embed', False)
-            self.relative = config.get('relative', False)
-            self.copy_theme = config.get('copy_theme', False)
-            self.extensions = config.get('extensions', '')
-            self.theme = config.get('theme', 'default')
+            self.destination_file = config.get('destination', self.destination_file)
+            self.embed = config.get('embed', self.embed)
+            self.relative = config.get('relative', self.relative)
+            self.copy_theme = config.get('copy_theme', self.copy_theme)
+            self.extensions = config.get('extensions', self.extensions)
+            self.theme = config.get('theme', self.theme)
             self.add_user_css(config.get('css', []))
             self.add_user_js(config.get('js', []))
-            self.linenos = self.linenos_check(config.get('linenos'))
+            self.linenos = self.linenos_check(config.get('linenos', self.linenos))
         else:
             self.source = source
             self.work_dir = '.'
