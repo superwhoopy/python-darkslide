@@ -2,7 +2,7 @@
 Changelog
 =========
 
-Darkslide v2.2.0 (2015-10-05)
+Darkslide v2.2.0 (2015-10-06)
 =============================
 
 * Now macro failures abort rendering. Previously they would just log a message that you'd probably woulnd't notice.
