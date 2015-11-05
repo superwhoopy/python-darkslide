@@ -1,28 +1,24 @@
 # -*- coding: utf-8 -*-
-
 import os
 import re
 import sys
-
 try:
     from io import BytesIO as StringIO
 except ImportError:
     from StringIO import StringIO
 
 import pygments
-from pygments.lexers import get_lexer_by_name
-from pygments.formatters import HtmlFormatter
-from six.moves import html_entities
 import qrcode
+from pygments.formatters import HtmlFormatter
+from pygments.lexers import get_lexer_by_name
 from qrcode.image.svg import SvgPathImage
+from six.moves import html_entities
 
 from . import utils
 
 
 class Macro(object):
     """Base class for altering slide HTML during presentation generation"""
-
-
 
     def __init__(self, logger=sys.stdout, embed=False, options=None):
         self.logger = logger
