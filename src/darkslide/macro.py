@@ -22,7 +22,7 @@ from . import utils
 class Macro(object):
     """Base class for altering slide HTML during presentation generation"""
 
-    options = {}
+
 
     def __init__(self, logger=sys.stdout, embed=False, options=None):
         self.logger = logger
@@ -31,6 +31,8 @@ class Macro(object):
             if not isinstance(options, dict):
                 raise ValueError(u'Macro options must be a dict instance')
             self.options = options
+        else:
+            self.options = {}
 
     def process(self, content, source=None, context=None):
         """Generic processor (does actually nothing)"""
