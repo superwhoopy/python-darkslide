@@ -128,7 +128,7 @@ class FixImagePathsMacro(Macro):
         if self.embed:
             return content, classes
 
-        base_path = utils.get_path_url(source, self.options.get('relative') and self.options['destination_dir'])
+        base_path = utils.get_path_url(source, self.options['relative'] and self.options['destination_dir'])
         base_url = os.path.split(base_path)[0]
 
         images = self.macro_re.findall(content)
