@@ -95,7 +95,7 @@ def _parse_options():
         "-r", "--relative",
         action="store_true",
         dest="relative",
-        help="Make your presentation asset links relative to current pwd; "
+        help="Make your presentation asset links relative to current working dir; "
              "This may be useful if you intend to publish your html "
              "presentation online.",
         default=False,
