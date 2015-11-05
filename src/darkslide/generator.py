@@ -100,6 +100,7 @@ class Generator(object):
             self.add_user_css(config.get('css', []))
             self.add_user_js(config.get('js', []))
             self.linenos = self.linenos_check(config.get('linenos', self.linenos))
+            self.math_output = config.get('math_output', self.math_output)
         else:
             self.source = source
             self.work_dir = '.'
