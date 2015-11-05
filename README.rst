@@ -76,6 +76,8 @@ Darkslide
 
 Lightweight markup language-based html5 slideshow generator. Forked from landslide.
 
+Demo: http://ionelmc.github.io/python-darkslide/
+
 Overview
 ========
 
