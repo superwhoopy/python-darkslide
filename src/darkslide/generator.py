@@ -97,6 +97,7 @@ class Generator(object):
             self.copy_theme = config.get('copy_theme', self.copy_theme)
             self.extensions = config.get('extensions', self.extensions)
             self.theme = config.get('theme', self.theme)
+            self.destination_dir = os.path.dirname(self.destination_file)
             self.add_user_css(config.get('css', []))
             self.add_user_js(config.get('js', []))
             self.linenos = self.linenos_check(config.get('linenos', self.linenos))
@@ -104,6 +105,8 @@ class Generator(object):
         else:
             self.source = source
             self.work_dir = '.'
+            self.destination_dir = os.path.dirname(self.destination_file)
+
             source_abspath = os.path.abspath(source)
 
         if not os.path.isdir(source_abspath):
@@ -125,7 +128,6 @@ class Generator(object):
                           "destination")
 
         self.theme_dir = self.find_theme_dir(self.theme, self.copy_theme)
-        self.destination_dir = os.path.dirname(self.destination_file)
         self.template_file = self.get_template_file()
 
         # macros registering
