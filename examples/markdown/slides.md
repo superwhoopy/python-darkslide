@@ -1,6 +1,6 @@
 # Title Slide
 
-.footer: [default theme](.) | [abyss theme](abyss.html) | [github](https://github.com/ionelmc/python-darkslide)
+.footer: [default theme](.) | [abyss theme](abyss.html) | [void theme](void.html) | [github](https://github.com/ionelmc/python-darkslide)
 
 ---
 

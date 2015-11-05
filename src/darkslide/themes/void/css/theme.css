@@ -1,0 +1,107 @@
+/* ======================================
+                 FONTS
+====================================== */
+
+h1, h2, h3, h4, h5, h6,
+body, header {
+    font-family: 'Segoe UI', 'Verdana', sans-serif;
+}
+header h1, header h2, header h3, header h4, header h5, header h6 {
+    font-size: 90%;
+}
+section {
+    font: 28px 'Palatino', 'Palatino Linotype', 'URW Palladio L', 'Century Schoolbook L', 'Georgia', serif;
+}
+
+/* ======================================
+                 COLORS
+====================================== */
+.yellow { color: #b58900; }
+.orange { color: #cb4b16; }
+.red { color: #dc322f; }
+.magenta { color: #d33682; }
+.violet { color: #6c71c4; }
+.blue { color: #268bd2; }
+.cyan { color: #2aa198; }
+.green { color: #859900; }
+
+body {
+    background: black;
+    color: #eee;
+}
+blockquote {
+    padding: 1ex;
+    margin-left: 0px;
+    border-left: 1em solid #333;
+}
+footer {
+    color: #aaa;
+}
+a, a:hover {
+    color: #268bd2;
+    padding: 0;
+}
+a:hover {
+    color: #2aa198;
+}
+code, tt.docutils.literal {
+    color: #6c71c4;
+}
+div.slide {
+  border-radius: 20px;
+  border: 2px solid #aaa;
+}
+body.expose div.slide:hover {
+    box-shadow: 0 0 0 15px #268bd2;
+}
+body.expose .slide.current {
+    box-shadow: 0 0 0 30px #b58900;
+}
+body.expose .slide.current:hover {
+    box-shadow: 0 0 0 15px #268bd2, 0 0 0 30px #b58900;
+}
+.presenter_notes {
+    background: #eee;
+    color: #222;
+}
+::-webkit-scrollbar-thumb {
+    background: #222;
+    border-color: #444;
+}
+::-webkit-scrollbar {
+    background: #444;
+    border-color: #444;
+}
+::-webkit-scrollbar-corner {
+    background: #222;
+}
+/* See: http://stylishthemes.github.io/GitHub-Dark/ */
+/* Synic syntax highlighting */
+pre pre:not(.diff-line-pre),pre table{background:#000!important;color:#fffff0!important;}
+pre .hll{background-color:#ffc!important;}
+pre .cp{color:#ffa0a0!important;}
+pre .gd{color:#add8e6!important;background-color:#e0ffff!important;}
+pre .ge{color:#fffff0!important;text-decoration:underline!important;}
+pre .gi{color:#00f!important;background-color:#e0ffff!important;}
+pre .go{color:#008b8b!important;}
+pre .ni{color:#daa520!important;}
+pre .ow{color:#8673e8!important;}
+pre .c,pre .cm,pre .c1,pre .cs{color:#708090!important;}
+pre .err,pre .g,pre .l,pre .n,pre .o,pre .x,pre .p,pre .gp,
+pre .gs,pre .ld,pre .nb,pre .nc,pre .nd,pre .nn,pre .nx,pre .py,
+pre .w,pre .bp{color:#fffff0!important;}
+pre .k,pre .kc,pre .kd,pre .kn,pre .kp,pre .kr,
+pre .nt{color:#f0e68c!important;}
+pre .gr,pre .gt{color:red!important;background-color:#faf0e6!important;border-radius:2px;}
+pre .gh,pre .gu{color:#ee0!important;}
+pre .kt,pre .ne,pre .nl{color:#ffdead!important;}
+pre .m,pre .no,pre .mf,pre .mh,pre .mi,pre .mo,
+pre .il{color:#cdb7b5!important;}
+pre .s,pre .sb,pre .sc,pre .sd,pre .s2,pre .se,pre .sh,pre .si,
+pre .sx,pre .sr,pre .s1,pre .ss{color:#9ac0cd!important;}
+pre .na,pre .nf,pre .nv,pre .vc,pre .vg,
+pre .vi{color:#68838b!important;font-weight:700!important;}
+
+.white {
+  background: white;
+}
