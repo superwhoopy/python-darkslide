@@ -243,7 +243,7 @@ def test_embed_images_macro_process():
 
 def test_fix_image_paths_macro_process():
     base_dir = os.path.join(DATA_DIR, 'test.md')
-    m = macro.FixImagePathsMacro(logtest, False)
+    m = macro.FixImagePathsMacro(logtest, False, options={"relative": False})
     content, classes = m.process('<img src="img.png"/>', base_dir)
     assert re.match(r'<img src="file://.*?[\\/]img.png" */>', content), content
 
