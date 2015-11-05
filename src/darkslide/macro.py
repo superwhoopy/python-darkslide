@@ -115,7 +115,6 @@ class EmbedImagesMacro(Macro):
 class FixImagePathsMacro(Macro):
     """Replaces html image paths with fully qualified absolute urls"""
 
-    relative = False
     macro_re = re.compile(
         r'<img.*?src="(?!https?://|file://)(.*?)"'
         r'|<object[^<>]+?data="(?!http://)(.*?)"[^<>]+?type="image/svg\+xml"',
@@ -203,7 +202,6 @@ class FooterMacro(Macro):
 
     def process(self, content, source=None, context=None):
         classes = []
-        assert context is not None
 
         def save(match):
             self.footer = match.group(1)
