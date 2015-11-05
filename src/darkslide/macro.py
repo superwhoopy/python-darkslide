@@ -182,13 +182,11 @@ class QRMacro(Macro):
         classes = []
 
         def encoder(match):
-            qr = qrcode.QRCode(1, error_correction=qrcode.ERROR_CORRECT_L, box_size=45)
+            qr = qrcode.QRCode(1, error_correction=qrcode.ERROR_CORRECT_L, box_size=40)
             qr.add_data(match.group(1))
             buff = StringIO()
-            buff.write('<p class="qr">')
             qr.make_image(image_factory=SvgPathImage).save(buff)
-            buff.write('</p>')
-            return buff.getvalue()
+            return '<p class="qr">%s</p>' % buff.getvalue().decode('utf-8')
 
         new_content = self.macro_re.sub(encoder, content)
 
