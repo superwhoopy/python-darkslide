@@ -10,7 +10,7 @@ Darkslide
     * - tests
       - | |travis| |appveyor| |requires|
         | |coveralls| |codecov|
-        | |scrutinizer| |codacy| |codeclimate|
+        | |landscape| |scrutinizer| |codacy| |codeclimate|
     * - package
       - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
 
@@ -67,7 +67,7 @@ Darkslide
     :target: https://pypi.python.org/pypi/darkslide
 
 .. |supported-implementations| image:: https://img.shields.io/pypi/implementation/darkslide.svg?style=flat
-    :alt: Supported imlementations
+    :alt: Supported implementations
     :target: https://pypi.python.org/pypi/darkslide
 
 .. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/ionelmc/python-darkslide/master.svg?style=flat
