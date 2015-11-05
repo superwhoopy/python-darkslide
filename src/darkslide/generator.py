@@ -367,7 +367,7 @@ class Generator(object):
                 'contents': js_file_obj.read(),
             }
 
-    def get_slide_vars(self, slide_src, source=None,
+    def get_slide_vars(self, slide_src, source,
                        _presenter_notes_re=re.compile(r'<h\d[^>]*>presenter notes</h\d>',
                                                       re.DOTALL | re.UNICODE | re.IGNORECASE),
                        _slide_title_re=re.compile(r'(<h(\d+?).*?>(.+?)</h\d>)\s?(.+)?', re.DOTALL | re.UNICODE)):
@@ -496,7 +496,7 @@ class Generator(object):
             config['js'] = raw_config.get('landslide', 'js').replace('\r', '').split('\n')
         return config
 
-    def process_macros(self, content, source=None, context=None):
+    def process_macros(self, content, source, context):
         """ Processed all macros.
         """
         classes = []

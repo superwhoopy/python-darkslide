@@ -59,7 +59,7 @@ def test_get_toc():
 
 def test_get_slide_vars():
     g = Generator(os.path.join(DATA_DIR, 'test.md'))
-    svars = g.get_slide_vars("<h1>heading</h1>\n<p>foo</p>\n<p>bar</p>\n")
+    svars = g.get_slide_vars("<h1>heading</h1>\n<p>foo</p>\n<p>bar</p>\n", '')
     assert svars['title'] == 'heading'
     assert svars['level'] == 1
     assert svars['header'] == '<h1>heading</h1>'
@@ -116,12 +116,12 @@ def test_get_template_vars():
 def test_process_macros():
     g = Generator(os.path.join(DATA_DIR, 'test.md'))
     # Notes
-    r = g.process_macros('<p>foo</p>\n<p>.notes: bar</p>\n<p>baz</p>')
+    r = g.process_macros('<p>foo</p>\n<p>.notes: bar</p>\n<p>baz</p>', '', {})
     assert r[0].find('<p class="notes">bar</p>') == 11
     assert r[1] == [u'has_notes']
     # FXs
     content = '<p>foo</p>\n<p>.fx: blah blob</p>\n<p>baz</p>'
-    r = g.process_macros(content)
+    r = g.process_macros(content, '', {})
     assert r[0] == '<p>foo</p>\n<p>baz</p>'
     assert r[1][0] == 'blah'
     assert r[1][1] == 'blob'
@@ -145,7 +145,7 @@ def test_register_macro():
 def test_presenter_notes():
     g = Generator(os.path.join(DATA_DIR, 'test.md'))
     svars = g.get_slide_vars("<h1>heading</h1>\n<p>foo</p>\n"
-                             "<h1>Presenter Notes</h1>\n<p>bar</p>\n")
+                             "<h1>Presenter Notes</h1>\n<p>bar</p>\n", '')
     assert svars['presenter_notes'] == "<p>bar</p>"
 
     # Check that presenter notes work even if the slide has no heading.
@@ -153,14 +153,14 @@ def test_presenter_notes():
 
     g = Generator(os.path.join(DATA_DIR, 'test.md'))
     svars = g.get_slide_vars("<p>foo</p>\n"
-                             "<h1>Presenter Notes</h1>\n<p>bar</p>\n")
+                             "<h1>Presenter Notes</h1>\n<p>bar</p>\n", '')
 
 
 def test_skip_presenter_notes():
     g = Generator(os.path.join(DATA_DIR, 'test.md'),
                   presenter_notes=False)
     svars = g.get_slide_vars("<h1>heading</h1>\n<p>foo</p>\n"
-                             "<h1>Presenter Notes</h1>\n<p>bar</p>\n")
+                             "<h1>Presenter Notes</h1>\n<p>bar</p>\n", '')
     assert svars['presenter_notes'] == None
 
 
