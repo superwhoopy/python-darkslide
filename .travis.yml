@@ -32,7 +32,7 @@ before_install:
       echo "Host github.com" >> ~/.ssh/config
       echo "  IdentityFile ~/.ssh/publish-key" >> ~/.ssh/config
       git --version
-      git remote set-url origin git@github.com:ionelmc/sphinx-py3doc-enhanced-theme.git
+      git remote set-url origin git@github.com:ionelmc/python-darkslide.git
       git fetch origin -f gh-pages:gh-pages
     fi
   - python --version
