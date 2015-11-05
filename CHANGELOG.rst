@@ -2,6 +2,16 @@
 Changelog
 =========
 
+Darkslide v2.2.0 (2015-10-05)
+=============================
+
+* Now macro failures abort rendering. Previously they would just log a message that you'd probably woulnd't notice.
+* Fixed broken handling where you have css/js in the cfg file.
+* Allowed setting the math_output option in the cfg file.
+* Fixed encoding issues in the QR macro.
+* Added back the old theme with completely black background (as "void").
+* Tweak the faux underlines to look better.
+
 Darkslide v2.1.0 (2015-10-05)
 =============================
 
