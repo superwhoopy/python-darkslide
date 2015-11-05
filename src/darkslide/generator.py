@@ -501,13 +501,9 @@ class Generator(object):
         """
         classes = []
         for macro in self.macros:
-            try:
-                content, add_classes = macro.process(content, source, context)
-                if add_classes:
-                    classes += add_classes
-            except Exception as e:
-                self.log(u"%s processing failed in %s: %s"
-                         % (macro, source, e))
+            content, add_classes = macro.process(content, source, context)
+            if add_classes:
+                classes += add_classes
         return content, classes
 
     def register_macro(self, *macros):
