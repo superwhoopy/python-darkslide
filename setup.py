@@ -24,7 +24,7 @@ def read(*names, **kwargs):
 
 setup(
     name='darkslide',
-    version='2.2.0',
+    version='2.2.1',
     license='Apache 2.0',
     description='Lightweight markup language-based html5 slideshow generator. Forked from landslide.',
     long_description='%s\n%s' % (read('README.rst'), re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))),
