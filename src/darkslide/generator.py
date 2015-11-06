@@ -485,7 +485,7 @@ class Generator(object):
             config['destination'] = raw_config.get('landslide', 'destination')
         if raw_config.has_option('landslide', 'linenos'):
             config['linenos'] = raw_config.get('landslide', 'linenos')
-        for boolopt in ('embed', 'relative', 'copy_theme'):
+        for boolopt in ('embed', 'relative', 'copy_theme', 'math_output'):
             if raw_config.has_option('landslide', boolopt):
                 config[boolopt] = raw_config.getboolean('landslide', boolopt)
         if raw_config.has_option('landslide', 'extensions'):

@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Darkslide v2.2.1 (2015-10-06)
+=============================
+
+* Fixed config file parsing for math_output.
+
 Darkslide v2.2.0 (2015-10-06)
 =============================
 
