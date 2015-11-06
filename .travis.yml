@@ -7,7 +7,7 @@ env:
   matrix:
     - TOXENV=check
 
-    - TOXENV=examples
+    - TOXENV=examples,publish
 
     - TOXENV=2.7-cover,coveralls,codecov
     - TOXENV=2.7-nocov
