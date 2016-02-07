@@ -48,8 +48,14 @@ class CodeHighlightingMacro(Macro):
         """Decodes html entities from a given string"""
         if defs is None:
             defs = html_entities.entitydefs
-        f = lambda m: defs[m.group(1)] if len(m.groups()) > 0 else m.group(0)
-        return self.html_entity_re.sub(f, string)
+
+        def replacer(m):
+            if len(m.groups()) > 0:
+                return defs[m.group(1)]
+            else:
+                return m.group(0)
+
+        return self.html_entity_re.sub(replacer, string)
 
     def process(self, content, source=None, context=None):
         code_blocks = self.macro_re.findall(content)
