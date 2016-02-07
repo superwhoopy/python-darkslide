@@ -173,6 +173,3 @@ def main():
             sys.stderr.write("Error: %s\n" % e)
             sys.exit(1)
 
-
-if __name__ == '__main__':
-    main()
