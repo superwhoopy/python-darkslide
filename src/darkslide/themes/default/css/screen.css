@@ -106,6 +106,9 @@ div.slide {
     margin: 2px 0;
     border-bottom: 1px solid #ccc;
 }
+.sidebar tr:last-of-type {
+    border-bottom: none;
+}
 .sidebar th {
     text-align: left;
     font-weight: normal;

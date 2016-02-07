@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Darkslide v2.3.0 (2010-02-07)
+=============================
+
+* The Darkslide version is shown in the help sidebar.
+
 Darkslide v2.2.1 (2015-10-06)
 =============================
 

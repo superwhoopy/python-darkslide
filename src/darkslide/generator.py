@@ -16,6 +16,7 @@ from six.moves import configparser
 from . import macro as macro_module
 from . import utils
 from .parser import Parser
+from . import __version__
 
 BASE_DIR = os.path.dirname(__file__)
 THEMES_DIR = os.path.join(BASE_DIR, 'themes')
@@ -450,7 +451,7 @@ class Generator(object):
                 'slides': slides, 'toc': self.toc, 'embed': self.embed,
                 'css': self.get_css(), 'js': self.get_js(),
                 'user_css': self.user_css, 'user_js': self.user_js,
-                'math_output': self.math_output}
+                'math_output': self.math_output, 'version': __version__}
 
     def linenos_check(self, value):
         """ Checks and returns a valid value for the ``linenos`` option.
