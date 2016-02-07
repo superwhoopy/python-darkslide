@@ -76,6 +76,8 @@ Overview
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/ionelmc/python-darkslide/
 
+.. end-badges
+
 Lightweight markup language-based html5 slideshow generator. Forked from landslide.
 
 Demo: http://ionelmc.github.io/python-darkslide/
@@ -114,7 +116,6 @@ slideshow <http://adamzap.com/misc/presentation.html>`__.
 
     Landslide supports code snippets
 
-.. end-badges
         !python
         def log(self, message, level='notice'):
             if self.logger and not callable(self.logger):
