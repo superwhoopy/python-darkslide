@@ -1,7 +1,6 @@
-Welcome to Darkslide's documentation!
-=======================================
-
-Contents:
+========
+Contents
+========
 
 .. toctree::
    :maxdepth: 2
@@ -11,6 +10,7 @@ Contents:
    usage
    reference/index
    contributing
+   authors
    changelog
 
 Indices and tables

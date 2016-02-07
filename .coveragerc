@@ -1,9 +1,11 @@
 [paths]
-source = src
+source =
+   src/darkslide
+   */site-packages/darkslide
 
 [run]
 branch = True
-source = src
+source = darkslide
 parallel = true
 
 [report]

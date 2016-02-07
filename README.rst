@@ -1,6 +1,8 @@
-=========
-Darkslide
-=========
+========
+Overview
+========
+
+.. start-badges
 
 .. list-table::
     :stub-columns: 1
@@ -112,6 +114,7 @@ slideshow <http://adamzap.com/misc/presentation.html>`__.
 
     Landslide supports code snippets
 
+.. end-badges
         !python
         def log(self, message, level='notice'):
             if self.logger and not callable(self.logger):

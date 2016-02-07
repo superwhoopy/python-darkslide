@@ -1,25 +1,20 @@
 language: python
-python: '2.7'
+python: '3.5'
 sudo: false
 env:
   global:
-    LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
+    - SEGFAULT_SIGNALS=all
   matrix:
     - TOXENV=check
 
     - TOXENV=examples,publish
 
-    - TOXENV=2.7-cover,coveralls,codecov
-    - TOXENV=2.7-nocov
-
-    - TOXENV=3.3-cover,coveralls,codecov
-    - TOXENV=3.3-nocov
-
-    - TOXENV=3.4-cover,coveralls,codecov
-    - TOXENV=3.4-nocov
-
-    - TOXENV=pypy-cover,coveralls,codecov
-    - TOXENV=pypy-nocov
+    - TOXENV=py27,coveralls,codecov
+    - TOXENV=py33,coveralls,codecov
+    - TOXENV=py34,coveralls,codecov
+    - TOXENV=py35,coveralls,codecov
+    - TOXENV=pypy,coveralls,codecov
 before_install:
   - |
     if [[ "${TOXENV}" =~ "publish" ]]; then
@@ -40,15 +35,17 @@ install:
   - easy_install --version
   - pip --version
   - tox --version
-  - pip install -U virtualenv
-  - virtualenv --version
 script:
   - tox -v
 after_failure:
   - more .tox/log/* | cat
   - more .tox/*/log/* | cat
+before_cache:
+  - rm -rf $HOME/.cache/pip/log
+cache:
+  directories:
+    - $HOME/.cache/pip
 notifications:
   email:
     on_success: never
     on_failure: always
-
