@@ -2,7 +2,12 @@
 Changelog
 =========
 
-Darkslide v2.3.0 (2010-02-07)
+Darkslide v2.3.1 (2016-02-08)
+=============================
+
+* MathJax is loaded on HTTPS.
+
+Darkslide v2.3.0 (2016-02-07)
 =============================
 
 * The Darkslide version is shown in the help sidebar.
