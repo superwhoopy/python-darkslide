@@ -2,6 +2,12 @@
 Changelog
 =========
 
+Darkslide v2.3.2 (2016-04-12)
+=============================
+
+* Fixed underline occlusion shadows in the footer (for links).
+* Fixed missing `presenter_notes` class not being set when notes mode was on.
+
 Darkslide v2.3.1 (2016-02-08)
 =============================
 
