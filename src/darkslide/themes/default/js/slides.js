@@ -180,11 +180,17 @@ function main() {
     };
 
     var showNotes = function() {
-        var notes = getSlideEl(currentSlideNo).getElementsByClassName('presenter_notes');
+        var slide = getSlideEl(currentSlideNo),
+            notes = slide.getElementsByClassName('presenter_notes');
         for (var i = 0, len = notes.length; i < len; i++) {
             notes.item(i).style.display = (notesOn) ? 'none':'block';
         }
         notesOn = !notesOn;
+        if (notesOn) {
+            addClass(slide, 'presenter_notes');
+        } else {
+            removeClass(slide, 'presenter_notes');
+        }
     };
 
     var showSlideNumbers = function() {
