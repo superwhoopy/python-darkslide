@@ -348,7 +348,7 @@ Add footnote to the current and all the following presentations
 
 ::
 
-    .footnote: Slides available at http://blog.ionelmc.ro/presentations/
+    .footnote: Slides available at https://blog.ionelmc.ro/presentations/
 
 
 Presenter Notes
