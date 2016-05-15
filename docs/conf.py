@@ -26,7 +26,7 @@ project = 'Darkslide'
 year = '2015-2016'
 author = 'Ionel Cristian Mărieș'
 copyright = '{0}, {1}'.format(year, author)
-version = release = '2.3.2'
+version = release = '2.3.3'
 
 pygments_style = 'trac'
 templates_path = ['.']
