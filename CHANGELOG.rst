@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Darkslide v2.3.3 (2016-05-15)
+=============================
+
+* Fixed height of QR svg elements.
+
 Darkslide v2.3.2 (2016-04-12)
 =============================
 
