@@ -206,7 +206,8 @@ class Generator(object):
                 raise IOError("Direct output mode is not available for PDF "
                               "export")
             else:
-                print(self.render().encode(self.encoding))
+                out = getattr(sys.stdout, 'buffer', sys.stdout)
+                out.write(self.render().encode(self.encoding))
         else:
             self.write_and_log()
 

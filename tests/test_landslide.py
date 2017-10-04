@@ -76,6 +76,11 @@ def test_unicode():
     assert len(re.findall('<pre><span', s)) == 3
 
 
+def test_direct():
+    g = Generator(os.path.join(DATA_DIR, 'test.md'), direct=True)
+    g.execute()
+
+
 def test_inputencoding():
     path = os.path.join(DATA_DIR, 'encoding.rst')
     g = Generator(path, encoding='koi8_r')
