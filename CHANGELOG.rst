@@ -2,6 +2,15 @@
 Changelog
 =========
 
+Darkslide v2.4.0 (2016-05-15)
+=============================
+
+* Removed "expanded mode". It was too buggy and doesn't really have a purpose.
+* Changed "show context" to be "show next slide" (so two slides at a time). This is way more useful than showing little
+  bits of next and prev slides.
+* Fixed ``--direct`` on Python 3.
+* Fixed glitches when TOC/Help are open.
+
 Darkslide v2.3.3 (2016-05-15)
 =============================
 

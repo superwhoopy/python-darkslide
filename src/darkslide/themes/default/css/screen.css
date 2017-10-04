@@ -18,7 +18,7 @@ div.slides, body.expose div.slides.nocontext, .presenter_notes {
 div.slides.nocontext .slide {
     opacity: 0;
 }
-div.slides.nocontext .slide.future {
+div.slides.nocontext .slide.next {
 }
 body.expose div.slides.nocontext .slide,
 div.slides.nocontext .slide.current {
@@ -29,29 +29,20 @@ div.slide {
     left: 50%;
     top: 50%;
     margin-top: -384px;
+    margin-left: -512px;
     -webkit-transition: margin 0.3s ease-in, opacity 0.3s ease-in;
     -moz-transition: margin 0.3s ease-in, opacity 0.3s ease-in;
     -o-transition: margin 0.3s ease-in, opacity 0.3s ease-in;
 }
-.slide.far-past {
+.slide.current,
+div.slides.show_next .slide.next {
     display: block;
-    margin-left: -2660px;
 }
-.slide.past {
-    display: block;
-    margin-left: -1586px;
+div.slides.show_next .slide.current {
+    margin-left: -1024px;
 }
-.slide.current {
-    display: block;
-    margin-left: -512px;
-}
-.slide.future {
-    display: block;
-    margin-left: 562px;
-}
-.slide.far-future {
-    display: block;
-    margin-left: 1636px;
+.slide.next {
+    margin-left: 10px;
 }
 /* Content */
 
@@ -183,7 +174,7 @@ body.expose .slide .inner {
 }
 body.expose .slide.far-past,
 body.expose .slide.past,
-body.expose .slide.future,
+body.expose .slide.next,
 body.expose .slide.far-future {
     margin-left: 0;
 }
@@ -216,7 +207,7 @@ body.presenter_view .slide.current {
     box-shadow: 0 0 0 15px #dc322f;
     z-index: 2;
 }
-body.presenter_view .slide.future {
+body.presenter_view .slide.next {
     display: block;
     margin-left: 25px;
     z-index: 1;
