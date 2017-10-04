@@ -166,6 +166,9 @@ function main() {
     };
 
     var nextSlide = function() {
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
         if (currentSlideNo < slides.length) {
             currentSlideNo++;
         }
@@ -173,6 +176,9 @@ function main() {
     };
 
     var prevSlide = function() {
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
         if (currentSlideNo > 1) {
             currentSlideNo--;
         }
@@ -211,7 +217,7 @@ function main() {
 
     var showToc = function() {
         if (helpOpened) {
-                showHelp();
+            showHelp();
         }
         var toc = document.getElementById('toc');
         if (toc) {
@@ -223,7 +229,7 @@ function main() {
 
     var showHelp = function() {
         if (tocOpened) {
-                showToc();
+            showToc();
         }
 
         var help = document.getElementById('help');
@@ -250,6 +256,14 @@ function main() {
     };
 
     var toggleOverview = function() {
+        if (helpOpened) {
+            showHelp();
+            return
+        }
+        if (tocOpened) {
+            showToc();
+            return;
+        }
         if (!overviewActive) {
             addClass(document.body, 'expose');
             overviewActive = true;
