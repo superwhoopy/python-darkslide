@@ -103,7 +103,7 @@ function main() {
     var changeSlideElClass = function (slideNo, className) {
         var el = getSlideEl(slideNo);
         if (el) {
-            removeClass(el, 'current next none');
+            removeClass(el, 'prev current next after_next none');
             addClass(el, className);
         }
     };
@@ -111,8 +111,10 @@ function main() {
     var updateSlideClasses = function (updateOther) {
         window.location.hash = (isPresenterView ? "presenter:" : "slide:") + currentSlideNo;
 
+        changeSlideElClass(currentSlideNo - 1, 'prev');
         changeSlideElClass(currentSlideNo, 'current');
         changeSlideElClass(currentSlideNo + 1, 'next');
+        changeSlideElClass(currentSlideNo + 2, 'after_next');
 
         for (i = currentSlideNo + 3; i < slides.length + 1; i++) {
             changeSlideElClass(i, 'none');
@@ -183,6 +185,22 @@ function main() {
         if (currentSlideNo > 1) {
             currentSlideNo--;
         }
+        updateSlideClasses(true);
+    };
+
+    var firstSlide = function () {
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
+        currentSlideNo = 1;
+        updateSlideClasses(true);
+    };
+
+    var lastSlide = function () {
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
+        currentSlideNo = slides.length;
         updateSlideClasses(true);
     };
 
@@ -274,6 +292,7 @@ function main() {
         } else {
             removeClass(document.body, 'expose');
             overviewActive = false;
+            setScale();
         }
         updateOverview();
     };
@@ -312,9 +331,9 @@ function main() {
         return 1 / Math.max(sy, sx);
     };
 
-    var setScale = function () {
+    var setScale = function (scale) {
         var presentation = document.getElementsByClassName('slides')[0];
-        var transform = 'scale(' + computeScale() + ')';
+        var transform = 'scale(' + (scale || computeScale()) + ')';
         presentation.style.MozTransform = transform;
         presentation.style.WebkitTransform = transform;
         presentation.style.OTransform = transform;
@@ -404,6 +423,12 @@ function main() {
             case 34: // page down
                 event.preventDefault();
                 nextSlide();
+                break;
+            case 35: // end
+                lastSlide();
+                break;
+            case 36: // home
+                firstSlide();
                 break;
             case 50: // 2
                 showNotes();

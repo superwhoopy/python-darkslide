@@ -4,11 +4,11 @@ p, body, header {
     margin: 0;
 }
 
-div.slide {
+.slide {
     position: absolute;
     overflow: hidden;
-    width: 1024px;
-    height: 768px;
+    width: 1000px;
+    height: 750px;
     border-radius: 20px;
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
@@ -21,7 +21,7 @@ p.hr {
     border-bottom: 1px solid #fdf6e3;
 }
 header:not(:only-child) {
-    font-size: 60px;
+    font-size: 46px;
     position: absolute;
     left: 30px;
     top: 25px;
@@ -58,7 +58,7 @@ section {
     margin: 0;
     left: 30px;
     right: 30px;
-    top: 135px;
+    top: 110px;
     bottom: 30px;
     overflow: auto;
     display: flex;
@@ -94,7 +94,7 @@ pre, code, tt {
     font-family: Consolas, 'Bitstream Vera Sans Mono', 'Lucida Console', FreeMono, Courier, monospace;
 }
 pre, .gist .gist-file .gist-data {
-    font-size: 24px;
+    font-size: 22px;
     max-height: 485px;
     padding: 0 0.5em !important;
     margin: 0;
@@ -111,8 +111,8 @@ li pre {
     text-align: center;
     display: table-cell;
     vertical-align: middle;
-    height: 768px;
-    width: 1024px;
+    height: 750px;
+    width: 1000px;
     font-size: 68px;
     margin-top: 100px;
     margin-bottom: 100px;
@@ -131,7 +131,7 @@ aside.page_number {
     right: 10px;
     text-indent: 10px;
 }
-div.slide p.notes {
+.slide p.notes {
     font-size: 90%;
 }
 img {
