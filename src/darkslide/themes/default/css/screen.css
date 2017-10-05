@@ -7,8 +7,9 @@ html, body {
 .slides .slide {
     opacity: 0;
 }
-.expose .slides .slide,
-.slides .slide.current {
+.expose .slide,
+.slide.current,
+.show_next .slide.next {
     opacity: 1;
 }
 .slide {
