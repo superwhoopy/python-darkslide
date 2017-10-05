@@ -169,9 +169,6 @@ function main() {
     };
 
     var nextSlide = function () {
-        if (tocOpened || helpOpened || overviewActive) {
-            return;
-        }
         if (currentSlideNo < slides.length) {
             currentSlideNo++;
         }
@@ -179,9 +176,6 @@ function main() {
     };
 
     var prevSlide = function () {
-        if (tocOpened || helpOpened || overviewActive) {
-            return;
-        }
         if (currentSlideNo > 1) {
             currentSlideNo--;
         }
@@ -189,17 +183,11 @@ function main() {
     };
 
     var firstSlide = function () {
-        if (tocOpened || helpOpened || overviewActive) {
-            return;
-        }
         currentSlideNo = 1;
         updateSlideClasses(true);
     };
 
     var lastSlide = function () {
-        if (tocOpened || helpOpened || overviewActive) {
-            return;
-        }
         currentSlideNo = slides.length;
         updateSlideClasses(true);
     };
