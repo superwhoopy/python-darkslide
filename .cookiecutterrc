@@ -16,11 +16,12 @@ cookiecutter:
     full_name: Ionel Cristian Mărieș
     github_username: ionelmc
     landscape: 'yes'
+    license: Apache Software License 2.0
+    linter: flake8
     package_name: darkslide
     project_name: Darkslide
-    project_short_description: Lightweight markup language-based html5 slideshow generator.
-        Forked from landslide.
-    release_date: today
+    project_short_description: Lightweight markup language-based html5 slideshow generator. Forked from Landslide.
+    release_date: '2016-05-15'
     repo_name: python-darkslide
     requiresio: 'yes'
     scrutinizer: 'yes'
@@ -30,6 +31,6 @@ cookiecutter:
     test_matrix_separate_coverage: 'no'
     test_runner: pytest
     travis: 'yes'
-    version: 2.3.0
+    version: 2.3.3
     website: http://blog.ionelmc.ro
-    year: 2015-2016
+    year: 2015-2017

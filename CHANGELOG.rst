@@ -2,7 +2,7 @@
 Changelog
 =========
 
-Darkslide v2.4.0 (2016-05-15)
+Darkslide v3.0.0 (2017-10-05)
 =============================
 
 * Removed "expanded mode". It was too buggy and doesn't really have a purpose.
@@ -10,6 +10,7 @@ Darkslide v2.4.0 (2016-05-15)
   bits of next and prev slides.
 * Fixed ``--direct`` on Python 3.
 * Fixed glitches when TOC/Help are open.
+* Made possible to switch slides when TOC/Help/Overview are open.
 
 Darkslide v2.3.3 (2016-05-15)
 =============================

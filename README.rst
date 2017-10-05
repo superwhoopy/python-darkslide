@@ -14,7 +14,8 @@ Overview
         | |coveralls| |codecov|
         | |landscape| |scrutinizer| |codacy| |codeclimate|
     * - package
-      - |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+      - | |version| |wheel| |supported-versions| |supported-implementations|
+        | |commits-since|
 
 .. |docs| image:: https://readthedocs.org/projects/python-darkslide/badge/?style=flat
     :target: https://readthedocs.org/projects/python-darkslide
@@ -52,27 +53,27 @@ Overview
    :target: https://codeclimate.com/github/ionelmc/python-darkslide
    :alt: CodeClimate Quality Status
 
-.. |version| image:: https://img.shields.io/pypi/v/darkslide.svg?style=flat
+.. |version| image:: https://img.shields.io/pypi/v/darkslide.svg
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/darkslide
 
-.. |downloads| image:: https://img.shields.io/pypi/dm/darkslide.svg?style=flat
-    :alt: PyPI Package monthly downloads
-    :target: https://pypi.python.org/pypi/darkslide
+.. |commits-since| image:: https://img.shields.io/github/commits-since/ionelmc/python-darkslide/v2.3.3.svg
+    :alt: Commits since latest release
+    :target: https://github.com/ionelmc/python-darkslide/compare/v2.3.3...master
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/darkslide.svg?style=flat
+.. |wheel| image:: https://img.shields.io/pypi/wheel/darkslide.svg
     :alt: PyPI Wheel
     :target: https://pypi.python.org/pypi/darkslide
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/darkslide.svg?style=flat
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/darkslide.svg
     :alt: Supported versions
     :target: https://pypi.python.org/pypi/darkslide
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/darkslide.svg?style=flat
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/darkslide.svg
     :alt: Supported implementations
     :target: https://pypi.python.org/pypi/darkslide
 
-.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/ionelmc/python-darkslide/master.svg?style=flat
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/ionelmc/python-darkslide/master.svg
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/ionelmc/python-darkslide/
 

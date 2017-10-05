@@ -2,10 +2,6 @@
 import os
 import re
 import sys
-try:
-    from io import BytesIO as StringIO
-except ImportError:
-    from StringIO import StringIO
 
 import pygments
 import qrcode
@@ -15,6 +11,11 @@ from qrcode.image.svg import SvgPathImage
 from six.moves import html_entities
 
 from . import utils
+
+try:
+    from io import BytesIO as StringIO
+except ImportError:
+    from StringIO import StringIO
 
 
 class Macro(object):

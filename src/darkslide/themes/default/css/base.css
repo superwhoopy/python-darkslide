@@ -21,7 +21,7 @@ p.hr {
     border-bottom: 1px solid #fdf6e3;
 }
 header:not(:only-child) {
-    font-size: 46px;
+    font-size: 58px;
     position: absolute;
     left: 30px;
     top: 25px;
@@ -54,6 +54,7 @@ section, .slide header:only-child h1 {
     overflow: hidden;
 }
 section {
+    font-size: 32px;
     position: absolute;
     margin: 0;
     left: 30px;

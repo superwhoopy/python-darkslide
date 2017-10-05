@@ -7,7 +7,7 @@ body, header {
     font-family: 'Candara', 'Calibri', 'Segoe UI Semilight', 'Corbel', 'Trebuchet Ms', 'Segoe UI', sans-serif;
 }
 section {
-    font: 34px 'Palatino', 'Palatino Linotype', 'URW Palladio L', 'Century Schoolbook L', 'Georgia', serif;
+    font-family: 'Palatino', 'Palatino Linotype', 'URW Palladio L', 'Century Schoolbook L', 'Georgia', serif;
 }
 
 /* ======================================

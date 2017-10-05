@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+import base64
+import codecs
 import os
 import re
-import codecs
-import base64
 
 from pytest import raises
 
@@ -166,7 +166,7 @@ def test_skip_presenter_notes():
                   presenter_notes=False)
     svars = g.get_slide_vars("<h1>heading</h1>\n<p>foo</p>\n"
                              "<h1>Presenter Notes</h1>\n<p>bar</p>\n", '')
-    assert svars['presenter_notes'] == None
+    assert svars['presenter_notes'] is None
 
 
 SAMPLE_HTML = '''<p>Let me give you this snippet:</p>
