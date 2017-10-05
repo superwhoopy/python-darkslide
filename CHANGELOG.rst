@@ -2,7 +2,7 @@
 Changelog
 =========
 
-Darkslide v2.4.0 (2017-10-05)
+Darkslide v3.0.0 (2017-10-05)
 =============================
 
 * Removed "expanded mode". It was too buggy and doesn't really have a purpose.
