@@ -57,9 +57,9 @@ Overview
     :alt: PyPI Package latest release
     :target: https://pypi.python.org/pypi/darkslide
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/ionelmc/python-darkslide/v2.3.3.svg
+.. |commits-since| image:: https://img.shields.io/github/commits-since/ionelmc/python-darkslide/v3.0.0.svg
     :alt: Commits since latest release
-    :target: https://github.com/ionelmc/python-darkslide/compare/v2.3.3...master
+    :target: https://github.com/ionelmc/python-darkslide/compare/v3.0.0...master
 
 .. |wheel| image:: https://img.shields.io/pypi/wheel/darkslide.svg
     :alt: PyPI Wheel

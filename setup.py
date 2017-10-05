@@ -24,7 +24,7 @@ def read(*names, **kwargs):
 
 setup(
     name='darkslide',
-    version='2.3.3',
+    version='3.0.0',
     license='Apache Software License 2.0',
     description='Lightweight markup language-based html5 slideshow generator. Forked from Landslide.',
     long_description='%s\n%s' % (
