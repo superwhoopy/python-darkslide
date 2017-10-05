@@ -8,6 +8,7 @@ env:
   matrix:
     - TOXENV=check
     - TOXENV=docs
+    - TOXENV=examples,publish
 matrix:
   include:
 {%- for env in tox_environments %}{{ '' }}
