@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
-from __future__ import absolute_import, print_function
+from __future__ import absolute_import
+from __future__ import print_function
 
 import io
 import re
@@ -24,8 +25,8 @@ def read(*names, **kwargs):
 setup(
     name='darkslide',
     version='2.3.3',
-    license='Apache 2.0',
-    description='Lightweight markup language-based html5 slideshow generator. Forked from landslide.',
+    license='Apache Software License 2.0',
+    description='Lightweight markup language-based html5 slideshow generator. Forked from Landslide.',
     long_description='%s\n%s' % (
         re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.rst')),
         re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))

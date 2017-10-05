@@ -1,21 +1,33 @@
 language: python
-python: '3.5'
 sudo: false
+cache: pip
 env:
   global:
     - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
     - SEGFAULT_SIGNALS=all
   matrix:
     - TOXENV=check
-
-    - TOXENV=examples,publish
-
-    - TOXENV=py27,report,coveralls,codecov
-    - TOXENV=py33,report,coveralls,codecov
-    - TOXENV=py34,report,coveralls,codecov
-    - TOXENV=py35,report,coveralls,codecov
-    - TOXENV=py36,report,coveralls,codecov
-    - TOXENV=pypy,report,coveralls,codecov
+    - TOXENV=docs
+matrix:
+  include:
+    - python: '2.7'
+      env:
+        - TOXENV=py27,report,coveralls,codecov
+    - python: '3.3'
+      env:
+        - TOXENV=py33,report,coveralls,codecov
+    - python: '3.4'
+      env:
+        - TOXENV=py34,report,coveralls,codecov
+    - python: '3.5'
+      env:
+        - TOXENV=py35,report,coveralls,codecov
+    - python: '3.6'
+      env:
+        - TOXENV=py36,report,coveralls,codecov
+    - python: 'pypy-5.4'
+      env:
+        - TOXENV=pypy,report,coveralls,codecov
 before_install:
   - |
     if [[ "${TOXENV}" =~ "publish" ]]; then
