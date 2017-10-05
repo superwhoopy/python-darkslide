@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import sys
 from optparse import OptionParser
 
-from . import generator
 from . import __version__
+from . import generator
 
 
 def _parse_options():

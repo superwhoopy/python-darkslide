@@ -9,14 +9,14 @@ import tempfile
 from subprocess import Popen
 
 import jinja2
-
-from six import string_types, binary_type
-
+from six import binary_type
+from six import string_types
 from six.moves import configparser
+
 from . import macro as macro_module
+from . import __version__
 from . import utils
 from .parser import Parser
-from . import __version__
 
 BASE_DIR = os.path.dirname(__file__)
 THEMES_DIR = os.path.join(BASE_DIR, 'themes')

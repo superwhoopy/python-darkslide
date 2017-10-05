@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-
-import os
 import base64
 import mimetypes
+import os
 
 
 def get_path_url(path, relative=False):
@@ -18,7 +17,7 @@ def encode_image_from_url(url, source_path):
     if not url or url.startswith('data:') or url.startswith('file://'):
         return False
 
-    if (url.startswith('http://') or url.startswith('https://')):
+    if url.startswith('http://') or url.startswith('https://'):
         return False
 
     real_path = url if os.path.isabs(url) else os.path.join(source_path, url)
