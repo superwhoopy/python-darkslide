@@ -163,7 +163,7 @@ function main() {
         }
 
         var w = isPresenterView ? window.opener : presenterViewWin;
-        w.postMessage('slide#' + currentSlideNo, '*');
+        if (w) w.postMessage('slide#' + currentSlideNo, '*');
     };
 
     var nextSlide = function () {
