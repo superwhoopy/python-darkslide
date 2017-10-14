@@ -2,6 +2,15 @@
 Changelog
 =========
 
+Darkslide v3.0.1 (2017-10-14)
+=============================
+
+* Fixed slightly broken slide class changing.
+* Made expose mode scroll to current slide.
+* Running presenter mode with no target won't break
+  anymore if target window is gone.
+* Fixed display of presenter notes.
+
 Darkslide v3.0.0 (2017-10-05)
 =============================
 
