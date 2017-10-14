@@ -111,14 +111,12 @@ function main() {
     var updateSlideClasses = function (updateOther) {
         window.location.hash = (isPresenterView ? "presenter:" : "slide:") + currentSlideNo;
 
+        for (i = 1; i < currentSlideNo + 1; i++) changeSlideElClass(i, 'none');
         changeSlideElClass(currentSlideNo - 1, 'prev');
         changeSlideElClass(currentSlideNo, 'current');
         changeSlideElClass(currentSlideNo + 1, 'next');
         changeSlideElClass(currentSlideNo + 2, 'after_next');
-
-        for (i = currentSlideNo + 3; i < slides.length + 1; i++) {
-            changeSlideElClass(i, 'none');
-        }
+        for (i = currentSlideNo + 3; i < slides.length + 1; i++)  changeSlideElClass(i, 'none');
 
         highlightCurrentTocLink();
 
