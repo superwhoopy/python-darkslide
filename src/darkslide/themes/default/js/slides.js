@@ -274,6 +274,12 @@ function main() {
         if (!overviewActive) {
             addClass(document.body, 'expose');
             overviewActive = true;
+            setTimeout(function() {
+                try {
+                    document.querySelector('.slide.current').parentElement.scrollIntoView(true);
+                } catch (e) {
+                }
+            });
             setScale(1);
         } else {
             removeClass(document.body, 'expose');
