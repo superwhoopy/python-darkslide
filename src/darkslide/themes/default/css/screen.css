@@ -7,10 +7,24 @@ html, body {
 .slides .slide {
     opacity: 0;
 }
+.presenter_view .slide,
 .expose .slide,
 .slide.current,
 .show_next .slide.next {
     opacity: 1;
+}
+.presentation,
+.presenter_view #current_presenter_notes section,
+.slides,
+.expose .slides,
+.presenter_notes {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    display: block;
+    background: inherit;
 }
 .slide {
     display: none;
@@ -49,19 +63,6 @@ html, body {
 }
 .show_next .slide.after_next {
     margin-left: 1015px;
-}
-.presentation,
-.presenter_view #current_presenter_notes section,
-.slides,
-.expose .slides,
-.presenter_notes {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: absolute;
-    display: block;
-    background: inherit;
 }
 /* Content */
 
