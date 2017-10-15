@@ -2,7 +2,7 @@
 Changelog
 =========
 
-Darkslide v3.0.1 (2017-10-14)
+Darkslide v3.0.1 (2017-10-15)
 =============================
 
 * Fixed slightly broken slide class changing.
