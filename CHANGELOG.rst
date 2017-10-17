@@ -2,6 +2,12 @@
 Changelog
 =========
 
+Darkslide v3.1.0 (2017-10-17)
+=============================
+
+* Themes now embed a Candara fallback webfont (Alegreya Sans). It's slightly narrower but looks more similar than the other
+  alternatives better matching Candara's width (Acme, Galdeano). It even has ligatures.
+
 Darkslide v3.0.1 (2017-10-15)
 =============================
 
