@@ -2,6 +2,13 @@
 Changelog
 =========
 
+Darkslide v4.0.0 (2017-10-17)
+=============================
+
+* Drop MathJax support. Something less to maintain (also, didn't work as expected with ``--embed``). User that need this
+  should just use the ``user_js`` option. Or a custom theme.
+* Themes now use a space-adjusted Alegreya Sans as a fallback.
+
 Darkslide v3.2.0 (2017-10-17)
 =============================
 
