@@ -40,7 +40,7 @@ lacinia fermentum augue.
 ---
 
 # First heading: *lorem ipsum* dolor sit
-## Second: *lorem ipsum* dolor sit amet, consecte
+## Second: *lorem ipsum* dolor sfi amet, consecte
 ### Third: *lorem ipsum* dolor sit amet, consectetur adipiscing
 
 * 1
