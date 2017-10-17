@@ -2,6 +2,12 @@
 Changelog
 =========
 
+Darkslide v3.2.0 (2017-10-17)
+=============================
+
+* Themes now use Rosario as a fallback. For better or worse it's smaller and has same width as Candara.
+
+
 Darkslide v3.1.0 (2017-10-17)
 =============================
 
