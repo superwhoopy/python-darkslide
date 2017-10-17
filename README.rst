@@ -209,7 +209,7 @@ your system:
 
 ::
 
-    $ landslide README.md -d readme.pdf
+    $ darkslide README.md -d readme.pdf
     $ open readme.pdf
 
 Viewing
@@ -306,7 +306,7 @@ To generate the presentation as configured, just run:
 ::
 
     $ cd /path/to/my/presentation/sources
-    $ landslide config.cfg
+    $ darkslide config.cfg
 
 Macros
 ======
@@ -403,53 +403,43 @@ Setting Custom Destination File
 
 ::
 
-    $ landslide slides.md -d ~/MyPresentations/presentation.html
+    $ darkslide slides.md -d ~/MyPresentations/presentation.html
 
 Working with Directories
 ------------------------
 
 ::
 
-    $ landslide slides/
+    $ darkslide slides/
 
 Working with Direct Output
 --------------------------
 
 ::
 
-    $ landslide slides.md -o | tidy
+    $ darkslide slides.md -o | tidy
 
 Using an Alternate Landslide Theme
 ----------------------------------
 
 ::
 
-    $ landslide slides.md -t mytheme
-    $ landslide slides.md -t /path/to/theme/dir
+    $ darkslide slides.md -t mytheme
+    $ darkslide slides.md -t /path/to/theme/dir
 
 Embedding Base-64-Encoded Images
 --------------------------------
 
 ::
 
-    $ landslide slides.md -i
+    $ darkslide slides.md -i
 
 Exporting to PDF
 ----------------
 
 ::
 
-    $ landslide slides.md -d presentation.pdf
-
-Enabling mathematical notation
-------------------------------
-
-::
-
-    Note that this require writing the slides in ReST format as well as
-    using Docutils 0.8 or newer.
-
-    $ landslide slides.rst -m
+    $ darkslide slides.md -d presentation.pdf
 
 Enabling Markdown Extensions
 ----------------------------
@@ -459,12 +449,12 @@ See documentation on available Markdown extensions
 
 ::
 
-    $ landslide slides.md -x abbr
+    $ darkslide slides.md -x abbr
 
 Theming
 -------
 
-A Landslide theme is a directory following this simple structure:
+A Darkslide theme is a directory following this simple structure:
 
 ::
 
@@ -480,11 +470,11 @@ If a theme does not provide HTML and JS files, those from the default
 theme will be used. CSS is not optional.
 
 Last, you can also copy the whole theme directory to your presentation
-one by passing the ``--copy-theme`` option to the ``landslide`` command:
+one by passing the ``--copy-theme`` option to the ``darkslide`` command:
 
 ::
 
-    $ landslide slides.md -t /path/to/some/theme --copy-theme
+    $ darkslide slides.md -t /path/to/some/theme --copy-theme
 
 User stylesheets and Javascripts
 ================================
@@ -492,12 +482,13 @@ User stylesheets and Javascripts
 If you don't want to bother making your own theme, you can include your
 own user css and js files to the generated presentation.
 
-This feature is only available if you use a landslide configuration
+This feature is only available if you use a Darkslide configuration
 file, by setting the ``css`` and/or ``js`` flags:
 
 ::
 
-    [landslide]
+    [darkslide]
+    ; the old [landslide] is still supported
     theme  = /path/to/my/beautiful/theme
     source = slides.mdown
     css =    custom.css
@@ -509,7 +500,7 @@ and ``powerpoint.js`` files within the ``<head>`` section of the
 presentation html file.
 
 **NOTE:** Paths to the css and js files must be relative to the
-directory you're running the ``landslide`` command from.
+directory you're running the ``darkslide`` command from.
 
 Publishing your Presentation Online
 ===================================
@@ -520,11 +511,11 @@ have all asset links relative to the root of your presentation;
 
 ::
 
-    $ landslide slides.md --relative --copy-theme
+    $ darkslide slides.md --relative --copy-theme
 
 That way, you'll just have to host the whole presentation directory to a
 webserver. Of course, no Python nor PHP nor anything else than a HTTP
-webserver (like Apache) is required to host a landslide presentation.
+webserver (like Apache) is required to host a Darkslide presentation.
 
 `Here's an example <http://www.akei.com/presentations/2011-Djangocong/index.html>`__.
 

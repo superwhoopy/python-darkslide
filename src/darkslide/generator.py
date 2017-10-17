@@ -474,25 +474,26 @@ class Generator(object):
             raw_config.read(config_source)
         except Exception as e:
             raise RuntimeError(u"Invalid configuration file: %s" % e)
-        config = {}
-        config['source'] = raw_config.get('landslide', 'source') \
-            .replace('\r', '').split('\n')
-        if raw_config.has_option('landslide', 'theme'):
-            config['theme'] = raw_config.get('landslide', 'theme')
+        section_name = 'landslide' if raw_config.has_section('landslide') else 'darkslide'
+        config = {
+            'source': raw_config.get(section_name, 'source').replace('\r', '').split('\n')
+        }
+        if raw_config.has_option(section_name, 'theme'):
+            config['theme'] = raw_config.get(section_name, 'theme')
             self.log(u"Using    configured theme %s" % config['theme'])
-        if raw_config.has_option('landslide', 'destination'):
-            config['destination'] = raw_config.get('landslide', 'destination')
-        if raw_config.has_option('landslide', 'linenos'):
-            config['linenos'] = raw_config.get('landslide', 'linenos')
+        if raw_config.has_option(section_name, 'destination'):
+            config['destination'] = raw_config.get(section_name, 'destination')
+        if raw_config.has_option(section_name, 'linenos'):
+            config['linenos'] = raw_config.get(section_name, 'linenos')
         for boolopt in ('embed', 'relative', 'copy_theme'):
-            if raw_config.has_option('landslide', boolopt):
-                config[boolopt] = raw_config.getboolean('landslide', boolopt)
-        if raw_config.has_option('landslide', 'extensions'):
-            config['extensions'] = ",".join(raw_config.get('landslide', 'extensions').replace('\r', '').split('\n'))
-        if raw_config.has_option('landslide', 'css'):
-            config['css'] = raw_config.get('landslide', 'css').replace('\r', '').split('\n')
-        if raw_config.has_option('landslide', 'js'):
-            config['js'] = raw_config.get('landslide', 'js').replace('\r', '').split('\n')
+            if raw_config.has_option(section_name, boolopt):
+                config[boolopt] = raw_config.getboolean(section_name, boolopt)
+        if raw_config.has_option(section_name, 'extensions'):
+            config['extensions'] = ",".join(raw_config.get(section_name, 'extensions').replace('\r', '').split('\n'))
+        if raw_config.has_option(section_name, 'css'):
+            config['css'] = raw_config.get(section_name, 'css').replace('\r', '').split('\n')
+        if raw_config.has_option(section_name, 'js'):
+            config['js'] = raw_config.get(section_name, 'js').replace('\r', '').split('\n')
         return config
 
     def process_macros(self, content, source, context):
