@@ -280,12 +280,11 @@ function main() {
                 } catch (e) {
                 }
             });
-            setScale(1);
         } else {
             removeClass(document.body, 'expose');
             overviewActive = false;
-            setScale();
         }
+        setScale();
         updateOverview();
     };
 
@@ -323,9 +322,9 @@ function main() {
         return 1 / Math.max(sy, sx);
     };
 
-    var setScale = function (scale) {
+    var setScale = function () {
         var presentation = document.getElementsByClassName('slides')[0];
-        var transform = 'scale(' + (scale || computeScale()) + ')';
+        var transform = 'scale(' + (overviewActive ? 1 : computeScale()) + ')';
         presentation.style.MozTransform = transform;
         presentation.style.WebkitTransform = transform;
         presentation.style.OTransform = transform;

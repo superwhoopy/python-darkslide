@@ -5,7 +5,7 @@ p, body, header {
 }
 
 .slide {
-    position: absolute;
+    position: relative;
     overflow: hidden;
     width: 1000px;
     height: 750px;

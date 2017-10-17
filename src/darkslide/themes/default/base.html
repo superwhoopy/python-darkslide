@@ -38,14 +38,14 @@
     <style type="text/css" media="screen, projection">
       {{ css.screen.contents }}
     </style>
-    <style type="text/css">
+    <style type="text/css" media="all">
       {{ css.theme.contents }}
     </style>
     {% else %}
     <link rel="stylesheet" href="{{ css.base.path_url }}">
     <link rel="stylesheet" media="print" href="{{ css.print.path_url }}">
     <link rel="stylesheet" media="screen, projection" href="{{ css.screen.path_url }}">
-    <link rel="stylesheet" href="{{ css.theme.path_url }}">
+    <link rel="stylesheet" media="all" href="{{ css.theme.path_url }}">
     {% endif %}
     {% for css in user_css %}
       {% if embed %}

@@ -27,6 +27,7 @@ html, body {
     background: inherit;
 }
 .slide {
+    position: absolute;
     display: none;
     left: 50%;
     top: 50%;

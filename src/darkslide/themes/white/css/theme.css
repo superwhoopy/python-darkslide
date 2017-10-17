@@ -79,17 +79,17 @@ div#current_presenter_notes a, div#current_presenter_notes a:hover {
 code, tt.docutils.literal {
     color: #6c71c4;
 }
-div.slide {
+.slide {
     background-color: #ffffff;
     color: #000000;
 }
-body.expose div.slide:hover {
+.expose .slide:hover {
     box-shadow: 0 0 0 15px #268bd2;
 }
-body.expose .slide.current {
+.expose .slide.current {
     box-shadow: 0 0 0 30px #b58900;
 }
-body.expose .slide.current:hover {
+.expose .slide.current:hover {
     box-shadow: 0 0 0 15px #268bd2, 0 0 0 30px #b58900;
 }
 .presenter_notes {
@@ -111,9 +111,9 @@ body.expose .slide.current:hover {
 .qr svg {
     box-shadow: inset 0 0 10px #eee8d5;
 }
-div.slides, body.expose div.slides.nocontext,
-body.expose .slide.current,
-body.expose .slide.current .inner {
+.slides, .expose .slides.nocontext,
+.expose .slide.current,
+.expose .slide.current .inner {
     /*background: #000;*/
 }
 /* See: https://gist.github.com/nicolashery/5765395 */

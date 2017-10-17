@@ -69,17 +69,17 @@ a:hover {
 code, tt.docutils.literal {
     color: #6c71c4;
 }
-div.slide {
+.slide {
   border-radius: 20px;
   border: 2px solid #aaa;
 }
-body.expose div.slide:hover {
+.expose .slide:hover {
     box-shadow: 0 0 0 15px #268bd2;
 }
-body.expose .slide.current {
+.expose .slide.current {
     box-shadow: 0 0 0 30px #b58900;
 }
-body.expose .slide.current:hover {
+.expose .slide.current:hover {
     box-shadow: 0 0 0 15px #268bd2, 0 0 0 30px #b58900;
 }
 .presenter_notes {
