@@ -67,21 +67,11 @@
     {% endif %}
     {% for js in user_js %}
       {% if embed %}
-      <script>
-        {{ js.contents }}
-      </script>
+      <script>{{ js.contents }}</script>
       {% else %}
       <script type="text/javascript" src="{{ js.path_url }}"></script>
       {% endif %}
     {% endfor %}
-    {% if math_output %}
-      <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
-        });
-      </script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    {% endif %}
     <!-- /Javascripts -->
 </head>
 <body>

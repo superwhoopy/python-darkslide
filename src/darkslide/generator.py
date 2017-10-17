@@ -74,7 +74,6 @@ class Generator(object):
         self.verbose = kwargs.get('verbose', False)
         self.linenos = self.linenos_check(kwargs.get('linenos'))
         self.watch = kwargs.get('watch', False)
-        self.math_output = kwargs.get('math_output', False)
         self.num_slides = 0
         self.__toc = []
 
@@ -102,7 +101,6 @@ class Generator(object):
             self.add_user_css(config.get('css', []))
             self.add_user_js(config.get('js', []))
             self.linenos = self.linenos_check(config.get('linenos', self.linenos))
-            self.math_output = config.get('math_output', self.math_output)
         else:
             self.source = source
             self.work_dir = '.'
@@ -421,7 +419,6 @@ class Generator(object):
                 classes=slide_classes,
                 header=header,
                 level=level,
-                math_output=self.math_output,
                 presenter_notes=presenter_notes,
                 source=source_dict,
                 title=title,
@@ -452,7 +449,7 @@ class Generator(object):
                 'slides': slides, 'toc': self.toc, 'embed': self.embed,
                 'css': self.get_css(), 'js': self.get_js(),
                 'user_css': self.user_css, 'user_js': self.user_js,
-                'math_output': self.math_output, 'version': __version__}
+                'version': __version__}
 
     def linenos_check(self, value):
         """ Checks and returns a valid value for the ``linenos`` option.
@@ -487,7 +484,7 @@ class Generator(object):
             config['destination'] = raw_config.get('landslide', 'destination')
         if raw_config.has_option('landslide', 'linenos'):
             config['linenos'] = raw_config.get('landslide', 'linenos')
-        for boolopt in ('embed', 'relative', 'copy_theme', 'math_output'):
+        for boolopt in ('embed', 'relative', 'copy_theme'):
             if raw_config.has_option('landslide', boolopt):
                 config[boolopt] = raw_config.getboolean('landslide', boolopt)
         if raw_config.has_option('landslide', 'extensions'):
