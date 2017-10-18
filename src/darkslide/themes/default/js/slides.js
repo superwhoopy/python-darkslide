@@ -116,7 +116,7 @@ function main() {
         changeSlideElClass(currentSlideNo, 'current');
         changeSlideElClass(currentSlideNo + 1, 'next');
         changeSlideElClass(currentSlideNo + 2, 'after_next');
-        for (i = currentSlideNo + 3; i < slides.length + 1; i++)  changeSlideElClass(i, 'none');
+        for (i = currentSlideNo + 3; i < slides.length + 1; i++) changeSlideElClass(i, 'none');
 
         highlightCurrentTocLink();
 
@@ -124,9 +124,8 @@ function main() {
 
         updatePresenterNotes();
 
-        if (updateOther) {
-            updateOtherPage();
-        }
+        if (updateOther) updateOtherPage();
+        if (overviewActive) scrollToCurrent();
     };
 
     var updatePresenterNotes = function () {
@@ -274,12 +273,7 @@ function main() {
         if (!overviewActive) {
             addClass(document.body, 'expose');
             overviewActive = true;
-            setTimeout(function() {
-                try {
-                    document.querySelector('.slide.current').parentElement.scrollIntoView(true);
-                } catch (e) {
-                }
-            });
+            scrollToCurrent();
         } else {
             removeClass(document.body, 'expose');
             overviewActive = false;
@@ -287,6 +281,11 @@ function main() {
         setScale();
         updateOverview();
     };
+    var scrollToCurrent = function () {
+        setTimeout(function () {
+            document.querySelector('.slide.current').parentElement.scrollIntoView(true);
+        });
+    }
 
     var updateOverview = function () {
         try {

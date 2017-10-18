@@ -2,23 +2,29 @@
 Changelog
 =========
 
+Darkslide v4.0.1 (2017-10-19)
+=============================
+
+* Fixed print css a bit.
+* Fixed missing scrolling to current when changing slides while in overview mode.
+
 Darkslide v4.0.0 (2017-10-17)
 =============================
 
-* Drop MathJax support. Something less to maintain (also, didn't work as expected with ``--embed``). User that need this
+* Dropped MathJax support. Something less to maintain (also, didn't work as expected with ``--embed``). User that need this
   should just use the ``user_js`` option. Or a custom theme.
-* Themes now use a space-adjusted Alegreya Sans as a fallback.
+* Changed themes to use a space-adjusted Alegreya Sans as a fallback.
 
 Darkslide v3.2.0 (2017-10-17)
 =============================
 
-* Themes now use Rosario as a fallback. For better or worse it's smaller and has same width as Candara.
+* Changed themes to use Rosario as a fallback. For better or worse it's smaller and has same width as Candara.
 
 
 Darkslide v3.1.0 (2017-10-17)
 =============================
 
-* Themes now embed a Candara fallback webfont (Alegreya Sans). It's slightly narrower but looks more similar than the other
+* Changed themes to embed a Candara fallback webfont (Alegreya Sans). It's slightly narrower but looks more similar than the other
   alternatives better matching Candara's width (Acme, Galdeano). It even has ligatures.
 
 Darkslide v3.0.1 (2017-10-15)
