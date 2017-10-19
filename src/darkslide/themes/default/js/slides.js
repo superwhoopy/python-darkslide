@@ -103,7 +103,7 @@ function main() {
     var changeSlideElClass = function (slideNo, className) {
         var el = getSlideEl(slideNo);
         if (el) {
-            removeClass(el, 'prev current next after_next none');
+            removeClass(el, 'prev prev_1 current next next_1 next_2 none');
             addClass(el, className);
         }
     };
@@ -111,12 +111,14 @@ function main() {
     var updateSlideClasses = function (updateOther) {
         window.location.hash = (isPresenterView ? "presenter:" : "slide:") + currentSlideNo;
 
-        for (i = 1; i < currentSlideNo + 1; i++) changeSlideElClass(i, 'none');
+        for (i = 1; i < currentSlideNo - 1; i++) changeSlideElClass(i, 'none');
+        changeSlideElClass(currentSlideNo - 2, 'prev_1');
         changeSlideElClass(currentSlideNo - 1, 'prev');
         changeSlideElClass(currentSlideNo, 'current');
         changeSlideElClass(currentSlideNo + 1, 'next');
-        changeSlideElClass(currentSlideNo + 2, 'after_next');
-        for (i = currentSlideNo + 3; i < slides.length + 1; i++) changeSlideElClass(i, 'none');
+        changeSlideElClass(currentSlideNo + 2, 'next_1');
+        changeSlideElClass(currentSlideNo + 3, 'next_2');
+        for (i = currentSlideNo + 4; i < slides.length + 1; i++) changeSlideElClass(i, 'none');
 
         highlightCurrentTocLink();
 
