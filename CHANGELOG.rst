@@ -2,6 +2,12 @@
 Changelog
 =========
 
+Darkslide v5.0.0 (??????????)
+=============================
+
+* Removed PDF export support. You should just use the PDF export from
+  Google Chrome (it works way better than the alternatives).
+
 Darkslide v4.0.2 (2017-10-19)
 =============================
 

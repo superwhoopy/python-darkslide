@@ -79,23 +79,13 @@ Overview
 
 .. end-badges
 
-Lightweight markup language-based html5 slideshow generator. Forked from landslide.
+Lightweight markup language (Markdown, ReST, or Textile) slideshow generator. Forked from landslide.
 
 Demo: http://ionelmc.github.io/python-darkslide/
 
-Overview
-========
-
-Landslide generates a slideshow using from markdown, ReST, or textile.
-It builds off of Google's
-`html5slides <http://code.google.com/p/html5slides/>`__ template.
-
-The following markdown produces `this
-slideshow <http://adamzap.com/misc/presentation.html>`__.
-
 ::
 
-    # Landslide
+    # Darkslide
 
     ---
 
@@ -105,7 +95,7 @@ slideshow <http://adamzap.com/misc/presentation.html>`__.
 
     ![python](http://i.imgur.com/bc2xk.png)
 
-    Landslide is primarily written in Python, but it's themes use:
+    Darkslide is primarily written in Python, but it's themes use:
 
     - HTML5
     - Javascript
@@ -115,7 +105,7 @@ slideshow <http://adamzap.com/misc/presentation.html>`__.
 
     # Code Sample
 
-    Landslide supports code snippets
+    Darkslide supports code snippets
 
         !python
         def log(self, message, level='notice'):
@@ -146,17 +136,16 @@ Optional
 --------
 
 -  ``watchdog`` for watching/auto-regeneration with the ``-w`` flag
--  `PrinceXML <http://www.princexml.com/>`__ for PDF export
 
 Installation
 ============
 
-Install the latest stable version of Landslide with a python package
+Install the latest stable version of Darkslide with a python package
 manager like ``pip``:
 
 ::
 
-    $ pip install landslide
+    $ pip install darkslide
 
 If you want to stay on the edge:
 
@@ -204,14 +193,6 @@ Rendering
 -  Run ``landslide slides.md`` or ``landslide slides.rst``
 -  Enjoy your newly generated ``presentation.html``
 
-Or get it as a PDF document if PrinceXML is installed and available on
-your system:
-
-::
-
-    $ darkslide README.md -d readme.pdf
-    $ open readme.pdf
-
 Viewing
 =======
 
@@ -222,68 +203,69 @@ Viewing
 -  Press ``ESC`` to display the presentation overview (Exposé)
 -  Press ``n`` to toggle slide number visibility
 -  Press ``b`` to toggle screen blanking
--  Press ``c`` to toggle current slide context (previous and next
+-  Press ``c`` to toggle double slide display (current and next
    slides)
--  Press ``e`` to make slides filling the whole available space within
-   the document body
 -  Press ``S`` to toggle display of link to the source file for each
    slide
 -  Press '2' to toggle notes in your slides (specify with the .notes
    macro)
--  Press '3' to toggle pseudo-3D display (experimental)
--  Browser zooming is supported
+-  Browser zooming is *not* supported
 
 Commandline Options
 ===================
 
-Several options are available using the command line:
+Usage::
 
-::
+    darkslide [options] input.md ...
 
-    -h, --help            show this help message and exit
-    -c, --copy-theme      Copy theme directory into current presentation source
-                          directory
-    -b, --debug           Will display any exception trace to stdin
-    -d FILE, --destination=FILE
-                          The path to the to the destination file: .html or .pdf
-                          extensions allowed (default: presentation.html)
-    -e ENCODING, --encoding=ENCODING
-                          The encoding of your files (defaults to utf8)
-    -i, --embed           Embed stylesheet and javascript contents,
-                          base64-encoded images in presentation to make a
-                          standalone document
-    -l LINENOS, --linenos=LINENOS
-                          How to output linenos in source code. Three options
-                          availables: no (no line numbers); inline (inside <pre>
-                          tag); table (lines numbers in another cell, copy-paste
-                          friendly)
-    -o, --direct-output    Prints the generated HTML code to stdin; won't work
-                          with PDF export
-    -q, --quiet           Won't write anything to stdin (silent mode)
-    -r, --relative        Make your presentation asset links relative to current
-                          pwd; This may be useful if you intend to publish your
-                          html presentation online.
-    -t THEME, --theme=THEME
-                          A theme name, or path to a landlside theme directory
-    -v, --verbose         Write informational messages to stdin (enabled by
-                          default)
-    -w, --watch           Watch the source directory for changes and
-                          auto-regenerate the presentation
-    -x EXTENSIONS, --extensions=EXTENSIONS
-                          Comma-separated list of extensions for Markdown
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -c, --copy-theme      Copy theme directory into current presentation source
+                        directory.
+  -b, --debug           Will display any exception trace to stdout.
+  -d FILE, --destination=FILE
+                        The path to the to the destination html file. Default:
+                        presentation.html.
+  -e ENCODING, --encoding=ENCODING
+                        The encoding of your files. Default: utf8.
+  -i, --embed           Embed stylesheet and javascript contents,
+                        base64-encoded images and objects in presentation to
+                        make a standalone document.
+  -l LINENOS, --linenos=LINENOS
+                        How to output linenos in source code. Three options
+                        available: no (no line numbers); inline (inside <pre>
+                        tag); table (lines numbers in another cell, copy-paste
+                        friendly).
+  -o, --direct-output   Prints the generated HTML code to stdout.
+  -P, --no-presenter-notes
+                        Don't include presenter notes in the output.
+  -q, --quiet           Won't write anything to stdout (silent mode).
+  -r, --relative        Make your presentation asset links relative to current
+                        working dir; This may be useful if you intend to
+                        publish your html presentation online.
+  -t THEME, --theme=THEME
+                        A theme name, or path to a landlside theme directory
+  -v, --verbose         Write informational messages to stdout (enabled by
+                        default).
+  -x EXTENSIONS, --extensions=EXTENSIONS
+                        Comma-separated list of extensions for Markdown.
+  -w, --watch           Watch source directory for changes and regenerate
+                        slides.
 
 Presentation Configuration
 ==========================
 
-Landslide allows to configure your presentation using a ``cfg``
+Darkslide allows to configure your presentation using a ``cfg``
 configuration file, therefore easing the aggregation of source
-directories and the reuse of them across presentations. Landslide
+directories and the reuse of them across presentations. Darkslide
 configuration files use the ``cfg`` syntax. If you know ``ini`` files,
 you get the picture. Below is a sample configuration file:
 
-::
+.. code-block:: ini
 
-    [landslide]
+    [darkslide]
+    ; the old [landslide] is still supported
     theme  = /path/to/my/beautiful/theme
     source = 0_my_first_slides.md
              a_directory
@@ -298,7 +280,7 @@ you get the picture. Below is a sample configuration file:
     relative = True
     linenos = inline
 
-Don't forget to declare the ``[landslide]`` section. All configuration
+Don't forget to declare the ``[darkslide]`` section. All configuration
 files must end in the .cfg extension.
 
 To generate the presentation as configured, just run:
@@ -339,7 +321,7 @@ Add a QR Code to your presentation by using the ``.qr`` keyword:
 
 ::
 
-    .qr: http://github.com/adamzap/landslide
+    .qr: 450|https://github.com/ionelmc/python-darkslide
 
 Footnote
 --------
@@ -363,7 +345,7 @@ Registering Macros
 
 Macros are used to transform the HTML contents of your slide.
 
-You can register your own macros by creating ``landslide.macro.Macro``
+You can register your own macros by creating ``darkslide.macro.Macro``
 derived classes, implementing a ``process(content, source=None)`` method
 and returning a tuple containing the modified contents and some css
 classes you may be wanting to add to your slide ``<div>`` element. For
@@ -372,13 +354,13 @@ example:
 ::
 
     !python
-    import landslide
+    import darkslide
 
-    class MyMacro(landslide.Macro):
+    class MyMacro(darkslide.Macro):
       def process(self, content, source=None):
         return content + '<p>plop</p>', ['plopped_slide']
 
-    g = landslide.generator.Generator(source='toto.md')
+    g = darkslide.generator.Generator(source='toto.md')
     g.register_macro(MyMacro)
     print g.render()
 
@@ -419,7 +401,7 @@ Working with Direct Output
 
     $ darkslide slides.md -o | tidy
 
-Using an Alternate Landslide Theme
+Using an Alternate Darkslide Theme
 ----------------------------------
 
 ::
@@ -433,13 +415,6 @@ Embedding Base-64-Encoded Images
 ::
 
     $ darkslide slides.md -i
-
-Exporting to PDF
-----------------
-
-::
-
-    $ darkslide slides.md -d presentation.pdf
 
 Enabling Markdown Extensions
 ----------------------------
@@ -550,29 +525,14 @@ Styles Scope
 
 -  To change HTML5 presentation styles, tweak the ``css/screen.css``
    stylesheet bundled with the theme you are using
--  For PDF, modify the ``css/print.css``
+-  For printing, modify the ``css/print.css``
 
 Authors
 =======
 
-Original Author and Development Lead
-------------------------------------
+The project was originally named Landslide and was authored by
+Adam Zapletal (adamzap@gmail.com) and Nicolas Perriault (nperriault@gmail.com)
 
--  Adam Zapletal (adamzap@gmail.com)
+Slide code is based on html5-slides.
 
-Co-Author
----------
-
--  Nicolas Perriault (nperriault@gmail.com)
-
-Contributors
-------------
-
-See https://github.com/ionelmc/python-darkslide/contributors
-
-Base Template Authors and Contributors (html5-slides)
------------------------------------------------------
-
--  Marcin Wichary (mwichary@google.com)
--  Ernest Delgado (ernestd@google.com)
--  Alex Russell (slightlyoff@chromium.org)
+More details: https://github.com/ionelmc/python-darkslide/contributors

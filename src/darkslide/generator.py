@@ -45,7 +45,7 @@ class Generator(object):
             Available ``kwargs`` are:
             - ``copy_theme``: copy theme directory and files into presentation
                               one
-            - ``destination_file``: path to html or PDF destination file
+            - ``destination_file``: path to html destination file
             - ``direct``: enables direct rendering presentation to stdout
             - ``debug``: enables debug mode
             - ``embed``: generates a standalone document, with embedded assets
@@ -115,16 +115,6 @@ class Generator(object):
 
         if os.path.exists(self.destination_file) and not os.path.isfile(self.destination_file):
             raise IOError("Destination %s exists and is not a file" % self.destination_file)
-
-        if self.destination_file.endswith('.html'):
-            self.file_type = 'html'
-        elif self.destination_file.endswith('.pdf'):
-            self.file_type = 'pdf'
-            self.embed = True
-        else:
-            raise IOError("This program can only write html or pdf files. "
-                          "Please use one of these file extensions in the "
-                          "destination")
 
         self.theme_dir = self.find_theme_dir(self.theme, self.copy_theme)
         self.template_file = self.get_template_file()
@@ -200,12 +190,8 @@ class Generator(object):
         """ Execute this generator regarding its current configuration.
         """
         if self.direct:
-            if self.file_type == 'pdf':
-                raise IOError("Direct output mode is not available for PDF "
-                              "export")
-            else:
-                out = getattr(sys.stdout, 'buffer', sys.stdout)
-                out.write(self.render().encode(self.encoding))
+            out = getattr(sys.stdout, 'buffer', sys.stdout)
+            out.write(self.render().encode(self.encoding))
         else:
             self.write_and_log()
 
@@ -566,36 +552,11 @@ class Generator(object):
         """ Writes generated presentation code into the destination file.
         """
         html = self.render()
+        dirname = os.path.dirname(self.destination_file)
+        if dirname and not os.path.exists(dirname):
+            os.makedirs(dirname)
+        with codecs.open(self.destination_file, 'w',
+                         encoding='utf_8') as outfile:
+            outfile.write(html)
 
-        if self.file_type == 'pdf':
-            self.write_pdf(html)
-        else:
-            dirname = os.path.dirname(self.destination_file)
-            if dirname and not os.path.exists(dirname):
-                os.makedirs(dirname)
-            with codecs.open(self.destination_file, 'w',
-                             encoding='utf_8') as outfile:
-                outfile.write(html)
 
-    def write_pdf(self, html):
-        """ Tries to write a PDF export from the command line using PrinceXML
-            if available.
-        """
-        try:
-            f = tempfile.NamedTemporaryFile(delete=False, suffix='.html')
-            f.write(html.encode('utf_8', 'xmlcharrefreplace'))
-            f.close()
-        except Exception:
-            raise IOError("Unable to create temporary file, aborting")
-
-        dummy_fh = open(os.path.devnull, 'w')
-
-        try:
-            command = ["prince", f.name, self.destination_file]
-
-            Popen(command, stderr=dummy_fh).communicate()
-        except Exception:
-            raise EnvironmentError("Unable to generate PDF file using "
-                                   "prince. Is it installed and available?")
-        finally:
-            dummy_fh.close()

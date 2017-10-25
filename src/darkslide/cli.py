@@ -12,38 +12,34 @@ def _parse_options():
 
     parser = OptionParser(
         usage="%prog [options] input.md ...",
-        description="Generates an HTML5 or PDF "
-                    "slideshow from Markdown or other formats",
-        epilog="Note: PDF export requires the `prince` program: "
-               "http://princexml.com/",
+        description="Generates a HTML5 slideshow from Markdown or other formats.",
         version="%prog " + __version__)
 
     parser.add_option(
         "-c", "--copy-theme",
         action="store_true",
         dest="copy_theme",
-        help="Copy theme directory into current presentation source directory",
+        help="Copy theme directory into current presentation source directory.",
         default=False)
 
     parser.add_option(
         "-b", "--debug",
         action="store_true",
         dest="debug",
-        help="Will display any exception trace to stdout",
+        help="Will display any exception trace to stdout.",
         default=False)
 
     parser.add_option(
         "-d", "--destination",
         dest="destination_file",
-        help="The path to the to the destination file: .html or "
-             ".pdf extensions allowed (default: presentation.html)",
+        help="The path to the to the destination html file. Default: presentation.html.",
         metavar="FILE",
         default="presentation.html")
 
     parser.add_option(
         "-e", "--encoding",
         dest="encoding",
-        help="The encoding of your files (defaults to utf8)",
+        help="The encoding of your files. Default: utf8.",
         metavar="ENCODING",
         default="utf8")
 
@@ -51,9 +47,8 @@ def _parse_options():
         "-i", "--embed",
         action="store_true",
         dest="embed",
-        help="Embed stylesheet and javascript contents, "
-             "base64-encoded images in presentation to make a "
-             "standalone document",
+        help="Embed stylesheet and javascript contents, base64-encoded images and objects in presentation to make a "
+             "standalone document.",
         default=False)
 
     parser.add_option(
@@ -61,10 +56,10 @@ def _parse_options():
         type="choice",
         choices=generator.VALID_LINENOS,
         dest="linenos",
-        help="How to output linenos in source code. Three options availables: "
-        "no (no line numbers); "
-        "inline (inside <pre> tag); "
-        "table (lines numbers in another cell, copy-paste friendly)",
+        help="How to output linenos in source code. Three options available: "
+             "no (no line numbers); "
+             "inline (inside <pre> tag); "
+             "table (lines numbers in another cell, copy-paste friendly).",
         default="inline",
     )
 
@@ -72,22 +67,21 @@ def _parse_options():
         "-o", "--direct-output",
         action="store_true",
         dest="direct",
-        help="Prints the generated HTML code to stdout; won't work with PDF "
-             "export",
+        help="Prints the generated HTML code to stdout.",
         default=False)
 
     parser.add_option(
         "-P", "--no-presenter-notes",
         action="store_false",
         dest="presenter_notes",
-        help="Don't include presenter notes in the output",
+        help="Don't include presenter notes in the output.",
         default=True)
 
     parser.add_option(
         "-q", "--quiet",
         action="store_false",
         dest="verbose",
-        help="Won't write anything to stdout (silent mode)",
+        help="Won't write anything to stdout (silent mode).",
         default=False)
 
     parser.add_option(
@@ -110,13 +104,13 @@ def _parse_options():
         "-v", "--verbose",
         action="store_true",
         dest="verbose",
-        help="Write informational messages to stdout (enabled by default)",
+        help="Write informational messages to stdout (enabled by default).",
         default=True)
 
     parser.add_option(
         "-x", "--extensions",
         dest="extensions",
-        help="Comma-separated list of extensions for Markdown",
+        help="Comma-separated list of extensions for Markdown.",
         default='',
     )
 
@@ -124,11 +118,11 @@ def _parse_options():
         "-w", "--watch",
         action="store_true",
         dest="watch",
-        help="Watch source directory for changes and regenerate slides",
+        help="Watch source directory for changes and regenerate slides.",
         default=False
     )
 
-    (options, args) = parser.parse_args()
+    options, args = parser.parse_args()
 
     if not args:
         parser.print_help()
