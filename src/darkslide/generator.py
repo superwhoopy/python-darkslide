@@ -5,8 +5,6 @@ import os
 import re
 import shutil
 import sys
-import tempfile
-from subprocess import Popen
 
 import jinja2
 from six import binary_type
@@ -558,5 +556,3 @@ class Generator(object):
         with codecs.open(self.destination_file, 'w',
                          encoding='utf_8') as outfile:
             outfile.write(html)
-
-
