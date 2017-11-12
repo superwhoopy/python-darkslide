@@ -18,7 +18,6 @@ from .parser import Parser
 
 BASE_DIR = os.path.dirname(__file__)
 THEMES_DIR = os.path.join(BASE_DIR, 'themes')
-TOC_MAX_LEVEL = 2
 VALID_LINENOS = ('no', 'inline', 'table')
 
 
@@ -50,6 +49,7 @@ class Generator(object):
             - ``encoding``: the encoding to use for this presentation
             - ``extensions``: Comma separated list of markdown extensions
             - ``logger``: a logger lambda to use for logging
+            - ``maxtoclevel``: the maximum level to include in toc
             - ``presenter_notes``: enable presenter notes
             - ``relative``: enable relative asset urls
             - ``theme``: path to the theme to use for this presentation
@@ -66,6 +66,7 @@ class Generator(object):
         self.encoding = kwargs.get('encoding', 'utf8')
         self.extensions = kwargs.get('extensions', None)
         self.logger = kwargs.get('logger', None)
+        self.maxtoclevel = kwargs.get('maxtoclevel', 2)
         self.presenter_notes = kwargs.get('presenter_notes', True)
         self.relative = kwargs.get('relative', False)
         self.theme = kwargs.get('theme', 'default')
@@ -94,6 +95,7 @@ class Generator(object):
             self.relative = config.get('relative', self.relative)
             self.copy_theme = config.get('copy_theme', self.copy_theme)
             self.extensions = config.get('extensions', self.extensions)
+            self.maxtoclevel = config.get('max-toc-level', self.maxtoclevel)
             self.theme = config.get('theme', self.theme)
             self.destination_dir = os.path.dirname(self.destination_file)
             self.add_user_css(config.get('css', []))
@@ -422,12 +424,13 @@ class Generator(object):
                 continue
             self.num_slides += 1
             slide_number = slide_vars['number'] = self.num_slides
-            if slide_vars['level'] and slide_vars['level'] <= TOC_MAX_LEVEL:
-                self.add_toc_entry(slide_vars['title'], slide_vars['level'],
-                                   slide_number)
+            if slide_vars['level'] and slide_vars['level'] <= self.maxtoclevel:
+                self.add_toc_entry(slide_vars['title'], slide_vars['level'], slide_number)
             else:
                 # Put something in the TOC even if it doesn't have a title or level
-                self.add_toc_entry(u"-", 1, slide_number)
+                # self.add_toc_entry(u"-", 1, slide_number)
+                # No way: nothing to add in the TOC in this case !
+                pass
 
         return {'head_title': head_title, 'num_slides': str(self.num_slides),
                 'slides': slides, 'toc': self.toc, 'embed': self.embed,
@@ -469,6 +472,8 @@ class Generator(object):
             config['destination'] = raw_config.get(section_name, 'destination')
         if raw_config.has_option(section_name, 'linenos'):
             config['linenos'] = raw_config.get(section_name, 'linenos')
+        if raw_config.has_option(section_name, 'max-toc-level'):
+            config['max-toc-level'] = int(raw_config.get(section_name, 'max-toc-level'))
         for boolopt in ('embed', 'relative', 'copy_theme'):
             if raw_config.has_option(section_name, boolopt):
                 config[boolopt] = raw_config.getboolean(section_name, boolopt)
