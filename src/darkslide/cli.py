@@ -68,7 +68,7 @@ def _parse_options():
         type="int",
         dest="maxtoclevel",
         help="Limits the TOC level generation to a specific level.",
-        default=9)
+        default=2)
 
     parser.add_option(
         "-o", "--direct-output",
