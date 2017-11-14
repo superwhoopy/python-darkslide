@@ -124,18 +124,34 @@
     <h2>Table of Contents</h2>
     <table>
       <caption>Table of Contents</caption>
+
+<!-- macro for generating subsection of TOC -->
+{% macro subtoc(section) -%} 
+{{ caller() }}
+        {% for subsection in section.sub %}
+        <tr id="toc-row-{{ subsection.number }}" class="sub">
+          <th><a href="#slide:{{ subsection.number }}">{{ subsection.title }}</a></th>
+          <td><a href="#slide:{{ subsection.number }}">{{ subsection.number }}</a></td>
+        </tr>
+        {% if subsection.sub %}
+           <!-- generating recursively subsections of TOC -->
+           {% call subtoc(subsection) %}
+           {% endcall %}
+        {% endif %}
+        {% endfor %}
+{%- endmacro %}
+<!-- end of macro -->
+
+      <!-- generating sections of TOC -->
       {% for section in toc %}
       <tr id="toc-row-{{ section.number }}">
         <th><a href="#slide:{{ section.number }}">{{ section.title }}</a></th>
         <td><a href="#slide:{{ section.number }}">{{ section.number }}</a></td>
       </tr>
       {% if section.sub %}
-        {% for subsection in section.sub %}
-        <tr id="toc-row-{{ subsection.number }}" class="sub">
-          <th><a href="#slide:{{ subsection.number }}">{{ subsection.title }}</a></th>
-          <td><a href="#slide:{{ subsection.number }}">{{ subsection.number }}</a></td>
-        </tr>
-        {% endfor %}
+         <!-- generating subsections of TOC -->
+         {% call subtoc(section) %}
+         {% endcall %}
       {% endif %}
       {% endfor %}
     </table>
