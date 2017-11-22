@@ -23,6 +23,7 @@ class Parser(object):
             r'', re.UNICODE),
         (r'<h(\d+?).*?>', r'<h\1>', re.DOTALL | re.UNICODE),
         (r'<hr.*?>\n', r'<hr />\n', re.DOTALL | re.UNICODE),
+        (r'<a class=\"toc-backref\" href=\"#id[0-9]+\">(.+)<\/a>', r'\1', re.UNICODE),
     ]
 
     md_extensions = ''
