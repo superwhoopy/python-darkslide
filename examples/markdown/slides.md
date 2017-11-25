@@ -119,6 +119,28 @@ Hello from presenter notes
 
 ---
 
+# TOC and subsections
+
+A presentation supports multiple section levels. Subsections can be used to organize contents.
+
+The global TOC includes sections and subsections.
+
+The max-toc-level parameter allows the user to limit the number of subsections included in the global TOC.
+
+---
+
+## Subsection A
+
+This slide is a subsection of the section "Toc and subsections"
+
+---
+
+## Subsection B
+
+This slide is a subsection of the section "Toc and subsections"
+
+---
+
 # Other features
 
 View other features in the help sidebar by pressing `h`
