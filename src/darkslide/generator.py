@@ -425,12 +425,8 @@ class Generator(object):
             self.num_slides += 1
             slide_number = slide_vars['number'] = self.num_slides
             if slide_vars['level'] and slide_vars['level'] <= self.maxtoclevel:
+                # only show slides that have a title and lever is not too deep
                 self.add_toc_entry(slide_vars['title'], slide_vars['level'], slide_number)
-            else:
-                # Put something in the TOC even if it doesn't have a title or level
-                # self.add_toc_entry(u"-", 1, slide_number)
-                # No way: nothing to add in the TOC in this case !
-                pass
 
         return {'head_title': head_title, 'num_slides': str(self.num_slides),
                 'slides': slides, 'toc': self.toc, 'embed': self.embed,
