@@ -16,16 +16,17 @@ from setuptools import setup
 
 
 def read(*names, **kwargs):
-    return io.open(
+    with io.open(
         join(dirname(__file__), *names),
         encoding=kwargs.get('encoding', 'utf8')
-    ).read()
+    ) as fh:
+        return fh.read()
 
 
 setup(
     name='darkslide',
     version='4.0.1',
-    license='Apache Software License 2.0',
+    license='Apache-2.0',
     description='Lightweight markup language-based html5 slideshow generator. Forked from Landslide.',
     long_description='%s\n%s' % (
         re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.rst')),
@@ -53,16 +54,21 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
+        # uncomment if you test on these interpreters:
+        # 'Programming Language :: Python :: Implementation :: IronPython',
+        # 'Programming Language :: Python :: Implementation :: Jython',
+        # 'Programming Language :: Python :: Implementation :: Stackless',
         'Topic :: Utilities',
-        'Topic :: Multimedia :: Graphics :: Presentation',
-        'Topic :: Text Processing :: Markup'
     ],
+    project_urls={
+        'Changelog': 'https://github.com/ionelmc/python-darkslide/blob/master/CHANGELOG.rst',
+        'Issue Tracker': 'https://github.com/ionelmc/python-darkslide/issues',
+    },
     keywords=[
         'markdown',
         'slideshow',
@@ -72,6 +78,7 @@ setup(
         'textile',
         'landslide',
     ],
+    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
     install_requires=[
         'Jinja2',
         'Markdown',

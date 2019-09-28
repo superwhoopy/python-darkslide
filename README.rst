@@ -7,8 +7,6 @@ Overview
 .. list-table::
     :stub-columns: 1
 
-    * - docs
-      - |docs|
     * - tests
       - | |travis| |appveyor| |requires|
         | |coveralls| |codecov|
@@ -17,11 +15,7 @@ Overview
       - | |version| |wheel| |supported-versions| |supported-implementations|
         | |commits-since|
 
-.. |docs| image:: https://readthedocs.org/projects/python-darkslide/badge/?style=flat
-    :target: https://readthedocs.org/projects/python-darkslide
-    :alt: Documentation Status
-
-.. |travis| image:: https://travis-ci.org/ionelmc/python-darkslide.svg?branch=master
+.. |travis| image:: https://api.travis-ci.org/ionelmc/python-darkslide.svg?branch=master
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/ionelmc/python-darkslide
 
@@ -45,7 +39,7 @@ Overview
     :target: https://landscape.io/github/ionelmc/python-darkslide/master
     :alt: Code Quality Status
 
-.. |codacy| image:: https://img.shields.io/codacy/5ee39ea7087c472684feca411080ce10.svg?style=flat
+.. |codacy| image:: https://img.shields.io/codacy/grade/862e7946eabb4112be6503a667381b71.svg
     :target: https://www.codacy.com/app/ionelmc/python-darkslide
     :alt: Codacy Code Quality Status
 
@@ -55,27 +49,29 @@ Overview
 
 .. |version| image:: https://img.shields.io/pypi/v/darkslide.svg
     :alt: PyPI Package latest release
-    :target: https://pypi.python.org/pypi/darkslide
-
-.. |commits-since| image:: https://img.shields.io/github/commits-since/ionelmc/python-darkslide/v4.0.1.svg
-    :alt: Commits since latest release
-    :target: https://github.com/ionelmc/python-darkslide/compare/v4.0.1...master
+    :target: https://pypi.org/project/darkslide
 
 .. |wheel| image:: https://img.shields.io/pypi/wheel/darkslide.svg
     :alt: PyPI Wheel
-    :target: https://pypi.python.org/pypi/darkslide
+    :target: https://pypi.org/project/darkslide
 
 .. |supported-versions| image:: https://img.shields.io/pypi/pyversions/darkslide.svg
     :alt: Supported versions
-    :target: https://pypi.python.org/pypi/darkslide
+    :target: https://pypi.org/project/darkslide
 
 .. |supported-implementations| image:: https://img.shields.io/pypi/implementation/darkslide.svg
     :alt: Supported implementations
-    :target: https://pypi.python.org/pypi/darkslide
+    :target: https://pypi.org/project/darkslide
 
-.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/ionelmc/python-darkslide/master.svg
+.. |commits-since| image:: https://img.shields.io/github.com/commits-since/ionelmc/python-darkslide/v4.0.1.svg
+    :alt: Commits since latest release
+    :target: https://github.com/ionelmc/python-darkslide/compare/v4.0.1...master
+
+
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/ionelmc/python-darkslide/master.svg
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/ionelmc/python-darkslide/
+
 
 .. end-badges
 
