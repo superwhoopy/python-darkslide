@@ -58,7 +58,7 @@ class Parser(object):
             if text.startswith(u'\ufeff'):  # check for unicode BOM
                 text = text[1:]
 
-            return markdown.markdown(text, self.md_extensions)
+            return markdown.markdown(text, extensions=self.md_extensions)
         elif self.format == 'restructuredtext':
             try:
                 from .rst import html_body
@@ -80,7 +80,7 @@ class Parser(object):
 
             text = text.replace('\n---\n', '\n<hr />\n')
 
-            return textile.textile(text, encoding=self.encoding)
+            return textile.textile(text)
         else:
             raise NotImplementedError(u"Unsupported format %s, cannot parse"
                                       % self.format)

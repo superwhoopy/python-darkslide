@@ -7,11 +7,10 @@ Darkslide v5.0.0 (??????????)
 
 * Removed PDF export support. You should just use the PDF export from
   Google Chrome (it works way better than the alternatives).
-
-Darkslide v4.0.2 (2017-10-19)
-=============================
-
 * Fixed transitions in presenter mode.
+* Added support for Up/Down arrow navigation.
+  Contributed by Heiko Schlittermann in `#13 <https://github.com/ionelmc/python-darkslide/pull/13>`_.
+* Added support for Markdown 3.0+ and Textile 2.3+.
 
 Darkslide v4.0.1 (2017-10-19)
 =============================
