@@ -43,7 +43,7 @@ class CodeHighlightingMacro(Macro):
         r'(<pre.+?>(<code>)?\s?!(\S+?)\n(.*?)(</code>)?</pre>)',
         re.UNICODE | re.MULTILINE | re.DOTALL)
 
-    html_entity_re = re.compile('&(\w+?);')
+    html_entity_re = re.compile(r'&(\w+?);')
 
     def descape(self, string, defs=None):
         """Decodes html entities from a given string"""

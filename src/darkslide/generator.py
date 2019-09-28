@@ -11,8 +11,8 @@ from six import binary_type
 from six import string_types
 from six.moves import configparser
 
-from . import macro as macro_module
 from . import __version__
+from . import macro as macro_module
 from . import utils
 from .parser import Parser
 
