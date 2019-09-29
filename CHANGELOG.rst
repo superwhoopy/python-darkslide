@@ -2,7 +2,7 @@
 Changelog
 =========
 
-Darkslide v5.0.0 (??????????)
+Darkslide v5.0.0 (2019-09-29)
 =============================
 
 * Removed PDF export support. You should just use the PDF export from
