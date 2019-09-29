@@ -27,6 +27,7 @@ matrix:
       python: 'pypy'
     - env:
         - TOXENV=pypy3,codecov,coveralls
+        - TOXPYTHON=pypy3
       python: 'pypy3'
 before_install:
   - |
