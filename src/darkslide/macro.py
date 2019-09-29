@@ -170,14 +170,17 @@ class NotesMacro(Macro):
     macro_re = re.compile(r'<p>\.notes:\s?(.*?)</p>')
 
     def process(self, content, source=None, context=None):
-        classes = []
+        notes = []
 
-        new_content = self.macro_re.sub(r'<p class="notes">\1</p>', content)
+        def repl(match):
+            notes.append("<p>%s</p>" % match.group(1))
+            return ''
+        new_content = self.macro_re.sub(repl, content)
 
-        if content != new_content:
-            classes.append(u'has_notes')
+        if context is not None:
+            context['presenter_notes'] = ''.join(notes)
 
-        return new_content, classes
+        return new_content, []
 
 
 class QRMacro(Macro):

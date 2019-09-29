@@ -11,6 +11,7 @@ Darkslide v5.0.0 (??????????)
 * Added support for Up/Down arrow navigation.
   Contributed by Heiko Schlittermann in `#13 <https://github.com/ionelmc/python-darkslide/pull/13>`_.
 * Added support for Markdown 3.0+ and Textile 2.3+.
+* Changed the broken ``.notes:`` macro to output presenter notes.
 
 Darkslide v4.0.1 (2017-10-19)
 =============================

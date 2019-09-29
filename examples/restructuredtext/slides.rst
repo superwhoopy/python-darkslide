@@ -6,10 +6,14 @@ Title Slide
 Paragraphs
 ==========
 
+.notes: notes
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ultricies
 tempus ultricies. Ut porta scelerisque viverra. Pellentesque aliquam metus
 scelerisque dui ultricies, auctor dictum erat aliquet. Integer vehicula nunc
 elit, vel iaculis lorem facilisis non.
+
+.notes: more notes
 
 Vivamus ante mauris, pellentesque et rhoncus ut, condimentum sed ipsum.
 Nullam eu molestie sapien. Curabitur imperdiet, ligula id blandit sagittis,

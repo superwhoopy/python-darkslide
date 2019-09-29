@@ -360,7 +360,7 @@ class Generator(object):
         """ Computes a single slide template vars from its html source code.
             Also extracts slide information for the table of contents.
         """
-        presenter_notes = None
+        presenter_notes = ''
 
         find = _presenter_notes_re.search(slide_src)
 
@@ -405,10 +405,13 @@ class Generator(object):
                 classes=slide_classes,
                 header=header,
                 level=level,
-                presenter_notes=presenter_notes,
                 source=source_dict,
                 title=title,
             )
+            context.setdefault('presenter_notes', '')
+            context['presenter_notes'] += presenter_notes
+            if not context['presenter_notes']:
+                context['presenter_notes'] = None
             return context
 
     def get_template_vars(self, slides):

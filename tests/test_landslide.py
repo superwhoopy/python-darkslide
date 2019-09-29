@@ -121,9 +121,11 @@ def test_get_template_vars():
 def test_process_macros():
     g = Generator(os.path.join(DATA_DIR, 'test.md'))
     # Notes
-    r = g.process_macros('<p>foo</p>\n<p>.notes: bar</p>\n<p>baz</p>', '', {})
-    assert r[0].find('<p class="notes">bar</p>') == 11
-    assert r[1] == [u'has_notes']
+    ctx = {}
+    r = g.process_macros('<p>foo</p>\n<p>.notes: bar</p>\n<p>baz</p>', '', ctx)
+    assert r[0].find('bar') == -1
+    assert r[1] == []
+    assert ctx == {'presenter_notes': '<p>bar</p>'}
     # FXs
     content = '<p>foo</p>\n<p>.fx: blah blob</p>\n<p>baz</p>'
     r = g.process_macros(content, '', {})
@@ -265,8 +267,8 @@ def test_fx_macro_process():
 def test_notes_macro_process():
     m = macro.NotesMacro(logtest)
     r = m.process('<p>foo</p>\n<p>.notes: bar</p>\n<p>baz</p>')
-    assert r[0].find('<p class="notes">bar</p>') == 11
-    assert r[1] == [u'has_notes']
+    assert r[0].find('bar') == -1
+    assert r[1] == []
 
 
 def test_parser__init__():
