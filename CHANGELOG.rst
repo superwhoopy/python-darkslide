@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Darkslide v5.0.1 (2019-10-01)
+=============================
+
+* Fixed media for user css to be always be ``all``. Previously it was ``screen, projection`` if embedded.
+
 Darkslide v5.0.0 (2019-09-29)
 =============================
 

@@ -49,11 +49,11 @@
     {% endif %}
     {% for css in user_css %}
       {% if embed %}
-      <style type="text/css" media="screen, projection">
+      <style type="text/css" media="all">
         {{ css.contents }}
       </style>
       {% else %}
-      <link rel="stylesheet" href="{{ css.path_url }}">
+      <link rel="stylesheet" media="all" href="{{ css.path_url }}">
       {% endif %}
     {% endfor %}
     <!-- /Styles -->
@@ -126,7 +126,7 @@
       <caption>Table of Contents</caption>
 
 <!-- macro for generating subsection of TOC -->
-{% macro subtoc(section) -%} 
+{% macro subtoc(section) -%}
 {{ caller() }}
         {% for subsection in section.sub %}
         <tr id="toc-row-{{ subsection.number }}" class="sub">
