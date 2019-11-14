@@ -147,8 +147,8 @@ If you want to stay on the edge:
 
 ::
 
-    $ git clone https://github.com/adamzap/landslide.git
-    $ cd landslide
+    $ git clone https://github.com/ionelmc/python-darkslide.git
+    $ cd python-darkslide
     $ python setup.py build
     $ sudo python setup.py install
 
@@ -186,7 +186,7 @@ Textile
 Rendering
 =========
 
--  Run ``landslide slides.md`` or ``landslide slides.rst``
+-  Run ``darkslide slides.md`` or ``darkslide slides.rst``
 -  Enjoy your newly generated ``presentation.html``
 
 Viewing
