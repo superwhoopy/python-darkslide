@@ -516,9 +516,11 @@ class Generator(object):
         html = template.render(context)
 
         if self.embed:
-            images = re.findall(r'url\(["\']?(.*?\.(?:jpe?g|gif|png|svg)[\'"]?)\)', html, re.DOTALL | re.UNICODE)
+            all_urls = re.findall(r'url\([\"\']?(.*?)[\"\']?\)', html, re.DOTALL | re.UNICODE)
+            img_exts = ('.jpg', '.jpeg', '.png', '.gif', '.svg')
+            img_urls = (url for url in all_urls if url.endswith(img_exts))
 
-            for img_url in images:
+            for img_url in img_urls:
                 img_url = img_url.replace('"', '').replace("'", '')
                 if self.theme_dir:
                     source = os.path.join(self.theme_dir, 'css')
