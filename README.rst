@@ -322,11 +322,11 @@ Add a QR Code to your presentation by using the ``.qr`` keyword:
 Footnote
 --------
 
-Add footnote to the current and all the following presentations
+Add footnote to the current and all the following slides
 
 ::
 
-    .footnote: Slides available at https://blog.ionelmc.ro/presentations/
+    .footer: Slides available at https://blog.ionelmc.ro/presentations/
 
 
 Presenter Notes
