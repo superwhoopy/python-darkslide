@@ -101,7 +101,7 @@ class EmbedImagesMacro(Macro):
         source_dir = os.path.dirname(source)
 
         for image_url, data_url in images:
-            encoded_url = utils.encode_image_from_url(image_url or data_url, source_dir)
+            encoded_url = utils.encode_data_from_url(image_url or data_url, source_dir)
 
             if not encoded_url:
                 self.logger(u"Failed to embed image \"%s\"" % image_url, 'warning')

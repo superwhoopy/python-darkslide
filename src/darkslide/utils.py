@@ -3,6 +3,9 @@ import base64
 import mimetypes
 import os
 
+# add woff2 font type: not here by default...
+mimetypes.add_type('font/woff2', '.woff2')
+
 
 def get_path_url(path, relative=False):
     """ Returns an absolute or relative path url given a path
@@ -13,7 +16,7 @@ def get_path_url(path, relative=False):
         return os.path.relpath(path, relative)
 
 
-def encode_image_from_url(url, source_path):
+def encode_data_from_url(url, source_path):
     if not url or url.startswith('data:') or url.startswith('file://'):
         return False
 

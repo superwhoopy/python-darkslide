@@ -517,7 +517,8 @@ class Generator(object):
 
         if self.embed:
             all_urls = re.findall(r'url\([\"\']?(.*?)[\"\']?\)', html, re.DOTALL | re.UNICODE)
-            img_exts = ('.jpg', '.jpeg', '.png', '.gif', '.svg')
+            img_exts = ('.jpg', '.jpeg', '.png', '.gif', '.svg', '.woff2',
+                        '.woff')
             img_urls = (url for url in all_urls if url.endswith(img_exts))
 
             for img_url in img_urls:
@@ -527,10 +528,10 @@ class Generator(object):
                 else:
                     source = os.path.join(THEMES_DIR, self.theme, 'css')
 
-                encoded_url = utils.encode_image_from_url(img_url, source)
+                encoded_url = utils.encode_data_from_url(img_url, source)
                 if encoded_url:
                     html = html.replace(img_url, encoded_url, 1)
-                    self.log("Embedded theme image %s from theme directory %s" % (img_url, source))
+                    self.log("Embedded theme file %s from theme directory %s" % (img_url, source))
                 else:
                     # Missing file in theme directory. Try user_css folders
                     found = False
@@ -539,16 +540,16 @@ class Generator(object):
                         if not directory:
                             directory = "."
 
-                        encoded_url = utils.encode_image_from_url(img_url, directory)
+                        encoded_url = utils.encode_data_from_url(img_url, directory)
 
                         if encoded_url:
                             found = True
                             html = html.replace(img_url, encoded_url, 1)
-                            self.log("Embedded theme image %s from directory %s" % (img_url, directory))
+                            self.log("Embedded theme file %s from directory %s" % (img_url, directory))
 
                     if not found:
                         # Missing image file, etc...
-                        self.log(u"Failed to embed theme image %s" % img_url)
+                        self.log(u"Failed to embed theme file %s" % img_url)
 
         return html
 
