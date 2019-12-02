@@ -40,8 +40,15 @@ class CodeHighlightingMacro(Macro):
     """Performs syntax coloration in slide code blocks using Pygments"""
 
     macro_re = re.compile(
-        r'(<pre.+?>(<code>)?\s?!(\S+?)\n(.*?)(</code>)?</pre>)',
-        re.UNICODE | re.MULTILINE | re.DOTALL)
+        r"""(?P<whole_block>
+        <pre.*?> \s*
+            (?:<code\s*(?:class=\"(?P<lang0>.*?)\")?>)?
+                (?:!(?P<lang1>\w+))? \s*
+                (?P<code_block>.*?)
+            (?:</code>)? \s*
+        </pre>
+        )""",
+        re.UNICODE | re.MULTILINE | re.DOTALL | re.VERBOSE)
 
     html_entity_re = re.compile(r'&(\w+?);')
 
@@ -64,7 +71,8 @@ class CodeHighlightingMacro(Macro):
             return content, []
 
         classes = []
-        for block, void1, lang, code, void2 in code_blocks:
+        for whole_block, lang0, lang1, code in code_blocks:
+            lang = lang0 or lang1
             try:
                 lexer = get_lexer_by_name(lang, startinline=True)
             except Exception:
@@ -79,7 +87,7 @@ class CodeHighlightingMacro(Macro):
                                       nobackground=True)
             pretty_code = pygments.highlight(self.descape(code), lexer,
                                              formatter)
-            content = content.replace(block, pretty_code, 1)
+            content = content.replace(whole_block, pretty_code, 1)
 
         return content, [u'has_code']
 
