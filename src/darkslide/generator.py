@@ -36,6 +36,11 @@ class Generator(object):
         macro_module.FooterMacro,
     )
 
+    basic_slide_classes = (
+        'slide-title',
+        'slide-content',
+    )
+
     def __init__(self, source, **kwargs):
         """ Configures this generator. Available ``args`` are:
             - ``source``: source file or directory path
@@ -378,6 +383,11 @@ class Generator(object):
 
         if content:
             content, slide_classes = self.process_macros(content, source, context)
+
+        # macros must be able to set the basic slide class (content or title):
+        # if the slide class is not defined, guess it
+        if all(cls not in slide_classes for cls in self.basic_slide_classes):
+            slide_classes.append('slide-content' if content else 'slide-title')
 
         source_dict = {}
 

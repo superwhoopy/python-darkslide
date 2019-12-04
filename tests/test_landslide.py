@@ -65,7 +65,7 @@ def test_get_slide_vars():
     assert svars['header'] == '<h1>heading</h1>'
     assert svars['content'] == '<p>foo</p>\n<p>bar</p>'
     assert svars['source'] == {}
-    assert svars['classes'] == []
+    assert svars['classes'] == ['slide-content']
 
 
 def test_unicode():
