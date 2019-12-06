@@ -2,12 +2,11 @@
 Changelog
 =========
 
-Upcoming release (XXX-XX-XX)
-============================
+Darkslide v5.0.2 (2019-12-07)
+=============================
 
 * Fixed a small bug in the image embedding feature (image detection in CSS file
-  could fail)
-
+  could fail).
 
 Darkslide v5.0.1 (2019-10-01)
 =============================
