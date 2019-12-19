@@ -86,6 +86,7 @@ setup(
         'docutils',
         'six',
         'qrcode',
+        'markdown-checklist',
     ],
     extras_require={
         # eg: 'rst': ['docutils>=0.11'],

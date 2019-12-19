@@ -54,7 +54,7 @@ def _parse_options():
     parser.add_option(
         "-l", "--linenos",
         type="choice",
-        choices=generator.VALID_LINENOS,
+        choices=generator.UserOpts.VALID_LINENOS,
         dest="linenos",
         help="How to output linenos in source code. Three options available: "
              "no (no line numbers); "
@@ -98,6 +98,12 @@ def _parse_options():
         help="Make your presentation asset links relative to current working dir; "
              "This may be useful if you intend to publish your html "
              "presentation online.",
+        default=False,
+    )
+
+    parser.add_option(
+        "--no-rcfile",
+        help="TODO",
         default=False,
     )
 

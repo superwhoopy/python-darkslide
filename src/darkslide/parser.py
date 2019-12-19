@@ -26,7 +26,11 @@ class Parser(object):
         (r'<a class=\"toc-backref\" href=\"#id[0-9]+\">(.+)<\/a>', r'\1', re.UNICODE),
     ]
 
-    md_extensions = ''
+    # default_md_extensions = [
+    #     'extra', # fenced_code, tables, ...
+    #     'smarty', # dashes, quotes and ellipsis
+    #     'markdown_checklist.extension',
+    # ]
 
     def __init__(self, extension, encoding='utf8', md_extensions=''):
         """Configures this parser.
@@ -42,9 +46,9 @@ class Parser(object):
         if not self.format:
             raise NotImplementedError(u"Unsupported format %s" % extension)
 
-        if md_extensions:
-            exts = (value.strip() for value in md_extensions.split(','))
-            self.md_extensions = filter(None, exts)
+        self.md_extensions = [
+            value.strip() for value in md_extensions.split(',') if value.strip()
+        ]
 
     def parse(self, text):
         """Parses and renders a text as HTML regarding current format.

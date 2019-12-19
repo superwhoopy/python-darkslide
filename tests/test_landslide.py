@@ -30,11 +30,11 @@ def test_generator__init__():
 
 def test_add_user_assets():
     base_dir = os.path.join(DATA_DIR, 'test.md')
-    g = Generator(base_dir, logger=logtest)
-    g.user_css.extend(g.process_user_files(os.path.join(DATA_DIR, 'test.css')))
-    g.user_js.extend(g.process_user_files(os.path.join(DATA_DIR, 'test.js')))
-    assert g.user_css[0]['contents'] == '* {color: red;}'
-    assert g.user_js[0]['contents'] == "alert('foo');"
+    g = Generator(base_dir, logger=logtest,
+                  user_css=os.path.join(DATA_DIR, 'test.css'),
+                  user_js=os.path.join(DATA_DIR, 'test.js'))
+    assert g.user_opts['user_css'][0]['contents'] == '* {color: red;}'
+    assert g.user_opts['user_js'][0]['contents'] == "alert('foo');"
 
 
 def test_get_toc():
@@ -89,7 +89,7 @@ def test_inputencoding():
     # check that the string is utf_8
     assert u'русский' in content
     g.execute()
-    with codecs.open(g.destination_file, encoding='utf_8') as file_object:
+    with codecs.open(g.user_opts['destination_file'], encoding='utf_8') as file_object:
         file_contents = file_object.read()
     # check that the file was properly encoded in utf_8
     assert u'русский' in file_contents
@@ -103,7 +103,7 @@ def test_weird_filename():
     # check that the string is utf_8
     assert u'țară' in content
     g.execute()
-    with codecs.open(g.destination_file, encoding='utf_8') as file_object:
+    with codecs.open(g.user_opts['destination_file'], encoding='utf_8') as file_object:
         file_contents = file_object.read()
     # check that the file was properly encoded in utf_8
     assert u'țară' in file_contents
