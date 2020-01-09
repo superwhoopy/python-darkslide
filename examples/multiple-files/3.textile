@@ -1,6 +1,6 @@
 h1. Images
 
-!.../_assets/landscape.jpg(Landscape)!
+!../_assets/landscape.jpg(Landscape)!
 
 <hr />
 

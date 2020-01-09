@@ -138,6 +138,7 @@ class Generator(object):
                     self.user_css.append({
                         'path_url': utils.get_path_url(css_path,
                                                        self.relative and self.destination_dir),
+                        'dirname': os.path.dirname(css_path) or '.',
                         'contents': css_file.read(),
                     })
 
@@ -265,23 +266,24 @@ class Generator(object):
         """ Finds them dir path from its name.
         """
         if os.path.exists(theme):
-            self.theme_dir = theme
+            theme_dir = theme
         elif os.path.exists(os.path.join(THEMES_DIR, theme)):
-            self.theme_dir = os.path.join(THEMES_DIR, theme)
+            theme_dir = os.path.join(THEMES_DIR, theme)
         else:
             raise IOError("Theme %s not found or invalid" % theme)
+
         target_theme_dir = os.path.join(os.getcwd(), 'theme')
         if copy_theme or os.path.exists(target_theme_dir):
             self.log(u'Copying %s theme directory to %s'
                      % (theme, target_theme_dir))
             if not os.path.exists(target_theme_dir):
                 try:
-                    shutil.copytree(self.theme_dir, target_theme_dir)
+                    shutil.copytree(theme_dir, target_theme_dir)
                 except Exception as e:
                     self.log(u"Skipped copy of theme folder: %s" % e)
-                    pass
-            self.theme_dir = target_theme_dir
-        return self.theme_dir
+            theme_dir = target_theme_dir
+
+        return theme_dir
 
     def get_css(self):
         """ Fetches and returns stylesheet file path or contents, for both
@@ -505,6 +507,44 @@ class Generator(object):
                 raise TypeError("Couldn't register macro; a macro must inherit"
                                 " from macro.Macro")
 
+    def embed_url_data(self, context, html):
+        """Find all image and fonts referenced in CSS with an ``url()`` function
+        and embed them in base64. Images from the user (i.e. included in its
+        source code, *not* in its CSS) are embedded by the macro
+        `EmbedImagesMacro`.
+        """
+        all_urls = re.findall(r'url\([\"\']?(.*?)[\"\']?\)', html,
+                              re.DOTALL | re.UNICODE)
+        embed_exts = ('.jpg', '.jpeg', '.png', '.gif', '.svg', '.woff2',
+                      '.woff')
+        embed_urls = (url for url in all_urls if url.endswith(embed_exts))
+
+        css_dirs = (
+            [os.path.join(self.theme_dir, 'css')] +
+            [css_entry['dirname'] for css_entry in context['user_css']]
+        )
+
+        for embed_url in embed_urls:
+            embed_url = embed_url.replace('"', '').replace("'", '')
+
+            def _try_to_encode(embed_url):
+                for css_dir in css_dirs:
+                    encoded_url = utils.encode_data_from_url(embed_url, css_dir)
+                    if encoded_url:
+                        return css_dir, encoded_url
+                return None, None
+
+            directory, encoded_url = _try_to_encode(embed_url)
+
+            if encoded_url:
+                html = html.replace(embed_url, encoded_url, 1)
+                self.log("Embedded theme file %s from directory %s"
+                         % (embed_url, directory))
+            else:
+                self.log(u"Failed to embed theme file %s" % embed_url)
+
+        return html
+
     def render(self):
         """ Returns generated html code.
         """
@@ -516,40 +556,7 @@ class Generator(object):
         html = template.render(context)
 
         if self.embed:
-            all_urls = re.findall(r'url\([\"\']?(.*?)[\"\']?\)', html, re.DOTALL | re.UNICODE)
-            img_exts = ('.jpg', '.jpeg', '.png', '.gif', '.svg', '.woff2',
-                        '.woff')
-            img_urls = (url for url in all_urls if url.endswith(img_exts))
-
-            for img_url in img_urls:
-                img_url = img_url.replace('"', '').replace("'", '')
-                if self.theme_dir:
-                    source = os.path.join(self.theme_dir, 'css')
-                else:
-                    source = os.path.join(THEMES_DIR, self.theme, 'css')
-
-                encoded_url = utils.encode_data_from_url(img_url, source)
-                if encoded_url:
-                    html = html.replace(img_url, encoded_url, 1)
-                    self.log("Embedded theme file %s from theme directory %s" % (img_url, source))
-                else:
-                    # Missing file in theme directory. Try user_css folders
-                    found = False
-                    for css_entry in context['user_css']:
-                        directory = os.path.dirname(css_entry['path_url'])
-                        if not directory:
-                            directory = "."
-
-                        encoded_url = utils.encode_data_from_url(img_url, directory)
-
-                        if encoded_url:
-                            found = True
-                            html = html.replace(img_url, encoded_url, 1)
-                            self.log("Embedded theme file %s from directory %s" % (img_url, directory))
-
-                    if not found:
-                        # Missing image file, etc...
-                        self.log(u"Failed to embed theme file %s" % img_url)
+            html = self.embed_url_data(context, html)
 
         return html
 
