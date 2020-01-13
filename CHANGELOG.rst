@@ -7,6 +7,7 @@ Darkslide v5.1.0 (2020-01-13)
 
 * Added support for embedding webfonts.
   Contributed by Emmanuel Ohayon in `#17 <https://github.com/ionelmc/python-darkslide/pull/17>`_.
+* Refactored user css and js path processing code.
 * Relativized user css and js paths to the configuration directory (CWD if there's no configuration file).
 
 Darkslide v5.0.2 (2019-12-07)
