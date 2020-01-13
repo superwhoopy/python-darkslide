@@ -31,8 +31,8 @@ def test_generator__init__():
 def test_add_user_assets():
     base_dir = os.path.join(DATA_DIR, 'test.md')
     g = Generator(base_dir, logger=logtest)
-    g.add_user_css(os.path.join(DATA_DIR, 'test.css'))
-    g.add_user_js(os.path.join(DATA_DIR, 'test.js'))
+    g.user_css.extend(g.process_user_files(os.path.join(DATA_DIR, 'test.css')))
+    g.user_js.extend(g.process_user_files(os.path.join(DATA_DIR, 'test.js')))
     assert g.user_css[0]['contents'] == '* {color: red;}'
     assert g.user_js[0]['contents'] == "alert('foo');"
 
