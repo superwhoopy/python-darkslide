@@ -48,7 +48,7 @@
     <link rel="stylesheet" media="all" href="{{ css.theme.path_url }}">
     {% endif %}
     {% for css in user_css %}
-      {% if embed %}
+      {% if embed and css.embeddable %}
       <style type="text/css" media="all">
         {{ css.contents }}
       </style>
@@ -58,7 +58,7 @@
     {% endfor %}
     <!-- /Styles -->
     <!-- Javascripts -->
-    {% if embed %}
+    {% if embed and js.embeddable %}
     <script>
       {{ js.contents }}
     </script>

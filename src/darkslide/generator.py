@@ -98,8 +98,8 @@ class Generator(object):
             self.maxtoclevel = config.get('max-toc-level', self.maxtoclevel)
             self.theme = config.get('theme', self.theme)
             self.destination_dir = os.path.dirname(self.destination_file)
-            self.add_user_css(config.get('css', []))
-            self.add_user_js(config.get('js', []))
+            self.user_css.extend(self.process_user_files(config.get('css', [])))
+            self.user_js.extend(self.process_user_files(config.get('js', [])))
             self.linenos = self.linenos_check(config.get('linenos', self.linenos))
         else:
             self.source = source
@@ -123,48 +123,30 @@ class Generator(object):
         self.macros = []
         self.register_macro(*self.default_macros)
 
-    def add_user_css(self, css_list):
-        """ Adds supplementary user css files to the presentation. The
-            ``css_list`` arg can be either a ``list`` or a string.
-        """
-        if isinstance(css_list, string_types):
-            css_list = [css_list]
-
-        for css_path in css_list:
-            if css_path and css_path not in self.user_css:
-                if not os.path.exists(css_path):
-                    raise IOError('%s user css file not found' % (css_path,))
-                with codecs.open(css_path, encoding=self.encoding) as css_file:
-                    self.user_css.append({
-                        'path_url': utils.get_path_url(css_path,
-                                                       self.relative and self.destination_dir),
-                        'dirname': os.path.dirname(css_path) or '.',
-                        'contents': css_file.read(),
-                    })
-
-    def add_user_js(self, js_list):
-        """ Adds supplementary user javascript files to the presentation. The
-            ``js_list`` arg can be either a ``list`` or a string.
-        """
-        if isinstance(js_list, string_types):
-            js_list = [js_list]
-        for js_path in js_list:
-            if js_path and js_path not in self.user_js:
-                if js_path.startswith("http:"):
-                    self.user_js.append({
-                        'path_url': js_path,
-                        'contents': '',
-                    })
-                elif not os.path.exists(js_path):
-                    raise IOError('%s user js file not found' % (js_path,))
-                else:
-                    with codecs.open(js_path,
-                                     encoding=self.encoding) as js_file:
-                        self.user_js.append({
-                            'path_url': utils.get_path_url(js_path,
-                                                           self.relative and self.destination_dir),
-                            'contents': js_file.read(),
-                        })
+    def process_user_files(self, files):
+        if isinstance(files, string_types):
+            files = [files]
+        for path in files:
+            if path.startswith(("http://", "https://")):
+                yield {
+                    'path_url': path,
+                    'contents': '',
+                    'dirname': '',
+                    'embeddable': False,
+                }
+                self.log("Loaded:  %s (not embeddable)\n" % path)
+            else:
+                path = os.path.normpath(os.path.join(self.work_dir, path))
+                if not os.path.exists(path):
+                    raise IOError('%s user file not found' % (path,))
+                with codecs.open(path, encoding=self.encoding) as fh:
+                    yield {
+                        'path_url': utils.get_path_url(path, self.relative and self.destination_dir),
+                        'dirname': os.path.dirname(path) or '.',
+                        'contents': fh.read(),
+                        'embeddable': True,
+                    }
+                    self.log("Loaded:  %s\n" % path)
 
     def add_toc_entry(self, title, level, slide_number):
         """ Adds a new entry to current presentation Table of Contents.
@@ -301,6 +283,7 @@ class Generator(object):
             css['base'] = {
                 'path_url': utils.get_path_url(base_css, self.relative and self.destination_dir),
                 'contents': css_file.read(),
+                'embeddable': True
             }
 
         print_css = os.path.join(self.theme_dir, 'css', 'print.css')
@@ -312,6 +295,7 @@ class Generator(object):
             css['print'] = {
                 'path_url': utils.get_path_url(print_css, self.relative and self.destination_dir),
                 'contents': css_file.read(),
+                'embeddable': True
             }
 
         screen_css = os.path.join(self.theme_dir, 'css', 'screen.css')
@@ -323,6 +307,7 @@ class Generator(object):
             css['screen'] = {
                 'path_url': utils.get_path_url(screen_css, self.relative and self.destination_dir),
                 'contents': css_file.read(),
+                'embeddable': True
             }
 
         theme_css = os.path.join(self.theme_dir, 'css', 'theme.css')
@@ -334,6 +319,7 @@ class Generator(object):
             css['theme'] = {
                 'path_url': utils.get_path_url(theme_css, self.relative and self.destination_dir),
                 'contents': css_file.read(),
+                'embeddable': True
             }
 
         return css
@@ -353,6 +339,7 @@ class Generator(object):
             return {
                 'path_url': utils.get_path_url(js_file, self.relative and self.destination_dir),
                 'contents': js_file_obj.read(),
+                'embeddable': True
             }
 
     def get_slide_vars(self, slide_src, source,
