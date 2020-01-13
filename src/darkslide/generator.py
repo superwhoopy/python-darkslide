@@ -527,14 +527,11 @@ class Generator(object):
         for embed_url in embed_urls:
             embed_url = embed_url.replace('"', '').replace("'", '')
 
-            def _try_to_encode(embed_url):
-                for css_dir in css_dirs:
-                    encoded_url = utils.encode_data_from_url(embed_url, css_dir)
-                    if encoded_url:
-                        return css_dir, encoded_url
-                return None, None
-
-            directory, encoded_url = _try_to_encode(embed_url)
+            directory, encoded_url = None, None
+            for directory in css_dirs:
+                encoded_url = utils.encode_data_from_url(embed_url, directory)
+                if encoded_url:
+                    break
 
             if encoded_url:
                 html = html.replace(embed_url, encoded_url, 1)
