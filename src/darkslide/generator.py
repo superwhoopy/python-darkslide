@@ -1,153 +1,23 @@
 # -*- coding: utf-8 -*-
 import codecs
 import inspect
-import itertools
 import os
 import re
 import shutil
 import sys
-from collections import UserDict
 
 import jinja2
-from six import binary_type
-from six import string_types
-from six.moves import configparser
+from six import binary_type, string_types
 
 from . import __version__
 from . import macro as macro_module
 from . import utils
 from .parser import Parser
+from .conf import UserConfig
 
 BASE_DIR = os.path.dirname(__file__)
 THEMES_DIR = os.path.join(BASE_DIR, 'themes')
-
-class UserOpts(UserDict):
-    """TODO"""
-    VALID_LINENOS = ('no', 'inline', 'table')
-
-    DEFAULT_VALUES = {
-        'linenos' : 'inline',
-        'source' : '',
-        'copy_theme' : False,
-        'destination_file' : 'presentation.html',
-        'direct' : False,
-        'embed' : False,
-        'encoding' : 'utf8',
-        'extensions' : '',
-        'maxtoclevel' : 2,
-        'no_rcfile': False,
-        'presenter_notes' : True,
-        'relative' : False,
-        'theme' : 'default',
-        'verbose': False,
-        'watch' : False,
-        'user_css' : [],
-        'user_js' : [],
-    }
-
-    ALIASES = {
-        'css': 'user_css',
-        'js': 'user_js',
-        'destination': 'destination_file',
-        'max-toc-level': 'maxtoclevel',
-        'presenter-notes': 'presenter_notes',
-        'copy-theme': 'copy_theme',
-        'no-rcfile': 'no_rcfile',
-    }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # set some default values
-        for key, val in self.DEFAULT_VALUES.items():
-            # make sure not to go through __setitem__ here
-            self.data.setdefault(key, val)
-
-
-    def __getitem__(self, key):
-        return super().__getitem__(self.alias(key))
-
-
-    def __setitem__(self, key, value):
-        key = self.alias(key)
-
-        if key not in self.DEFAULT_VALUES:
-            raise ValueError("Unknown user parameter '%s'" % (key))
-        if key == 'linenos':
-            super().__setitem__(key, (value if value in self.VALID_LINENOS
-                                      else 'inline'))
-        elif key in ('user_css', 'user_js'):
-            self._appenduserfile(key, value)
-        else:
-            super().__setitem__(key, value)
-
-
-    def alias(self, key):
-        return self.ALIASES.get(key, default=key)
-
-
-    def allopts(self):
-        allkeys = itertools.chain(self.ALIASES, self.DEFAULT_VALUES)
-        return (key, type(self.DEFAULT_VALUES[self.alias(key)])
-                for key in allkeys)
-
-
-    @classmethod
-    def from_configfile(cls, configfiles):
-        raw_config = configparser.RawConfigParser()
-        try:
-            raw_config.read(config_source)
-        except configparser.Error as e:
-            raise RuntimeError(u"Invalid configuration file: %s" % e)
-
-        section_name = ('landslide' if raw_config.has_section('landslide') else
-                        'darkslide')
-
-        typed_getter_funcs = {
-            int: raw_config.getint,
-            bool: raw_config.getboolean,
-            str: raw_config.get,
-            list: lambda section, key: raw_config.get(section, key).split('\n'),
-        }
-
-        config = {}
-        for key, key_type in self.allopts():
-            normed_key = self.alias(key)
-            try:
-                value = typed_getter_funcs[key_type](section_name, key)
-            except configparser.Error as e:
-                raise ValueError("Invalid value type in config file: %s" % e)
-
-            if value is not None:
-                config[normed_key] = value
-
-        return config
-
-
-    def _appenduserfile(self, key, value):
-        if isinstance(value, string_types):
-            value = [value]
-
-        for path in value:
-            if not path:
-                continue
-            if path.startswith("http:"):
-                self[key].append({
-                    'path_url': path,
-                    'dirname': '',
-                    'contents': '',
-                })
-            elif not os.path.exists(path):
-                raise IOError('%s user file not found' % (path,))
-            else:
-                with codecs.open(
-                        path, encoding=self.get('encoding', 'utf8')
-                ) as file_content:
-                    url = utils.get_path_url(path, self.get('relative', False))
-                    self[key].append({
-                        'path_url': url,
-                        'dirname': os.path.dirname(path) or '.',
-                        'contents': file_content.read(),
-                    })
+RCFILEPATH = os.path.expanduser('~/.darkslide.cfg')
 
 
 class Generator(object):
@@ -174,22 +44,7 @@ class Generator(object):
 
     def __init__(self, source, logger=None, debug=False, **kwargs):
         """ Configures this generator. Available ``args`` are:
-            - ``source``: source file or directory path
-            Available ``kwargs`` are:
-            - ``copy_theme``: copy theme directory and files into presentation
-                              one
-            - ``destination_file``: path to html destination file
-            - ``direct``: enables direct rendering presentation to stdout
-            - ``debug``: enables debug mode
-            - ``embed``: generates a standalone document, with embedded assets
-            - ``encoding``: the encoding to use for this presentation
-            - ``extensions``: Comma separated list of markdown extensions
-            - ``logger``: a logger lambda to use for logging
-            - ``maxtoclevel``: the maximum level to include in toc
-            - ``presenter_notes``: enable presenter notes
-            - ``relative``: enable relative asset urls
-            - ``theme``: path to the theme to use for this presentation
-            - ``verbose``: enables verbose output
+        TODO
         """
         self.debug = debug
         self.logger = logger
@@ -197,75 +52,56 @@ class Generator(object):
         self.num_slides = 0
         self.__toc = []
 
-        # priority for options definition: default values, then user config
-        # file, then source file, then command-line options
-        self.user_opts = UserOpts()
-        self.user_opts.update(kwargs)
-
-        if self.user_opts['direct']:
-            # Only output html in direct output mode, not log messages
-            self.user_opts['verbose'] = False
-
         if not source or not os.path.exists(source):
             raise IOError("Source file/directory %s does not exist" % source)
 
+        # priority for options definition: default values, then user config
+        # file, then source file, then command-line options
+        self.userconf = UserConfig()
+
+        # look for an RCfile
+        if os.path.isfile(RCFILEPATH):
+            self.userconf.update(UserConfig.from_configfile(RCFILEPATH))
+
+        # if the source given is a config file, then load it
         if source.endswith('.cfg'):
-            config = self.parse_config(source)
-            self.user_opts.update(config)
-
-            if not self.user_opts['source']:
+            cfgfile = UserConfig.from_configfile(source)
+            if not cfgfile['source']:
                 raise IOError('unable to fetch a valid source from config')
-            source_abspath = os.path.abspath(self.user_opts['source'][0])
 
-            self.destination_dir = os.path.dirname(self.user_opts['destination_file'])
+            self.userconf.update(cfgfile)
         else:
-            self.user_opts['source'] = [source]
-            self.destination_dir = os.path.dirname(
-                self.user_opts['destination_file'])
-            source_abspath = os.path.abspath(source)
+            self.userconf['source'] = [source]
+
+        # at last override anything that may have been overriden by CLI
+        # arguments
+        self.userconf.update(kwargs)
+
+        if self.userconf['direct']:
+            # Only output html in direct output mode, not log messages
+            self.userconf['verbose'] = False
+
+        source_abspath = os.path.abspath(self.userconf['source'][0])
+        self.destination_dir = os.path.dirname(self.userconf['destination_file'])
 
         if not os.path.isdir(source_abspath):
             source_abspath = os.path.dirname(source_abspath)
 
         self.watch_dir = source_abspath
 
-        dest_file = self.user_opts['destination_file']
+        dest_file = self.userconf['destination_file']
         if (os.path.exists(dest_file) and not os.path.isfile(dest_file)):
             raise IOError("Destination %s exists and is not a file" %
                           dest_file)
 
-        self.theme_dir = self.find_theme_dir(self.user_opts['theme'],
-                                             self.user_opts['copy_theme'])
+        self.theme_dir = self.find_theme_dir(self.userconf['theme'],
+                                             self.userconf['copy_theme'])
         self.template_file = self.get_template_file()
 
         # macros registering
         self.macros = []
         self.register_macro(*self.default_macros)
 
-    def process_user_files(self, files):
-        if isinstance(files, string_types):
-            files = [files]
-        for path in files:
-            if path.startswith(("http://", "https://")):
-                yield {
-                    'path_url': path,
-                    'contents': '',
-                    'dirname': '',
-                    'embeddable': False,
-                }
-                self.log("Loaded:  %s (not embeddable)\n" % path)
-            else:
-                path = os.path.normpath(os.path.join(self.work_dir, path))
-                if not os.path.exists(path):
-                    raise IOError('%s user file not found' % (path,))
-                with codecs.open(path, encoding=self.encoding) as fh:
-                    yield {
-                        'path_url': utils.get_path_url(path, self.relative and self.destination_dir),
-                        'dirname': os.path.dirname(path) or '.',
-                        'contents': fh.read(),
-                        'embeddable': True,
-                    }
-                    self.log("Loaded:  %s\n" % path)
 
     def add_toc_entry(self, title, level, slide_number):
         """ Adds a new entry to current presentation Table of Contents.
@@ -291,13 +127,13 @@ class Generator(object):
     def execute(self):
         """ Execute this generator regarding its current configuration.
         """
-        if self.user_opts['direct']:
+        if self.userconf['direct']:
             out = getattr(sys.stdout, 'buffer', sys.stdout)
-            out.write(self.render().encode(self.user_opts['encoding']))
+            out.write(self.render().encode(self.userconf['encoding']))
         else:
             self.write_and_log()
 
-            if self.user_opts['watch']:
+            if self.userconf['watch']:
                 from .watcher import watch
 
                 self.log(u"Watching %s\n" % self.watch_dir)
@@ -309,7 +145,7 @@ class Generator(object):
         self.num_slides = 0
         self.__toc = []
         self.write()
-        self.log(u"Generated file: %s" % self.user_opts['destination_file'])
+        self.log(u"Generated file: %s" % self.userconf['destination_file'])
 
     def get_template_file(self):
         """ Retrieves Jinja2 template file path.
@@ -321,17 +157,14 @@ class Generator(object):
             raise IOError("Cannot find base.html in default theme")
         return os.path.join(default_dir, 'base.html')
 
-    def fetch_contents(self, source):
+
+    def fetch_contents(self, sources):
         """ Recursively fetches Markdown contents from a single file or
             directory containing itself Markdown/RST files.
         """
         slides = []
 
-        # TODO: make sure that source is always a list
-        if type(source) is list:
-            for entry in source:
-                slides.extend(self.fetch_contents(entry))
-        else:
+        for source in sources:
             source = os.path.normpath(source)
             if os.path.isdir(source):
                 self.log(u"Entering %r" % source)
@@ -342,8 +175,8 @@ class Generator(object):
             else:
                 try:
                     parser = Parser(os.path.splitext(source)[1],
-                                    self.user_opts['encoding'],
-                                    self.user_opts['extensions'])
+                                    self.userconf['encoding'],
+                                    self.userconf['extensions'])
                 except NotImplementedError as exc:
                     self.log(u"Failed   %r: %r" % (source, exc))
                     return slides
@@ -351,7 +184,7 @@ class Generator(object):
                 self.log(u"Adding   %r (%s)" % (source, parser.format))
 
                 try:
-                    with codecs.open(source, encoding=self.user_opts['encoding']) as file:
+                    with codecs.open(source, encoding=self.userconf['encoding']) as file:
                         file_contents = file.read()
                 except UnicodeDecodeError:
                     self.log(u"Unable to decode source %r: skipping" % source,
@@ -389,97 +222,66 @@ class Generator(object):
 
         return theme_dir
 
+    def get_file_content(self, paths, encoding):
+        """TODO"""
+        if isinstance(paths, string_types):
+            paths = (paths,)
+
+        for filepath in paths:
+            if not os.path.isfile(filepath):
+                continue
+            with codecs.open(filepath, encoding=encoding) as file_fd:
+                contents = file_fd.read()
+            return {
+                'path_url': utils.get_path_url(
+                    filepath,
+                    self.userconf['relative'] and self.destination_dir
+                ),
+                'dirname': os.path.dirname(filepath),
+                'contents': contents,
+                'embeddable': True
+            }
+
+        # no readable file found
+        return None
+
+
     def get_css(self):
         """ Fetches and returns stylesheet file path or contents, for both
             print and screen contexts, depending if we want a standalone
             presentation or not.
         """
-        # TODO: refactor needed, duplicated code
         css = {}
 
-        base_css = os.path.join(self.theme_dir, 'css', 'base.css')
-        if not os.path.exists(base_css):
-            base_css = os.path.join(THEMES_DIR, 'default', 'css', 'base.css')
-            if not os.path.exists(base_css):
-                raise IOError(u"Cannot find base.css in default theme")
-        with codecs.open(base_css, encoding=self.user_opts['encoding']) as css_file:
-            css['base'] = {
-                'path_url': utils.get_path_url(
-                    base_css,
-                    self.user_opts['relative'] and self.destination_dir
-                ),
-                'contents': css_file.read(),
-                'embeddable': True
-            }
-
-        print_css = os.path.join(self.theme_dir, 'css', 'print.css')
-        if not os.path.exists(print_css):
-            print_css = os.path.join(THEMES_DIR, 'default', 'css', 'print.css')
-            if not os.path.exists(print_css):
-                raise IOError(u"Cannot find print.css in default theme")
-        with codecs.open(print_css,
-                         encoding=self.user_opts['encoding']) as css_file:
-            css['print'] = {
-                'path_url': utils.get_path_url(
-                    print_css,
-                    self.user_opts['relative'] and self.destination_dir
-                ),
-                'contents': css_file.read(),
-                'embeddable': True
-            }
-
-        screen_css = os.path.join(self.theme_dir, 'css', 'screen.css')
-        if not os.path.exists(screen_css):
-            screen_css = os.path.join(THEMES_DIR, 'default', 'css', 'screen.css')
-            if not os.path.exists(screen_css):
-                raise IOError(u"Cannot find screen.css in default theme")
-        with codecs.open(screen_css, encoding=self.user_opts['encoding']) as css_file:
-            css['screen'] = {
-                'path_url': utils.get_path_url(
-                    screen_css,
-                    self.user_opts['relative'] and self.destination_dir
-                ),
-                'contents': css_file.read(),
-                'embeddable': True
-            }
-
-        theme_css = os.path.join(self.theme_dir, 'css', 'theme.css')
-        if not os.path.exists(theme_css):
-            theme_css = os.path.join(THEMES_DIR, 'default', 'css', 'theme.css')
-            if not os.path.exists(theme_css):
-                raise IOError(u"Cannot find theme.css in default theme")
-        with codecs.open(theme_css, encoding=self.user_opts['encoding']) as css_file:
-            css['theme'] = {
-                'path_url': utils.get_path_url(
-                    theme_css,
-                    self.user_opts['relative'] and self.destination_dir
-                ),
-                'contents': css_file.read(),
-                'embeddable': True
-            }
+        for basename in ('base', 'print', 'screen', 'theme'):
+            lookup_files = (
+                os.path.join(basedir, 'css', '%s.css' % basename)
+                for basedir in (self.theme_dir, THEMES_DIR)
+            )
+            content = self.get_file_content(lookup_files,
+                                            self.userconf['encoding'])
+            if content is None:
+                raise IOError("Cannot find %s.css in default theme" % basename)
+            css[basename] = content
 
         return css
+
 
     def get_js(self):
         """ Fetches and returns javascript file path or contents, depending if
             we want a standalone presentation or not.
         """
-        js_file = os.path.join(self.theme_dir, 'js', 'slides.js')
+        lookup_files = (
+            os.path.join(self.theme_dir, 'js', 'slides.js'),
+            os.path.join(THEMES_DIR, 'default', 'js', 'slides.js'),
+        )
+        content = self.get_file_content(lookup_files, self.userconf['encoding'])
 
-        if not os.path.exists(js_file):
-            js_file = os.path.join(THEMES_DIR, 'default', 'js', 'slides.js')
+        if content is None:
+            raise IOError(u"Cannot find slides.js in default theme")
 
-            if not os.path.exists(js_file):
-                raise IOError(u"Cannot find slides.js in default theme")
-        with codecs.open(js_file, encoding=self.user_opts['encoding']) as js_file_obj:
-            return {
-                'path_url': utils.get_path_url(
-                    js_file,
-                    self.user_opts['relative'] and self.destination_dir
-                ),
-                'contents': js_file_obj.read(),
-                'embeddable': True
-            }
+        return content
+
 
     def get_slide_vars(self, slide_src, source,
                        _presenter_notes_re=re.compile(r'<h\d[^>]*>presenter notes</h\d>',
@@ -493,7 +295,7 @@ class Generator(object):
         find = _presenter_notes_re.search(slide_src)
 
         if find:
-            if self.user_opts['presenter_notes']:
+            if self.userconf['presenter_notes']:
                 presenter_notes = slide_src[find.end():].strip()
 
             slide_src = slide_src[:find.start()]
@@ -561,7 +363,7 @@ class Generator(object):
             self.num_slides += 1
             slide_number = slide_vars['number'] = self.num_slides
             if slide_vars['level'] and (slide_vars['level'] <=
-                                        self.user_opts['maxtoclevel']):
+                                        self.userconf['maxtoclevel']):
                 # only show slides that have a title and lever is not too deep
                 self.add_toc_entry(slide_vars['title'], slide_vars['level'], slide_number)
 
@@ -570,50 +372,19 @@ class Generator(object):
             'num_slides': str(self.num_slides),
             'slides': slides,
             'toc': self.toc,
-            'embed': self.user_opts['embed'],
+            'embed': self.userconf['embed'],
             'css': self.get_css(),
             'js': self.get_js(),
-            'user_css': self.user_opts['user_css'],
-            'user_js': self.user_opts['user_js'],
+            'user_css': self.userconf['user_css'],
+            'user_js': self.userconf['user_js'],
             'version': __version__
         }
 
     def log(self, message, type='notice'):
         """ Logs a message (eventually, override to do something more clever).
         """
-        if self.user_opts['verbose']:
+        if self.userconf['verbose']:
             self.logger(message, type)
-
-    def parse_config(self, config_source):
-        """ Parses a landslide configuration file and returns a normalized
-            python dict.
-        """
-        self.log(u"Config   %s" % config_source)
-        try:
-            raw_config = configparser.RawConfigParser()
-            raw_config.read(config_source)
-        except Exception as e:
-            raise RuntimeError(u"Invalid configuration file: %s" % e)
-        section_name = 'landslide' if raw_config.has_section('landslide') else 'darkslide'
-        config = {
-            'source': raw_config.get(section_name, 'source').split('\n')
-        }
-        for stropt in ('theme', 'destination', 'linenos'):
-            if raw_config.has_option(section_name, stropt):
-                config[stropt] = raw_config.[section_name][stropt]
-        # TODO: for intopt in ('max-toc-level')...
-        if raw_config.has_option(section_name, 'max-toc-level'):
-            config['max-toc-level'] = int(raw_config.get(section_name, 'max-toc-level'))
-        for boolopt in ('embed', 'relative', 'copy_theme'):
-            if raw_config.has_option(section_name, boolopt):
-                config[boolopt] = raw_config.getboolean(section_name, boolopt)
-        if raw_config.has_option(section_name, 'extensions'):
-            config['extensions'] = ",".join(raw_config.get(section_name, 'extensions').replace('\r', '').split('\n'))
-        if raw_config.has_option(section_name, 'css'):
-            config['css'] = raw_config.get(section_name, 'css').replace('\r', '').split('\n')
-        if raw_config.has_option(section_name, 'js'):
-            config['js'] = raw_config.get(section_name, 'js').replace('\r', '').split('\n')
-        return config
 
     def process_macros(self, content, source, context):
         """ Processed all macros.
@@ -629,14 +400,14 @@ class Generator(object):
         """ Registers macro classes passed a method arguments.
         """
         macro_options = {
-            'relative': self.user_opts['relative'],
-            'linenos': self.user_opts['linenos'],
+            'relative': self.userconf['relative'],
+            'linenos': self.userconf['linenos'],
             'destination_dir': self.destination_dir
         }
         for m in macros:
             if inspect.isclass(m) and issubclass(m, macro_module.Macro):
                 self.macros.append(m(logger=self.logger,
-                                     embed=self.user_opts['embed'],
+                                     embed=self.userconf['embed'],
                                      options=macro_options))
             else:
                 raise TypeError("Couldn't register macro; a macro must inherit"
@@ -680,14 +451,14 @@ class Generator(object):
     def render(self):
         """ Returns generated html code.
         """
-        with codecs.open(self.template_file, encoding=self.user_opts['encoding']) as template_src:
+        with codecs.open(self.template_file, encoding=self.userconf['encoding']) as template_src:
             template = jinja2.Template(template_src.read())
-        slides = self.fetch_contents(self.user_opts['source'])
+        slides = self.fetch_contents(self.userconf['source'])
         context = self.get_template_vars(slides)
 
         html = template.render(context)
 
-        if self.user_opts['embed']:
+        if self.userconf['embed']:
             html = self.embed_url_data(context, html)
 
         return html
@@ -696,9 +467,9 @@ class Generator(object):
         """ Writes generated presentation code into the destination file.
         """
         html = self.render()
-        dirname = os.path.dirname(self.user_opts['destination_file'])
+        dirname = os.path.dirname(self.userconf['destination_file'])
         if dirname and not os.path.exists(dirname):
             os.makedirs(dirname)
-        with codecs.open(self.user_opts['destination_file'], 'w',
+        with codecs.open(self.userconf['destination_file'], 'w',
                          encoding='utf_8') as outfile:
             outfile.write(html)

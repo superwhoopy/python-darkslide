@@ -7,6 +7,7 @@ import re
 from pytest import raises
 
 from darkslide import macro
+from darkslide.conf import UserConfig
 from darkslide.generator import Generator
 from darkslide.parser import Parser
 
@@ -22,6 +23,81 @@ def logtest(message, type='notice'):
     elif type == 'error':
         raise ErrorMessage(message)
 
+################################################################################
+
+class TestUserConfig(object):
+    # pylint: disable=no-self-use
+
+    def test_empty(self):
+        """TODO"""
+        emptyconf = UserConfig()
+
+        for key, value in UserConfig.DEFAULT_VALUES.items():
+            assert key in emptyconf
+            assert emptyconf[key] == value
+
+        for key, aliased_key in UserConfig.ALIASES.items():
+            assert emptyconf[key] == UserConfig.DEFAULT_VALUES[aliased_key]
+
+    def test_init(self):
+        """TODO"""
+        initdict = {
+            'source': ['srcone', 'srctwo'],
+            'copy_theme': True,
+            'relative': True,
+            'watch': True,
+        }
+        initconf = UserConfig(initdict)
+
+        for key, value in initdict.items():
+            assert initconf[key] == value
+
+    def test_set(self):
+        """TODO"""
+        conf = UserConfig(relative=True)
+
+        conf['linenos'] = 'no'
+        assert conf['linenos'] == 'no'
+
+        conf['linenos'] = 'foobar'
+        assert conf['linenos'] == 'inline'
+
+        goodfile = os.path.join(DATA_DIR, './test.css')
+        nonexistingfile = '/abspath/to/nonexisting/style2.css'
+        url_list = ['https://voidurl/style.css', 'http://foourl/style.css']
+
+        conf['user_css'] = goodfile
+        with raises(IOError):
+            conf['user_css'] = nonexistingfile
+        conf['user_css'] = url_list
+
+        with codecs.open(goodfile) as goodfile_content_fd:
+            goodfile_content = goodfile_content_fd.read()
+
+        assert conf['css'] == [
+            {
+                'path_url': os.path.normpath(goodfile),
+                'dirname': os.path.dirname(os.path.normpath(goodfile)),
+                'contents': goodfile_content,
+                'embeddable': True,
+            },
+            {
+                'path_url': url_list[0],
+                'dirname': '',
+                'contents': '',
+                'embeddable': False,
+            },
+            {
+                'path_url': url_list[1],
+                'dirname': '',
+                'contents': '',
+                'embeddable': False,
+            },
+        ]
+
+
+
+################################################################################
 
 def test_generator__init__():
     raises(IOError, Generator, None)
