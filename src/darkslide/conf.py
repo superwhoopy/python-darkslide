@@ -44,14 +44,14 @@ class UserConfig(collections.UserDict):
         'no-rcfile': 'no_rcfile',
     }
 
-    def __init__(self, *args, work_dir=None, **kwargs):
+    def __init__(self, *args, base_dir=None, **kwargs):
         super().__init__(*args, **kwargs)
 
         for key in self.data:
             if key not in self.allopts():
                 raise ValueError("Unknown config parameter '%s'" % key)
 
-        self.work_dir = work_dir or os.path.normpath('.')
+        self.base_dir = base_dir or os.path.normpath('.')
 
         # set default values
         for key, val in self.DEFAULT_VALUES.items():
@@ -73,6 +73,12 @@ class UserConfig(collections.UserDict):
                                       else 'inline'))
         else:
             super().__setitem__(key, value)
+
+
+    def update(self, other):
+        """TODO"""
+        super().update(other)
+        self.base_dir = other.base_dir or self.base_dir
 
 
     @classmethod
@@ -122,4 +128,4 @@ class UserConfig(collections.UserDict):
             if value is not None:
                 config[cls.alias(key)] = value
 
-        return cls(config, work_dir=os.path.dirname(configfile))
+        return cls(config, base_dir=os.path.dirname(configfile))

@@ -245,7 +245,6 @@ class Generator(object):
         # no readable file found
         return None
 
-
     def get_css(self):
         """ Fetches and returns stylesheet file path or contents, for both
             print and screen contexts, depending if we want a standalone
@@ -281,6 +280,19 @@ class Generator(object):
             raise IOError(u"Cannot find slides.js in default theme")
 
         return content
+
+
+    def get_user_files_content(self, files_list):
+        """TODO"""
+        user_files = []
+        for filepath in files_list:
+            if not os.path.isabs(filepath):
+                filepath = os.path.join(self.userconf.base_dir, filepath)
+            content = self.get_file_content(filepath, self.userconf['encoding'])
+            if content is None:
+                raise IOError("Cannot read user file '%s'" % filepath)
+            user_files.append(content)
+        return user_files
 
 
     def get_slide_vars(self, slide_src, source,
@@ -357,7 +369,7 @@ class Generator(object):
         except (IndexError, TypeError):
             head_title = "Untitled Presentation"
 
-        for slide_index, slide_vars in enumerate(slides):
+        for slide_vars in slides:
             if not slide_vars:
                 continue
             self.num_slides += 1
@@ -375,8 +387,8 @@ class Generator(object):
             'embed': self.userconf['embed'],
             'css': self.get_css(),
             'js': self.get_js(),
-            'user_css': self.userconf['user_css'],
-            'user_js': self.userconf['user_js'],
+            'user_css': self.get_user_files_content(self.userconf['user_css']),
+            'user_js': self.get_user_files_content(self.userconf['user_js']),
             'version': __version__
         }
 
