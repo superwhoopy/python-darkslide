@@ -141,7 +141,7 @@ class Generator(object):
                 watch(self.watch_dir, self.write_and_log)
 
     def write_and_log(self):
-        self.watch_files = []
+        """TODO"""
         self.num_slides = 0
         self.__toc = []
         self.write()
@@ -172,30 +172,29 @@ class Generator(object):
                 entries.sort()
                 for entry in entries:
                     slides.extend(self.fetch_contents(entry))
+                continue
+
+            try:
+                parser = Parser(os.path.splitext(source)[1],
+                                self.userconf['encoding'],
+                                self.userconf['extensions'])
+            except NotImplementedError as exc:
+                self.log(u"Failed   %r: %r" % (source, exc))
+                return slides
+
+            self.log(u"Adding   %r (%s)" % (source, parser.format))
+
+            try:
+                with codecs.open(source,
+                                 encoding=self.userconf['encoding']) as file:
+                    file_contents = file.read()
+            except UnicodeDecodeError:
+                self.log(u"Unable to decode source %r: skipping" % source,
+                         'warning')
             else:
-                try:
-                    parser = Parser(os.path.splitext(source)[1],
-                                    self.userconf['encoding'],
-                                    self.userconf['extensions'])
-                except NotImplementedError as exc:
-                    self.log(u"Failed   %r: %r" % (source, exc))
-                    return slides
-
-                self.log(u"Adding   %r (%s)" % (source, parser.format))
-
-                try:
-                    with codecs.open(source, encoding=self.userconf['encoding']) as file:
-                        file_contents = file.read()
-                except UnicodeDecodeError:
-                    self.log(u"Unable to decode source %r: skipping" % source,
-                             'warning')
-                else:
-                    inner_slides = re.split(r'<hr.+>', parser.parse(file_contents))
-                    for inner_slide in inner_slides:
-                        slides.append(self.get_slide_vars(inner_slide, source))
-
-        if not slides:
-            self.log(u"Exiting  %r: no contents found" % source, 'notice')
+                inner_slides = re.split(r'<hr.+>', parser.parse(file_contents))
+                for inner_slide in inner_slides:
+                    slides.append(self.get_slide_vars(inner_slide, source))
 
         return slides
 
@@ -216,8 +215,8 @@ class Generator(object):
             if not os.path.exists(target_theme_dir):
                 try:
                     shutil.copytree(theme_dir, target_theme_dir)
-                except Exception as e:
-                    self.log(u"Skipped copy of theme folder: %s" % e)
+                except shutil.Error as exc:
+                    self.log(u"Skipped copy of theme folder: %s" % exc)
             theme_dir = target_theme_dir
 
         return theme_dir
@@ -286,8 +285,8 @@ class Generator(object):
         """TODO"""
         user_files = []
         for filepath in files_list:
-            if not os.path.isabs(filepath):
-                filepath = os.path.join(self.userconf.base_dir, filepath)
+            filepath = (filepath if os.path.isabs(filepath)
+                        else os.path.join(self.userconf.base_dir, filepath))
             content = self.get_file_content(filepath, self.userconf['encoding'])
             if content is None:
                 raise IOError("Cannot read user file '%s'" % filepath)
@@ -341,8 +340,9 @@ class Generator(object):
 
         if source:
             source_dict = {
-                'rel_path': source.decode(sys.getfilesystemencoding(), 'ignore') if isinstance(source,
-                                                                                               binary_type) else source,
+                'rel_path': (source.decode(sys.getfilesystemencoding(),
+                                           'ignore')
+                             if isinstance(source, binary_type) else source),
                 'abs_path': os.path.abspath(source)
             }
 
@@ -359,7 +359,8 @@ class Generator(object):
             context['presenter_notes'] += presenter_notes
             if not context['presenter_notes']:
                 context['presenter_notes'] = None
-            return context
+
+        return context
 
     def get_template_vars(self, slides):
         """ Computes template vars from slides html source code.
@@ -392,11 +393,11 @@ class Generator(object):
             'version': __version__
         }
 
-    def log(self, message, type='notice'):
+    def log(self, message, msgtype='notice'):
         """ Logs a message (eventually, override to do something more clever).
         """
         if self.userconf['verbose']:
-            self.logger(message, type)
+            self.logger(message, msgtype)
 
     def process_macros(self, content, source, context):
         """ Processed all macros.
@@ -416,14 +417,14 @@ class Generator(object):
             'linenos': self.userconf['linenos'],
             'destination_dir': self.destination_dir
         }
-        for m in macros:
-            if inspect.isclass(m) and issubclass(m, macro_module.Macro):
-                self.macros.append(m(logger=self.logger,
+        for macro in macros:
+            if not isinstance(macro, macro_module.Macro):
+                raise TypeError("'%s' is not of type Macro, cannot register" %
+                                macro)
+            self.macros.append(macro(logger=self.logger,
                                      embed=self.userconf['embed'],
                                      options=macro_options))
-            else:
-                raise TypeError("Couldn't register macro; a macro must inherit"
-                                " from macro.Macro")
+
 
     def embed_url_data(self, context, html):
         """Find all image and fonts referenced in CSS with an ``url()`` function

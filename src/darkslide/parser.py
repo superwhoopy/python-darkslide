@@ -2,9 +2,9 @@
 import re
 
 SUPPORTED_FORMATS = {
-    'markdown': ['.mdown', '.markdown', '.markdn', '.md', '.mdn', '.mdwn'],
-    'restructuredtext': ['.rst', '.rest'],
-    'textile': ['.textile'],
+    'markdown': {'.mdown', '.markdown', '.markdn', '.md', '.mdn', '.mdwn'},
+    'restructuredtext': {'.rst', '.rest'},
+    'textile': {'.textile'},
 }
 
 
@@ -39,9 +39,8 @@ class Parser(object):
         self.format = None
 
         for supp_format, supp_extensions in SUPPORTED_FORMATS.items():
-            for supp_extension in supp_extensions:
-                if supp_extension == extension:
-                    self.format = supp_format
+            if extension in supp_extensions:
+                self.format = supp_format
 
         if not self.format:
             raise NotImplementedError(u"Unsupported format %s" % extension)

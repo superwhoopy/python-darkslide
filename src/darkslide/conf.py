@@ -1,14 +1,10 @@
 """TODO"""
 
-import codecs
 import collections
 import itertools
 import os
 
-from six import string_types
-from six.moves import configparser, filter
-
-from . import utils
+from six.moves import configparser
 
 class UserConfig(collections.UserDict):
     """TODO"""
@@ -44,14 +40,12 @@ class UserConfig(collections.UserDict):
         'no-rcfile': 'no_rcfile',
     }
 
-    def __init__(self, *args, base_dir=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         for key in self.data:
             if key not in self.allopts():
                 raise ValueError("Unknown config parameter '%s'" % key)
-
-        self.base_dir = base_dir or os.path.normpath('.')
 
         # set default values
         for key, val in self.DEFAULT_VALUES.items():
@@ -73,12 +67,6 @@ class UserConfig(collections.UserDict):
                                       else 'inline'))
         else:
             super().__setitem__(key, value)
-
-
-    def update(self, other):
-        """TODO"""
-        super().update(other)
-        self.base_dir = other.base_dir or self.base_dir
 
 
     @classmethod
@@ -117,6 +105,7 @@ class UserConfig(collections.UserDict):
         }
 
         config = {}
+        base_dir = os.path.dirname(configfile)
         for key, key_type in cls.allopts():
             assert key_type in typed_getter_funcs
             getter_func = typed_getter_funcs[key_type]
@@ -125,7 +114,16 @@ class UserConfig(collections.UserDict):
             except configparser.Error as exc:
                 raise ValueError("Invalid value for key %s in config file: %s"
                                  % (key, exc))
-            if value is not None:
-                config[cls.alias(key)] = value
+            if value is None:
+                continue
 
-        return cls(config, base_dir=os.path.dirname(configfile))
+            # resolve relative paths
+            if key in ('source', 'user_css', 'user_js'):
+                value = [
+                    val if os.path.isabs(val) else os.path.join(base_dir, val)
+                    for val in value
+                ]
+
+            config[cls.alias(key)] = value
+
+        return cls(config)
