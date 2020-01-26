@@ -102,7 +102,6 @@ class Generator(object):
         self.macros = []
         self.register_macro(*self.default_macros)
 
-
     def add_toc_entry(self, title, level, slide_number):
         """ Adds a new entry to current presentation Table of Contents.
         """
@@ -283,12 +282,24 @@ class Generator(object):
 
     def get_user_files_content(self, files_list):
         """TODO"""
+        assert not isinstance(files_list, string_types)
         user_files = []
         for filepath in files_list:
+            if filepath.startswith(("http://", "https://")):
+                user_files.append({
+                    'path_url': filepath,
+                    'contents': '',
+                    'dirname': '',
+                    'embeddable': False,
+                })
+                self.log("Loaded:  %s (not embeddable)\n" % filepath)
+                continue
+
             assert os.path.isabs(filepath)
             content = self.get_file_content(filepath, self.userconf['encoding'])
             if content is None:
                 raise IOError("Cannot read user file '%s'" % filepath)
+            self.log("Loaded:  %s\n" % filepath)
             user_files.append(content)
         return user_files
 
