@@ -4,7 +4,7 @@ import sys
 from optparse import OptionParser
 
 from . import __version__
-from . import generator
+from . import generator, conf
 
 
 def _parse_options():
@@ -54,7 +54,7 @@ def _parse_options():
     parser.add_option(
         "-l", "--linenos",
         type="choice",
-        choices=generator.UserOpts.VALID_LINENOS,
+        choices=conf.UserConfig.VALID_LINENOS,
         dest="linenos",
         help="How to output linenos in source code. Three options available: "
              "no (no line numbers); "

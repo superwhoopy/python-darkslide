@@ -253,8 +253,8 @@ class Generator(object):
 
         for basename in ('base', 'print', 'screen', 'theme'):
             lookup_files = (
-                os.path.join(basedir, 'css', '%s.css' % basename)
-                for basedir in (self.theme_dir, THEMES_DIR)
+                os.path.join(self.theme_dir, 'css', '%s.css' % basename),
+                os.path.join(THEMES_DIR, 'css', '%s.css' % basename)
             )
             content = self.get_file_content(lookup_files,
                                             self.userconf['encoding'])
@@ -285,8 +285,7 @@ class Generator(object):
         """TODO"""
         user_files = []
         for filepath in files_list:
-            filepath = (filepath if os.path.isabs(filepath)
-                        else os.path.join(self.userconf.base_dir, filepath))
+            assert os.path.isabs(filepath)
             content = self.get_file_content(filepath, self.userconf['encoding'])
             if content is None:
                 raise IOError("Cannot read user file '%s'" % filepath)
