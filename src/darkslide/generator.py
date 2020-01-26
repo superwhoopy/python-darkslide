@@ -428,7 +428,7 @@ class Generator(object):
             'destination_dir': self.destination_dir
         }
         for macro in macros:
-            if not isinstance(macro, macro_module.Macro):
+            if not issubclass(macro, macro_module.Macro):
                 raise TypeError("'%s' is not of type Macro, cannot register" %
                                 macro)
             self.macros.append(macro(logger=self.logger,

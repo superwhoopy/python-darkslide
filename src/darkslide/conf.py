@@ -44,7 +44,7 @@ class UserConfig(collections.UserDict):
         super().__init__(*args, **kwargs)
 
         for key in self.data:
-            if key not in self.allopts():
+            if not self.is_key_valid(key):
                 raise ValueError("Unknown config parameter '%s'" % key)
 
         # set default values
@@ -74,13 +74,15 @@ class UserConfig(collections.UserDict):
         """TODO"""
         return cls.ALIASES.get(key, key)
 
+    @classmethod
+    def is_key_valid(cls, key):
+        """TODO"""
+        return key in cls.ALIASES or key in cls.DEFAULT_VALUES
 
     @classmethod
     def allopts(cls):
         """TODO"""
-        allkeys = itertools.chain(cls.ALIASES, cls.DEFAULT_VALUES)
-        return ((key, type(cls.DEFAULT_VALUES[cls.alias(key)]))
-                for key in allkeys)
+        return itertools.chain(cls.ALIASES, cls.DEFAULT_VALUES)
 
 
     @classmethod
@@ -106,7 +108,8 @@ class UserConfig(collections.UserDict):
 
         config = {}
         base_dir = os.path.dirname(configfile)
-        for key, key_type in cls.allopts():
+        for key in cls.allopts():
+            key_type = type(cls.DEFAULT_VALUES[cls.alias(key)])
             assert key_type in typed_getter_funcs
             getter_func = typed_getter_funcs[key_type]
             try:
