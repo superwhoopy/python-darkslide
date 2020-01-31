@@ -71,7 +71,7 @@ class Generator(object):
 
             self.userconf.update(cfgfile)
         else:
-            self.userconf['source'] = [source]
+           self.userconf['source'] = [source]
 
         # at last override anything that may have been overriden by CLI
         # arguments
@@ -80,6 +80,8 @@ class Generator(object):
         if self.userconf['direct']:
             # Only output html in direct output mode, not log messages
             self.userconf['verbose'] = False
+
+        print(self.userconf)
 
         source_abspath = os.path.abspath(self.userconf['source'][0])
         self.destination_dir = os.path.dirname(self.userconf['destination_file'])
@@ -101,6 +103,7 @@ class Generator(object):
         # macros registering
         self.macros = []
         self.register_macro(*self.default_macros)
+
 
     def add_toc_entry(self, title, level, slide_number):
         """ Adds a new entry to current presentation Table of Contents.
@@ -162,15 +165,16 @@ class Generator(object):
             directory containing itself Markdown/RST files.
         """
         slides = []
+        assert not isinstance(sources, string_types)
 
         for source in sources:
             source = os.path.normpath(source)
+
             if os.path.isdir(source):
                 self.log(u"Entering %r" % source)
                 entries = os.listdir(source)
                 entries.sort()
-                for entry in entries:
-                    slides.extend(self.fetch_contents(entry))
+                slides.extend(self.fetch_contents(entries))
                 continue
 
             try:
@@ -304,13 +308,15 @@ class Generator(object):
         return user_files
 
 
-    def get_slide_vars(self, slide_src, source,
-                       _presenter_notes_re=re.compile(r'<h\d[^>]*>presenter notes</h\d>',
-                                                      re.DOTALL | re.UNICODE | re.IGNORECASE),
-                       _slide_title_re=re.compile(r'(<h(\d+?).*?>(.+?)</h\d>)\s?(.+)?', re.DOTALL | re.UNICODE)):
+    def get_slide_vars(self, slide_src, source):
         """ Computes a single slide template vars from its html source code.
             Also extracts slide information for the table of contents.
         """
+        _presenter_notes_re = re.compile(r'<h\d[^>]*>presenter notes</h\d>',
+                                         re.DOTALL | re.UNICODE | re.IGNORECASE)
+        _slide_title_re = re.compile(r'(<h(\d+?).*?>(.+?)</h\d>)\s?(.+)?',
+                                     re.DOTALL | re.UNICODE)
+
         presenter_notes = ''
 
         find = _presenter_notes_re.search(slide_src)
@@ -333,13 +339,16 @@ class Generator(object):
             content = find.group(4).strip() if find.group(4) else find.group(4)
 
         slide_classes = []
-        context = {}
+        context = {
+            'presenter_notes': presenter_notes
+        }
 
         if header:
             header, _ = self.process_macros(header, source, context)
 
         if content:
-            content, slide_classes = self.process_macros(content, source, context)
+            content, slide_classes = self.process_macros(content, source,
+                                                         context)
 
         # macros enable to set the basic slide class (content or title): if the
         # slide class is not defined, guess it
@@ -365,10 +374,6 @@ class Generator(object):
                 source=source_dict,
                 title=title,
             )
-            context.setdefault('presenter_notes', '')
-            context['presenter_notes'] += presenter_notes
-            if not context['presenter_notes']:
-                context['presenter_notes'] = None
 
         return context
 
@@ -388,7 +393,8 @@ class Generator(object):
             if slide_vars['level'] and (slide_vars['level'] <=
                                         self.userconf['maxtoclevel']):
                 # only show slides that have a title and lever is not too deep
-                self.add_toc_entry(slide_vars['title'], slide_vars['level'], slide_number)
+                self.add_toc_entry(slide_vars['title'], slide_vars['level'],
+                                   slide_number)
 
         return {
             'head_title': head_title,
@@ -444,9 +450,9 @@ class Generator(object):
         """
         all_urls = re.findall(r'url\([\"\']?(.*?)[\"\']?\)', html,
                               re.DOTALL | re.UNICODE)
-        embed_exts = ('.jpg', '.jpeg', '.png', '.gif', '.svg', '.woff2',
-                      '.woff')
-        embed_urls = (url for url in all_urls if url.endswith(embed_exts))
+        embed_urls = (url for url in all_urls
+                      if url.endswith('.jpg', '.jpeg', '.png', '.gif', '.svg',
+                                      '.woff2', '.woff'))
 
         css_dirs = (
             [os.path.join(self.theme_dir, 'css')] +
@@ -474,7 +480,8 @@ class Generator(object):
     def render(self):
         """ Returns generated html code.
         """
-        with codecs.open(self.template_file, encoding=self.userconf['encoding']) as template_src:
+        with codecs.open(self.template_file,
+                         encoding=self.userconf['encoding']) as template_src:
             template = jinja2.Template(template_src.read())
         slides = self.fetch_contents(self.userconf['source'])
         context = self.get_template_vars(slides)

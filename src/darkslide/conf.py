@@ -114,11 +114,11 @@ class UserConfig(collections.UserDict):
             getter_func = typed_getter_funcs[key_type]
             try:
                 value = getter_func(section_name, key)
+            except configparser.NoOptionError:
+                continue
             except configparser.Error as exc:
                 raise ValueError("Invalid value for key %s in config file: %s"
                                  % (key, exc))
-            if value is None:
-                continue
 
             # resolve relative paths
             if key in ('source', 'user_css', 'user_js'):
