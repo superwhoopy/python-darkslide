@@ -98,7 +98,7 @@ def _parse_options():
         action="store_false",
         dest="verbose",
         help="Won't write anything to stdout (silent mode).",
-        default=False)
+        default=SUPPRESS)
 
     parser.add_argument(
         "-r", "--relative",

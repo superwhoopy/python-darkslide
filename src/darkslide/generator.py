@@ -46,7 +46,7 @@ class Generator(object):
         """ Configures this generator. Available ``args`` are:
         TODO
         """
-        self._debug = debug
+        self.debug = debug
         self.logger = logger
         assert self.logger is None or callable(self.logger)
         self.num_slides = 0
@@ -412,10 +412,6 @@ class Generator(object):
         """
         if self.userconf['verbose']:
             self.logger(message, msgtype)
-
-    def debug(self, message):
-        if self._debug:
-            self.logger('[DEBUG] ' + message, 'debug')
 
     def process_macros(self, content, source, context):
         """ Processed all macros.

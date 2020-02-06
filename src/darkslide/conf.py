@@ -24,7 +24,7 @@ class UserConfig(collections.UserDict):
         'presenter_notes' : True,
         'relative' : False,
         'theme' : 'default',
-        'verbose': False,
+        'verbose': True,
         'watch' : False,
         'user_css' : [],
         'user_js' : [],
