@@ -61,10 +61,12 @@ class Generator(object):
 
         # look for an RCfile
         if os.path.isfile(RCFILEPATH):
+            self.log('reading default conf from %s' % RCFILEPATH)
             self.userconf.update(UserConfig.from_configfile(RCFILEPATH))
 
         # if the source given is a config file, then load it
         if source.endswith('.cfg'):
+            self.log('reading configuration file %s' % source)
             cfgfile = UserConfig.from_configfile(source)
             if not cfgfile['source']:
                 raise IOError('unable to fetch a valid source from config')
