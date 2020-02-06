@@ -46,7 +46,7 @@ class Generator(object):
         """ Configures this generator. Available ``args`` are:
         TODO
         """
-        self.debug = debug
+        self._debug = debug
         self.logger = logger
         assert self.logger is None or callable(self.logger)
         self.num_slides = 0
@@ -80,8 +80,6 @@ class Generator(object):
         if self.userconf['direct']:
             # Only output html in direct output mode, not log messages
             self.userconf['verbose'] = False
-
-        print(self.userconf)
 
         source_abspath = os.path.abspath(self.userconf['source'][0])
         self.destination_dir = os.path.dirname(self.userconf['destination_file'])
@@ -257,7 +255,7 @@ class Generator(object):
         for basename in ('base', 'print', 'screen', 'theme'):
             lookup_files = (
                 os.path.join(self.theme_dir, 'css', '%s.css' % basename),
-                os.path.join(THEMES_DIR, 'css', '%s.css' % basename)
+                os.path.join(THEMES_DIR, 'default', 'css', '%s.css' % basename)
             )
             content = self.get_file_content(lookup_files,
                                             self.userconf['encoding'])
@@ -415,6 +413,10 @@ class Generator(object):
         if self.userconf['verbose']:
             self.logger(message, msgtype)
 
+    def debug(self, message):
+        if self._debug:
+            self.logger('[DEBUG] ' + message, 'debug')
+
     def process_macros(self, content, source, context):
         """ Processed all macros.
         """
@@ -451,8 +453,8 @@ class Generator(object):
         all_urls = re.findall(r'url\([\"\']?(.*?)[\"\']?\)', html,
                               re.DOTALL | re.UNICODE)
         embed_urls = (url for url in all_urls
-                      if url.endswith('.jpg', '.jpeg', '.png', '.gif', '.svg',
-                                      '.woff2', '.woff'))
+                      if url.endswith(('.jpg', '.jpeg', '.png', '.gif', '.svg',
+                                      '.woff2', '.woff')))
 
         css_dirs = (
             [os.path.join(self.theme_dir, 'css')] +
