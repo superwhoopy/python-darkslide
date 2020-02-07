@@ -47,8 +47,8 @@ class Generator(object):
         TODO
         """
         self.debug = debug
-        self.logger = logger
-        assert self.logger is None or callable(self.logger)
+        self.logger = logger or (lambda *args, **kwargs: None)
+        assert callable(self.logger)
         self.num_slides = 0
         self.__toc = []
 

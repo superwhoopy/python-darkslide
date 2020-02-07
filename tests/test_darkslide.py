@@ -97,8 +97,10 @@ def test_add_user_assets():
     g = Generator(base_dir, logger=logtest,
                   user_css=[os.path.join(DATA_DIR, 'test.css')],
                   user_js=[os.path.join(DATA_DIR, 'test.js')])
-    assert g.userconf['user_css'][0]['contents'] == '* {color: red;}'
-    assert g.userconf['user_js'][0]['contents'] == "alert('foo');"
+    css = g.get_user_files_content(g.userconf['user_css'])
+    js = g.get_user_files_content(g.userconf['user_js'])
+    assert css[0]['contents'] == '* {color: red;}'
+    assert js[0]['contents'] == "alert('foo');"
 
 
 def test_get_toc():
