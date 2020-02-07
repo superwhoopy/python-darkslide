@@ -17,11 +17,15 @@ if not os.path.exists(DATA_DIR):
     raise IOError('Test data not found, cannot run tests')
 
 
-def logtest(message, type='notice'):
-    if type == 'warning':
-        raise WarningMessage(message)
-    elif type == 'error':
-        raise ErrorMessage(message)
+def logtest(message, msgtype='notice'):
+    """TODO"""
+    if msgtype == 'notice':
+        return
+
+    raise {
+        'warning': WarningMessage,
+        'error': ErrorMessage,
+    }[msgtype](message)
 
 ################################################################################
 
@@ -62,39 +66,23 @@ class TestUserConfig(object):
         conf['linenos'] = 'foobar'
         assert conf['linenos'] == 'inline'
 
-        goodfile = os.path.join(DATA_DIR, './test.css')
-        nonexistingfile = '/abspath/to/nonexisting/style2.css'
-        url_list = ['https://voidurl/style.css', 'http://foourl/style.css']
+        with raises(ValueError):
+            conf['invalid_key'] = 42
 
-        conf['user_css'] = goodfile
-        with raises(IOError):
-            conf['user_css'] = nonexistingfile
-        conf['user_css'] = url_list
+    def test_fromconfigfile(self):
+        """TODO"""
+        configfile = os.path.join(DATA_DIR, 'config.cfg')
+        conf = UserConfig.from_configfile(configfile)
 
-        with codecs.open(goodfile) as goodfile_content_fd:
-            goodfile_content = goodfile_content_fd.read()
-
-        assert conf['css'] == [
-            {
-                'path_url': os.path.normpath(goodfile),
-                'dirname': os.path.dirname(os.path.normpath(goodfile)),
-                'contents': goodfile_content,
-                'embeddable': True,
-            },
-            {
-                'path_url': url_list[0],
-                'dirname': '',
-                'contents': '',
-                'embeddable': False,
-            },
-            {
-                'path_url': url_list[1],
-                'dirname': '',
-                'contents': '',
-                'embeddable': False,
-            },
+        assert conf['source'] == [
+            os.path.join(DATA_DIR, 'test.md'),
+            os.path.join(DATA_DIR, 'encoding.rst'),
         ]
 
+        assert conf['linenos'] == 'inline'
+        assert conf['no_rcfile'] == True # pylint: disable=singleton-comparison
+        assert conf['copy-theme'] == True # pylint: disable=singleton-comparison
+        assert conf['maxtoclevel'] == 3
 
 
 ################################################################################
@@ -107,8 +95,8 @@ def test_generator__init__():
 def test_add_user_assets():
     base_dir = os.path.join(DATA_DIR, 'test.md')
     g = Generator(base_dir, logger=logtest,
-                  user_css=os.path.join(DATA_DIR, 'test.css'),
-                  user_js=os.path.join(DATA_DIR, 'test.js'))
+                  user_css=[os.path.join(DATA_DIR, 'test.css')],
+                  user_js=[os.path.join(DATA_DIR, 'test.js')])
     assert g.userconf['user_css'][0]['contents'] == '* {color: red;}'
     assert g.userconf['user_js'][0]['contents'] == "alert('foo');"
 

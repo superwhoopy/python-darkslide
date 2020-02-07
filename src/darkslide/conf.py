@@ -88,8 +88,6 @@ class UserConfig(collections.UserDict):
     @classmethod
     def from_configfile(cls, configfile):
         """TODO"""
-        assert os.path.isfile(configfile)
-
         raw_config = configparser.RawConfigParser()
         try:
             raw_config.read(configfile)
@@ -118,7 +116,7 @@ class UserConfig(collections.UserDict):
                 continue
             except configparser.Error as exc:
                 raise ValueError("Invalid value for key %s in config file: %s"
-                                 % (key, exc))
+                                 % (key, exc), key)
 
             # resolve relative paths
             if key in ('source', 'user_css', 'user_js'):
