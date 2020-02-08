@@ -186,7 +186,8 @@ class NotesMacro(Macro):
         new_content = self.macro_re.sub(repl, content)
 
         if context is not None:
-            context['presenter_notes'] = ''.join(notes)
+            context['presenter_notes'] = (context.get('presenter_notes', '') +
+                                          ''.join(notes))
 
         return new_content, []
 

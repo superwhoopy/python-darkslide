@@ -187,7 +187,7 @@ def test_get_template_vars():
 def test_process_macros():
     g = Generator(os.path.join(DATA_DIR, 'test.md'))
     # Notes
-    ctx = {}
+    ctx = {'presenter_notes': ''}
     r = g.process_macros('<p>foo</p>\n<p>.notes: bar</p>\n<p>baz</p>', '', ctx)
     assert r[0].find('bar') == -1
     assert r[1] == []
@@ -234,7 +234,7 @@ def test_skip_presenter_notes():
                   presenter_notes=False)
     svars = g.get_slide_vars("<h1>heading</h1>\n<p>foo</p>\n"
                              "<h1>Presenter Notes</h1>\n<p>bar</p>\n", '')
-    assert svars['presenter_notes'] is None
+    assert not svars['presenter_notes']
 
 
 SAMPLE_HTML = '''<p>Let me give you this snippet:</p>
