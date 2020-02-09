@@ -3,8 +3,10 @@ import base64
 import codecs
 import os
 import re
+import textwrap
+from tempfile import NamedTemporaryFile
 
-from pytest import raises
+from pytest import raises, fixture
 
 from darkslide import macro
 from darkslide.conf import UserConfig
@@ -28,6 +30,23 @@ def logtest(message, msgtype='notice'):
     }[msgtype](message)
 
 ################################################################################
+
+@fixture
+def mktempfile():
+    """TODO"""
+    tempfiles_paths = []
+
+    def _mktempfile(content):
+        with NamedTemporaryFile(mode='w+', delete=False) as ntf:
+            ntf.write(content)
+            tempfiles_paths.append(ntf.name)
+        return ntf.name
+
+    yield _mktempfile
+
+    for tfp in tempfiles_paths:
+        if os.path.isfile(tfp):
+            os.remove(tfp)
 
 class TestUserConfig(object):
     # pylint: disable=no-self-use
@@ -69,14 +88,26 @@ class TestUserConfig(object):
         with raises(ValueError):
             conf['invalid_key'] = 42
 
-    def test_fromconfigfile(self):
+    def test_fromconfigfile(self, mktempfile):
         """TODO"""
-        configfile = os.path.join(DATA_DIR, 'config.cfg')
+        configfile = mktempfile(textwrap.dedent("""\
+            [darkslide]
+            source = test.md
+                     encoding.rst
+
+            linenos = inline
+            no-rcfile = True
+            copy-theme = True
+            maxtoclevel = 3
+
+            presenter_notes = False
+            relative = True"""))
+        configdir = os.path.dirname(configfile)
         conf = UserConfig.from_configfile(configfile)
 
         assert conf['source'] == [
-            os.path.join(DATA_DIR, 'test.md'),
-            os.path.join(DATA_DIR, 'encoding.rst'),
+            os.path.join(configdir, 'test.md'),
+            os.path.join(configdir, 'encoding.rst'),
         ]
 
         assert conf['linenos'] == 'inline'

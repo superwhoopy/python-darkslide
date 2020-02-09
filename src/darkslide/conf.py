@@ -43,10 +43,6 @@ class UserConfig(collections.UserDict):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        for key in self.data:
-            if not self.is_key_valid(key):
-                raise ValueError("Unknown config parameter '%s'" % key)
-
         # set default values
         for key, val in self.DEFAULT_VALUES.items():
             # make sure not to go through __setitem__ here
@@ -61,7 +57,7 @@ class UserConfig(collections.UserDict):
         key = self.alias(key)
 
         if key not in self.DEFAULT_VALUES:
-            raise ValueError("Unknown config parameter '%s'" % (key))
+            raise ValueError("Unknown config parameter '%s'" % key, key)
         if key == 'linenos':
             super().__setitem__(key, (value if value in self.VALID_LINENOS
                                       else 'inline'))
@@ -74,10 +70,6 @@ class UserConfig(collections.UserDict):
         """TODO"""
         return cls.ALIASES.get(key, key)
 
-    @classmethod
-    def is_key_valid(cls, key):
-        """TODO"""
-        return key in cls.ALIASES or key in cls.DEFAULT_VALUES
 
     @classmethod
     def allopts(cls):
